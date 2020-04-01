@@ -5,6 +5,11 @@ import java.util.Stack;
 
 /**
  * https://leetcode.com/problems/basic-calculator/
+ * <p>
+ * 这道题容易忽略的几个点：
+ * 1、字符串里可能没有括号
+ * 2、对于-的处理，并且-可能出现在字符串的开头
+ * 3、字符串可能没有+-号，就是个纯数字
  *
  * @author: WangQuanzhou
  * @date: 2020/3/31 20:42
