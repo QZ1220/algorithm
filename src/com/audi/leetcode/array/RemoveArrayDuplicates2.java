@@ -1,62 +1,49 @@
 package com.audi.leetcode.array;
 
 /**
- * https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+ * https://leetcode.com/problems/remove-duplicates-from-sorted-array/
  * <p>
- * 本体可以使用删除重复元素的方法，当然也可以使用移动后续元素覆盖前面元素的方法。
+ * 移除数组中重复项，使得数组中各元素只出现一次，并且返回数组的新长度。
  * <p>
- * 从算法效率上来看第二种方案肯定更好，它不是一次移动所有元素，而是一次移动一个元素去覆盖之前出现超过2次的元素，具体可以使用一个简单的例子推演
+ * 需要注意的是：重复的元素需要删除，或者移动到数组的末尾
  *
  * @author WangQuanzhou
  * @date 2020-04-04
  */
 public class RemoveArrayDuplicates2 {
     public int removeDuplicates(int[] nums) {
-        if (null == nums || nums.length == 0) {
-            return 0;
-        }
-        int length = nums.length;
-        int count = 1;
-        for (int i = 1; i < length; i++) {
-            if (nums[i] == nums[i - 1]) {
-                count++;
-                if (count > 2) {
-                    remove(nums, i);
-                    length--;
-                    i--;
-                }
-            } else {
-                count = 1;
-            }
 
-        }
-        return length;
-    }
-
-    /**
-     * 删除nums数组pos位置的元素，后续元素顺次前移
-     *
-     * @param nums
-     * @param pos
-     */
-    private void remove(int[] nums, int pos) {
-        while (pos < nums.length - 1) {
-            nums[pos] = nums[pos + 1];
-            pos++;
-        }
-    }
-
-    public int removeDuplicates2(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
+        //
+        // Initialize the counter and the second pointer.
+        //
         int j = 1, count = 1;
+
+        //
+        // Start from the second element of the array and process
+        // elements one by one.
+        //
         for (int i = 1; i < nums.length; i++) {
+
+            //
+            // If the current element is a duplicate, increment the count.
+            //
             if (nums[i] == nums[i - 1]) {
+
                 count++;
+
             } else {
+
+                //
+                // Reset the count since we encountered a different element
+                // than the previous one.
+                //
                 count = 1;
             }
+
+            //
+            // For a count <= 2, we copy the element over thus
+            // overwriting the element at index "j" in the array
+            //
             if (count <= 2) {
                 nums[j++] = nums[i];
             }
@@ -64,14 +51,13 @@ public class RemoveArrayDuplicates2 {
         return j;
     }
 
-
     public static void main(String[] args) {
 //        int[] nums = {1, 1, 5, 5};
 //        int[] nums = {5};
-//        int[] nums = {1, 5, 5, 5, 6, 7};
-        int[] nums = {0, 0, 1, 1, 1, 1, 2, 3, 3};
+        int[] nums = {1, 5, 5, 5, 6, 7};
+//        int[] nums = {1, 5, 5, 5, 5, 5, 5};
         RemoveArrayDuplicates2 removeArrayDuplicates = new RemoveArrayDuplicates2();
-        int length = removeArrayDuplicates.removeDuplicates2(nums);
+        int length = removeArrayDuplicates.removeDuplicates(nums);
         System.out.println("length = " + length);
         for (int i = 0; i < nums.length; i++) {
             System.out.println(nums[i]);
