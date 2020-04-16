@@ -1,9 +1,5 @@
 package com.audi.leetcode.array;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * https://leetcode.com/problems/trapping-rain-water/
  * <p>
@@ -24,31 +20,25 @@ public class TrappingRainWater {
 
         // height的第一个节点和最后一个节点是肯定接不了水的
         int length = height.length;
-        List<Node> arrayList = new ArrayList<>(length);
-        Node firstNode = new Node(height[0], 0);
-        arrayList.add(0, firstNode);
-        for (int i = 1; i < length-1; i++) {
-            arrayList.add(new Node(0, 0));
-        }
-        Node lastNode = new Node(0, height[length - 1]);
-        arrayList.add(length - 1, lastNode);
+
+        int[] left = new int[length];
+        int[] right = new int[length];
+        left[0] = height[0];
+        right[length - 1] = height[length - 1];
 
         for (int i = 1; i < length - 1; i++) {
-            int leftMax = arrayList.get(i - 1).leftMax - height[i] >= 0 ? arrayList.get(i - 1).leftMax : height[i];
-            arrayList.set(i, new Node(leftMax, 0));
+            left[i] = left[i - 1] - height[i] >= 0 ? left[i - 1] : height[i];
         }
 
-        for (int i = length - 1; i > 0; i--) {
-            int rightMax = arrayList.get(i - 1).rightMax - height[i] >= 0 ? arrayList.get(i - 1).rightMax : height[i];
-            Node node = arrayList.get(i);
-            node.rightMax = rightMax;
-            arrayList.set(i, node);
+        for (int i = length - 2; i > 0; i--) {
+            right[i] = right[i + 1] - height[i] >= 0 ? right[i + 1] : height[i];
         }
 
         int sum = 0;
         for (int i = 1; i < length - 1; i++) {
-            Node node = arrayList.get(i);
-            int min = node.getMin();
+            int leftMax = left[i];
+            int rightMax = right[i];
+            int min = leftMax - rightMax >= 0 ? rightMax : leftMax;
             if (height[i] < min) {
                 sum = sum + min - height[i];
             }
@@ -56,19 +46,6 @@ public class TrappingRainWater {
         return sum;
     }
 
-    class Node {
-        public int leftMax = 0;
-        public int rightMax = 0;
-
-        public Node(int leftMax, int rightMax) {
-            this.leftMax = leftMax;
-            this.rightMax = rightMax;
-        }
-
-        public int getMin() {
-            return leftMax - rightMax >= 0 ? rightMax : leftMax;
-        }
-    }
 
     public static void main(String[] args) {
         int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
