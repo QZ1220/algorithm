@@ -26,10 +26,12 @@ public class TrappingRainWater {
         left[0] = height[0];
         right[length - 1] = height[length - 1];
 
+        // 找到每个元素左边的最大值
         for (int i = 1; i < length - 1; i++) {
             left[i] = left[i - 1] - height[i] >= 0 ? left[i - 1] : height[i];
         }
 
+        // 找到每个元素右边的最大值
         for (int i = length - 2; i > 0; i--) {
             right[i] = right[i + 1] - height[i] >= 0 ? right[i + 1] : height[i];
         }
@@ -48,7 +50,8 @@ public class TrappingRainWater {
 
 
     public static void main(String[] args) {
-        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+//        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        int[] height = {6, 0, 3};
         TrappingRainWater trappingRainWater = new TrappingRainWater();
         System.out.println(trappingRainWater.trap(height));
     }
