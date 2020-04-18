@@ -33,7 +33,7 @@ public class ProductOfArrayExceptSelf {
         for (int i = 1; i < length; i++) {
             left[i] = left[i - 1] * nums[i - 1];
         }
-        for (int i = length - 2; i > 0; i--) {
+        for (int i = length - 2; i >= 0; i--) {
             right[i] = right[i + 1] * nums[i + 1];
         }
 
@@ -41,21 +41,22 @@ public class ProductOfArrayExceptSelf {
             if (i == 0) {
                 res[i] = right[0];
             } else if (i == length - 1) {
-                res[i] = left[i - 1];
+                res[i] = left[i];
             } else {
                 res[i] = left[i] * right[i];
             }
         }
-
-
         return res;
     }
 
     public static void main(String[] args) {
-        int[] nums = {2, 5, 4, 3};
+//        int[] nums = {2, 5, 4, 3};
+        int[] nums = {2,3,1};
         ProductOfArrayExceptSelf productOfArrayExceptSelf = new ProductOfArrayExceptSelf();
         int[] res = productOfArrayExceptSelf.productExceptSelf(nums);
-        System.out.println();
+        for (int i = 0; i < res.length; i++) {
+            System.out.print(res[i] + "  ");
+        }
     }
 
 }
