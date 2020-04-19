@@ -38,30 +38,38 @@ public class AddTwoNumbers {
     /**
      * 翻转链表
      *
-     * @param node
+     * @param head
      * @return
      */
-    private ListNode reverse(ListNode node) {
-        if (null == node || node.next == null) {
-            return node;
+    public ListNode reverseList(ListNode head) {
+        if (null == head || null == head.next) {
+            return head;
         }
-        ListNode head = node;
-        // 从第二个节点处开始翻转
-        node = node.next;
-        while (null != node) {
-            ListNode node1 = node.next;
-            node.next = head;
-            node.next.next = node1;
-            head = node;
-            node = node1;
+
+        // 设置虚拟头结点
+        ListNode dummyHead = new ListNode(-1);
+        ListNode tail = head;
+        dummyHead.next = head;
+        head = head.next;
+        while (null != head) {
+            // 保存临时头结点
+            ListNode tempHead = dummyHead.next;
+            ListNode next = head.next;
+            dummyHead.next = head;
+            // 新元素移动到头部 原头部当做第二节点
+            head.next = tempHead;
+            // 串联起后续节点
+            tail.next = next;
+            // 继续翻转后续节点
+            head = next;
         }
-        return head;
+        return dummyHead.next;
     }
 
     public static void main(String[] args) {
         ListNode listNode = new ListNode(0);
         ListNode head = listNode;
-        for (int i = 1; i < 3; i++) {
+        for (int i = 1; i < 10; i++) {
             ListNode listNode1 = new ListNode(i);
             listNode.next = listNode1;
             listNode = listNode.next;
@@ -74,7 +82,7 @@ public class AddTwoNumbers {
 
         System.out.println("翻转后：");
         AddTwoNumbers addTwoNumbers = new AddTwoNumbers();
-        ListNode reverseNode = addTwoNumbers.reverse(head);
+        ListNode reverseNode = addTwoNumbers.reverseList(head);
         while (reverseNode.next != null) {
             System.out.println(reverseNode.val);
             reverseNode = reverseNode.next;
