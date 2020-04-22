@@ -15,12 +15,14 @@ import java.util.*;
  */
 public class ThreeSum {
 
-    public List<List<Integer>> threeSum(int[] nums) {
+    public List<List<Integer>> threeSum2(int[] nums) {
         if (null == nums || nums.length < 3) {
             return null;
         }
         List<List<Integer>> list = new ArrayList<>(128);
         HashMap<Integer, Integer> map = new HashMap<>(256);
+        // 用下面的方式 key=数组项  value=数组的下标，会将数组中的重复项覆盖
+        // 那么 key=数组下标  value=数组项呢？这样是可以，但是时间复杂度翻倍了，因为每次取数据不再是O(1)而是O(n)
         for (int i = 0; i < nums.length; i++) {
             map.put(nums[i], i);
         }
@@ -47,6 +49,13 @@ public class ThreeSum {
         }
     }
 
+    /**
+     * 判断list是否已经存在 去重
+     *
+     * @param list
+     * @param result
+     * @return
+     */
     private Boolean exist(List<List<Integer>> list, List<Integer> result) {
         for (List<Integer> tmpList : list) {
             if (tmpList.get(0) == result.get(0) && tmpList.get(1) == result.get(1) && tmpList.get(2) == result.get(2)) {
@@ -75,15 +84,70 @@ public class ThreeSum {
         }
     }
 
-    public static void main(String[] args) {
-        int[] nums = {-1, 0, 1, 2, -1, -4};
-        ThreeSum threeSum = new ThreeSum();
-        System.out.println(threeSum.threeSum(nums));
-        List<Integer> linkedList = new LinkedList<>();
-        linkedList.add(12);
-        linkedList.add(1);
-        linkedList.add(18);
-        threeSum.sort(linkedList);
-        System.out.println(linkedList);
+    /**
+     * https://www.jianshu.com/p/1241f7f7697b
+     * <p>
+     * 参考网上，使用双指针的做法
+     * <p>
+     * 还是要把握好去重
+     *
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (nums == null) {
+            return result;
+        }
+
+        Arrays.sort(nums);
+        int left, right, temp;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {  // 如果大于0则不需要遍历了。后面的都大于0
+                break;
+            }
+            // 跳过i重复的元素，还是利用的序列的有序性质
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            left = i + 1;
+            right = nums.length - 1;
+            while (left < right) {
+                temp = nums[i] + nums[left] + nums[right];
+                if (temp == 0) {
+                    List<Integer> list = Arrays.asList(nums[i], nums[left], nums[right]);
+                    result.add(list);
+
+                    // 循环校验。由于数组已经有序，所以这个操作可以跳过那些重复元素
+                    // 从而可以对结果去重
+                    while (left < right && nums[left] == list.get(1)) left++;
+                    while (left < right && nums[right] == list.get(2)) right--;
+                } else if (temp > 0) {
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+        }
+        return result;
     }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{-2, 0, 0, 2, 2};
+        int[] arr_2 = new int[]{-1, 0, 1, 2, -1, -4};
+        System.out.println(GsonUtil.toJson(threeSum(arr)));
+        System.out.println(GsonUtil.toJson(threeSum(arr_2)));
+    }
+
+//    public static void main(String[] args) {
+//        int[] nums = {-1, 0, 1, 2, -1, -4};
+//        ThreeSum threeSum = new ThreeSum();
+//        System.out.println(threeSum.threeSum(nums));
+//        List<Integer> linkedList = new LinkedList<>();
+//        linkedList.add(12);
+//        linkedList.add(1);
+//        linkedList.add(18);
+//        threeSum.sort(linkedList);
+//        System.out.println(linkedList);
+//    }
 }
