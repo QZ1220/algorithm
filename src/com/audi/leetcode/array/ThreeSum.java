@@ -135,8 +135,8 @@ public class ThreeSum {
     public static void main(String[] args) {
         int[] arr = new int[]{-2, 0, 0, 2, 2};
         int[] arr_2 = new int[]{-1, 0, 1, 2, -1, -4};
-        System.out.println(GsonUtil.toJson(threeSum(arr)));
-        System.out.println(GsonUtil.toJson(threeSum(arr_2)));
+        System.out.println(threeSum(arr));
+        System.out.println(threeSum(arr_2));
     }
 
 //    public static void main(String[] args) {
