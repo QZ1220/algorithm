@@ -30,10 +30,41 @@ public class UniquePaths {
         return dp[m - 1][n - 1];
     }
 
+
+    /**
+     * 这个题还有第二种解法，使用排列组合的思想。假如6*6的格子，一共需要走12步，到达目的地。12步里有6步是向下的。
+     * <p>
+     * 因此从12步里选6步出来向下走，就是C(12,6)
+     * <p>
+     * https://blog.csdn.net/qq_30076791/article/details/50428285
+     * <p>
+     * https://blog.csdn.net/i_am_bird/article/details/78769913
+     *
+     * @param m
+     * @param n
+     * @return
+     */
+    public int uniquePaths2(int m, int n) {
+        int total = m + n;
+        int down = n;
+        int res = 1;
+        for (int i = 1; i < n; i++) {
+            total = total * (total - i);
+            res = res * (i + 1);
+        }
+        return total / res;
+
+
+    }
+
+
     public static void main(String[] args) {
         UniquePaths uniquePaths = new UniquePaths();
         System.out.println(uniquePaths.uniquePaths(3, 2));
+        System.out.println(uniquePaths.uniquePaths2(3, 2));
         System.out.println(uniquePaths.uniquePaths(7, 3));
+        System.out.println(uniquePaths.uniquePaths2(7, 3));
         System.out.println(uniquePaths.uniquePaths(1, 1));
+        System.out.println(uniquePaths.uniquePaths2(1, 1));
     }
 }
