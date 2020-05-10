@@ -47,19 +47,18 @@ public class UniquePaths {
     public int uniquePaths2(int m, int n) {
         int total = m + n - 2;
         int down = n - 1;
-        int res = 1;
-        for (int i = 1; i < n; i++) {
-            total = total * (total - i);
-            res = res * (i + 1);
-        }
-        return total / res;
+//        int res = 1;
+//        for (int i = 1; i <= down; i++) {
+//            total = total * (total - down + i);
+//            res = res * (i);
+//        }
+//        return total / res;
 
-        /*double res = 1;
-        for(int i = 1 ; i <= down; i++){
-            res =res * (total - down + i) / i;
+        double res = 1;
+        for (int i = 1; i <= down; i++) {
+            res = res * (total - down + i) / i;
         }
-        return (int)res;
-*/
+        return (int) res;
 
     }
 
