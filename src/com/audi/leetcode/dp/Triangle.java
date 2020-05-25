@@ -47,6 +47,42 @@ public class Triangle {
         return min;
     }
 
+    /**
+     * 使用下面的代码  可以避免使用包装类的null判断
+     *
+     * @param triangle
+     * @return
+     */
+    public int minimumTotal2(List<List<Integer>> triangle) {
+        int size = triangle.size();
+        for (int i = 1; i < size; i++) {
+            List<Integer> subList = triangle.get(i);
+            int subSize = subList.size();
+            for (int j = 0; j < subSize; j++) {
+                // 不存在左节点
+                if (j == 0) {
+                    subList.set(j, subList.get(j) + triangle.get(i - 1).get(j));
+                } else if (j > triangle.get(i - 1).size() - 1) {
+                    // 不存在右节点
+                    subList.set(j, subList.get(j) + triangle.get(i - 1).get(j - 1));
+                } else {
+                    // 从左右节点中选择一个小的，进行累加
+                    subList.set(j, subList.get(j) + Math.min(triangle.get(i - 1).get(j - 1), triangle.get(i - 1).get(j)));
+                }
+            }
+        }
+
+        // 求出最后一个list的最小值，即为答案
+        List<Integer> lastList = triangle.get(size - 1);
+        int min = lastList.get(0);
+        for (int i = 1; i < lastList.size(); i++) {
+            if (lastList.get(i) < min) {
+                min = lastList.get(i);
+            }
+        }
+        return min;
+    }
+
     public static void main(String[] args) {
         List<Integer> firstList = Arrays.asList(7);
         List<Integer> secondList = Arrays.asList(-5, 9);
@@ -60,6 +96,6 @@ public class Triangle {
         arrayList.add(fourthList);
         arrayList.add(fifthList);
         Triangle triangle = new Triangle();
-        System.out.println(triangle.minimumTotal(arrayList));
+        System.out.println(triangle.minimumTotal2(arrayList));
     }
 }
