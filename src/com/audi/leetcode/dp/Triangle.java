@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * https://leetcode.com/problems/triangle/
  * <p>
- * 本题，本质上还是属于一个典型的dp
+ * 本题，本质上还是属于一个典型的dp，注意边界条件的判断
  *
  * @author: WangQuanzhou
  * @date: 2020/5/16 21:58
