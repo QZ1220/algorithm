@@ -33,6 +33,7 @@ public class LongestIncreasingSubsequence {
         }
 
         // 返回足底啊子串长度
+        // 这里其实可以在上面的循环出维护max变量  就可以减少一次循环
         int max = dp[0];
         for (int i = 1; i < length; i++) {
             if (dp[i] > max) {
