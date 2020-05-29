@@ -1,6 +1,7 @@
 package com.audi.leetcode.dp;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -43,9 +44,53 @@ public class LongestIncreasingSubsequence {
         return max;
     }
 
+
+    /**
+     * 可以参考文章开头的链接
+     * <p>
+     * 时间复杂度更优化的解
+     * <p>
+     * 我们来看一种思路更清晰的二分查找法，跟上面那种方法很类似，思路是先建立一个空的 dp 数组，然后开始遍历原数组，
+     * 对于每一个遍历到的数字，用二分查找法在 dp 数组找第一个不小于它的数字，如果这个数字不存在，那么直接在 dp 数组后面加上遍历到的数字，
+     * 如果存在，则将这个数字更新为当前遍历到的数字，最后返回 dp 数组的长度即可，注意的是，跟上面的方法一样，
+     * 特别注意的是 dp 数组的值可能不是一个真实的 LIS。
+     *
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS2(int[] nums) {
+        int length = nums.length;
+        if (nums == null || length == 0) {
+            return 0;
+        }
+
+        ArrayList<Integer> dp = new ArrayList<>(length);
+
+        for (int i = 0; i < length; i++) {
+            int left = 0, right = dp.size();
+            while (left < right) {
+                int mid = (left + right) / 2;
+                if (dp.get(mid) < nums[i]) {
+                    left = mid + 1;
+                } else {
+                    // 注意下面不是mid-1
+                    right = mid;
+                }
+            }
+            if (right >= dp.size()) {
+                dp.add(nums[i]);
+            } else {
+                dp.set(right, nums[i]);
+            }
+        }
+        return dp.size();
+    }
+
+
     public static void main(String[] args) {
         int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         LongestIncreasingSubsequence longestIncreasingSubsequence = new LongestIncreasingSubsequence();
         System.out.println(longestIncreasingSubsequence.lengthOfLIS(nums));
+        System.out.println(longestIncreasingSubsequence.lengthOfLIS2(nums));
     }
 }
