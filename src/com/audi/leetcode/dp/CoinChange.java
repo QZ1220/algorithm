@@ -7,6 +7,12 @@ import java.util.Arrays;
  * https://leetcode.com/problems/coin-change/
  * <p>
  * 组成指定面值所使用的的钞票张数
+ * <p>
+ * 注意这道题不可以使用贪心算法，因为coins的值是未知的
+ * <p>
+ * 比如coins[]={1,2,5,7,10}, amount=14
+ * <p>
+ * 如果使用贪心算法求解出来的结果将是3 （10+2+2），实际上使用2张（7+7）才是最优解
  *
  * @author: WangQuanzhou
  * @date: 2020/5/16 21:53
