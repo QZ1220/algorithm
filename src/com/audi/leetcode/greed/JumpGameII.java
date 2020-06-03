@@ -101,6 +101,7 @@ public class JumpGameII {
 //        }
 //        return step;
 
+        // 下面的代码对于1, 1, 1, 1这种测试用例还是不能通过
         int step = 0;
         int cur = 0;
         for (int i = 0; i < length; ) {
