@@ -12,8 +12,10 @@ public class JumpGameII {
 
     /**
      * 53 / 92 test cases passed.
-     *
+     * <p>
      * 借鉴了JumpGame的思想，也维护了一个每个位置可以到达的最远位置的数组index。然后循环遍历index数组，当最大值发生变化时，更新step
+     * <p>
+     * 但是这里，忽略了一个思想，当更新最大值时，step也应该同步跳至该最远位置，因此没有完全AC
      *
      * @param nums
      * @return
@@ -58,13 +60,77 @@ public class JumpGameII {
         return step;
     }
 
+
+    /**
+     * https://www.iteye.com/blog/huntfor-2056997
+     * <p>
+     * 照抄参考链接里的一句话
+     * <p>
+     * 由于本题并没有要求我们计算出跳跃路径，因此我们可以单纯的求跳数， 采取贪心的算法，比如2,3,4,1,0,5对于2，其覆盖范围是3,4,，
+     * 因此我们只需要求3,4，的最大覆盖范围即可，既然在4的覆盖范围中求下一跳的最大覆盖范围。每一次更新覆盖范围，就说明要进行一跳。
+     *
+     * @param nums
+     * @return
+     */
+    public int jump2(int[] nums) {
+        int length = nums.length;
+        if (length < 2) {
+            return 0;
+        }
+
+        int[] index = new int[length];
+        for (int i = 0; i < length; i++) {
+            index[i] = i + nums[i];
+        }
+
+//        int step = 1;
+//        int fromIndex = 0;
+//        int toIndex = index[0];
+//        for (int i = 0; i < length; ) {
+//            for (int j = fromIndex; j <= index[i] && j < length; j++) {
+//                if (toIndex < index[j]) {
+//                    toIndex = index[j];
+//                }
+//            }
+//            step++;
+//            if (toIndex >= length) {
+//                break;
+//            }
+//            fromIndex = toIndex;
+//            i = toIndex;
+//        }
+//        return step;
+
+        int step = 0;
+        int cur = 0;
+        for (int i = 0; i < length; ) {
+            int max = index[i];
+            for (int j = cur; j <= index[i] && j < length; j++) {
+                if (max < index[j]) {
+                    max = index[j];
+                    cur = j;
+                }
+            }
+
+            step++;
+            if (max >= length) {
+                return step;
+            }
+
+            i = max;
+        }
+        return step;
+    }
+
+
     public static void main(String[] args) {
 //        int[] nums = {2, 3, 1, 1, 4};
 //        int[] nums = {1, 2};
-        int[] nums = {7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3};
+//        int[] nums = {7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3};
+        int[] nums = {1, 1, 1, 1};
 //        int[] nums = {1, 2, 1, 1, 1};
 //        int[] nums = {0};
         JumpGameII jumpGameII = new JumpGameII();
-        System.out.println(jumpGameII.jump(nums));
+        System.out.println(jumpGameII.jump2(nums));
     }
 }
