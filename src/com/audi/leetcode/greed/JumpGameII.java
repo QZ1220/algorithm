@@ -8,6 +8,16 @@ package com.audi.leetcode.greed;
  * @date: 2020/5/31 19:14
  */
 public class JumpGameII {
+
+
+    /**
+     * 53 / 92 test cases passed.
+     *
+     * 借鉴了JumpGame的思想，也维护了一个每个位置可以到达的最远位置的数组index。然后循环遍历index数组，当最大值发生变化时，更新step
+     *
+     * @param nums
+     * @return
+     */
     public int jump(int[] nums) {
         // 如果数组为空  或者只有一步，那么不需要走（因为起点就在第一步）
         if (null == nums || nums.length == 0 || nums.length == 1) {
