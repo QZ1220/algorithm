@@ -126,6 +126,8 @@ public class JumpGameII {
 //        }
 //        return step;
 
+
+        // {1,2,3} still not work
         int step = 0;
         for (int i = 0; i < length; ) {
             int max = index[i];
@@ -155,6 +157,7 @@ public class JumpGameII {
     public static void main(String[] args) {
 //        int[] nums = {2, 3, 1, 1, 4};
         int[] nums = {1, 2};
+//        int[] nums = {1, 2, 3};
 //        int[] nums = {7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3};
 //        int[] nums = {1, 1, 1, 1};
 //        int[] nums = {1, 2, 1, 1, 1};
