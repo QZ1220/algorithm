@@ -134,17 +134,18 @@ public class JumpGameII {
             int max_index = index[i];
             int pre_max = i;
 
+
+            step++;
+
+            if (max >= length - 1) {
+                return step;
+            }
+
             for (int j = pre_max; j <= max_index && j < length; j++) {
                 if (max < index[j]) {
                     max = index[j];
                     pre_max = j;
                 }
-            }
-
-            step++;
-
-            if (max >= length) {
-                return step;
             }
 
             i = pre_max;
@@ -156,11 +157,11 @@ public class JumpGameII {
 
     public static void main(String[] args) {
 //        int[] nums = {2, 3, 1, 1, 4};
-        int[] nums = {1, 2};
+//        int[] nums = {1, 2};
 //        int[] nums = {1, 2, 3};
 //        int[] nums = {7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3};
 //        int[] nums = {1, 1, 1, 1};
-//        int[] nums = {1, 2, 1, 1, 1};
+        int[] nums = {1, 2, 1, 1, 1};
 //        int[] nums = {0};
         JumpGameII jumpGameII = new JumpGameII();
         System.out.println(jumpGameII.jump2(nums));
