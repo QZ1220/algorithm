@@ -78,6 +78,7 @@ public class JumpGameII {
             return 0;
         }
 
+        // index 数组表示每个nums[i]位置可以跳到最远位置的index
         int[] index = new int[length];
         for (int i = 0; i < length; i++) {
             index[i] = i + nums[i];
@@ -127,11 +128,17 @@ public class JumpGameII {
 //        return step;
 
 
-        // {1,2,3} still not work
+        /*
+
+        下面的代码很多变量是不必要的，可以省去
+
         int step = 0;
         for (int i = 0; i < length; ) {
+            // max表示从pre_max到max_index过程中可以跳跃的最远位置
             int max = index[i];
+            // 表示从pre_max位置可以跳到的最远index
             int max_index = index[i];
+            // pre_max表示本次起跳的起点位置
             int pre_max = i;
 
 
@@ -148,6 +155,36 @@ public class JumpGameII {
                 }
             }
 
+            i = pre_max;
+
+        }
+        return step;*/
+
+
+        // 这里对上面紧邻的代码进行优化，主要是省去部分没有太大实际意义的中间变量
+        int step = 0;
+        for (int i = 0; i < length; ) {
+            // max表示从pre_max到max_index过程中可以跳跃的最远位置
+            int max = index[i];
+            // pre_max表示本次起跳的起点位置
+            int pre_max = i;
+
+
+            step++;
+
+            // 表示本次已经可以跳跃至末尾
+            if (max >= length - 1) {
+                return step;
+            }
+
+            for (int j = i; j <= index[i] && j < length; j++) {
+                if (max < index[j]) {
+                    max = index[j];
+                    pre_max = j;
+                }
+            }
+
+            // 设置新的起跳点
             i = pre_max;
 
         }
