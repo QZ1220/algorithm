@@ -1,5 +1,9 @@
 package com.audi.leetcode.dp;
 
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * https://leetcode.com/problems/can-i-win/
  * <p>
@@ -17,11 +21,25 @@ public class CanIWin {
             return true;
         }
 
+        // 如果maxChoosableInteger的总和都小于desiredTotal，则说明都不能赢（记住数字是不可以重复使用的）
+//        int sum = 1;
+//        for (int i = 2; i <= maxChoosableInteger; i++) {
+//            sum += i;
+//        }
+
+        // 也可以使用等差数列求和公式
+        if ((maxChoosableInteger * (maxChoosableInteger + 1) / 2) < desiredTotal) {
+            return false;
+        }
+
 
         return false;
     }
 
     public static void main(String[] args) {
+        Stream<BigInteger> bigIntStream = Stream.iterate(BigInteger.ZERO, n -> n.add(BigInteger.ONE)).limit(10);
+        BigInteger[] bigIntArr = bigIntStream.toArray(BigInteger[]::new);
+        System.out.println(Arrays.toString(bigIntArr));
 
     }
 }
