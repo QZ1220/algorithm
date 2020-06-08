@@ -1,8 +1,5 @@
 package com.audi.list;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * https://leetcode.com/problems/merge-two-sorted-lists/
  * <p>
