@@ -1,6 +1,11 @@
 package com.audi.leetcode.greed;
 
 
+import org.omg.Messaging.SyncScopeHelper;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
  * <p>
@@ -34,10 +39,37 @@ public class MinimumNumberofArrowstoBurstBalloons {
      * @return
      */
     public int findMinArrowShots(int[][] points) {
+        if (null == points || 0 == points.length) {
+            return 0;
+        }
 
+        // 按每个气球的x_start进行排序
+        Arrays.sort(points, Comparator.comparing(e -> e[0]));
+
+
+        int x_end = points[0][1];
+
+        // 注意这里初始值是1
+        int total = 1;
+
+        for (int i = 1; i < points.length; i++) {
+            int[] point = points[i];
+            if (point[0] > x_end) {
+                total++;
+                x_end = point[1];
+            } else {
+                x_end = Math.min(point[1], x_end);
+            }
+
+        }
+        return total;
     }
 
     public static void main(String[] args) {
+        int[][] points = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
+
+        MinimumNumberofArrowstoBurstBalloons balloons = new MinimumNumberofArrowstoBurstBalloons();
+        System.out.println(balloons.findMinArrowShots(points));
 
     }
 
