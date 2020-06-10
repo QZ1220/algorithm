@@ -1,8 +1,6 @@
 package com.audi.leetcode.greed;
 
 
-import org.omg.Messaging.SyncScopeHelper;
-
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -58,9 +56,9 @@ public class MinimumNumberofArrowstoBurstBalloons {
                 total++;
                 x_end = point[1];
             } else {
+                // 向左收缩 右边界值
                 x_end = Math.min(point[1], x_end);
             }
-
         }
         return total;
     }
