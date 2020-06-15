@@ -16,6 +16,6 @@ public class Subsets {
     }
 
     public static void main(String[] args) {
-
+        Subsets subsets = new Subsets();
     }
 }
