@@ -40,6 +40,8 @@ public class Subsets {
 
     }
 
+    // todo 本题还可以使用位运算进行优化
+
     public static void main(String[] args) {
         Subsets subsets = new Subsets();
         int[] nums = {1, 2, 3};
