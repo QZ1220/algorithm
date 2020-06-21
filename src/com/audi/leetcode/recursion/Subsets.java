@@ -40,11 +40,26 @@ public class Subsets {
 
     }
 
-    // todo 本题还可以使用位运算进行优化
+    //  本题还可以使用位运算进行优化
+    public List<List<Integer>> subsets2(int[] nums) {
+        List<List<Integer>> result = new LinkedList<>();
+        int total = 1 << nums.length;
+        for (int i = 0; i < total; i++) {
+            List<Integer> item = new LinkedList<>();
+            for (int j = 0; j < nums.length; j++) {
+                if ((i & (1 << j)) != 0) {
+                    item.add(nums[j]);
+                }
+            }
+            result.add(item);
+        }
+        return result;
+    }
+
 
     public static void main(String[] args) {
         Subsets subsets = new Subsets();
         int[] nums = {1, 2, 3};
-        System.out.println(subsets.subsets(nums));
+        System.out.println(subsets.subsets2(nums));
     }
 }
