@@ -1,10 +1,7 @@
 package com.audi.leetcode.recursion;
 
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/subsets-ii/
@@ -12,8 +9,8 @@ import java.util.Set;
  * 与subsets的差异在于  初始的数组内是允许有重复元素存在的
  * <p>
  * 由于nums中元素存在重复的，那么如果沿用subsets的算法，就会产生重复的子集，所以这里需要想办法去掉重复的元素。可以使用set来保证元素唯一
- *
- * 但是这里唯一的概念还需要注意  例如1 4 4子集  和4 1 4子集也是一样的
+ * <p>
+ * 但是这里唯一的概念还需要注意  例如1 4 4子集  和4 1 4子集也是一样的{解决这个问题可以先对初始nums进行排序}
  *
  * @author: WangQuanzhou
  * @date: 2020/6/21 22:18
@@ -21,6 +18,8 @@ import java.util.Set;
 public class SubsetsII {
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        // 使用排序  避免重复子集
+        Arrays.sort(nums);
         Set<List<Integer>> set = new HashSet<>();
         // 总共的子集的个数
         int total = 1 << nums.length;
