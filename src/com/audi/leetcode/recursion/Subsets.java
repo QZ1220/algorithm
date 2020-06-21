@@ -43,10 +43,13 @@ public class Subsets {
     //  本题还可以使用位运算进行优化
     public List<List<Integer>> subsets2(int[] nums) {
         List<List<Integer>> result = new LinkedList<>();
+        // 总共的子集的个数
         int total = 1 << nums.length;
         for (int i = 0; i < total; i++) {
+            // 单个子集
             List<Integer> item = new LinkedList<>();
             for (int j = 0; j < nums.length; j++) {
+                // 左移操作
                 if ((i & (1 << j)) != 0) {
                     item.add(nums[j]);
                 }
