@@ -19,6 +19,7 @@ public class CombinationSumII {
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 
+        // 预先去除比target还大的元素
         List<Integer> linkedList = new LinkedList<>();
         for (int i : candidates) {
             if (i < target) {
@@ -38,6 +39,7 @@ public class CombinationSumII {
             for (int j = 0; j < linkedList.size(); j++) {
                 // 左移操作
                 if ((i & (1 << j)) != 0) {
+                    // 加判断  减少循环次数
                     item.add(linkedList.get(j));
                 }
             }
