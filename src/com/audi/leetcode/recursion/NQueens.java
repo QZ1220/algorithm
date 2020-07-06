@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class NQueens {
 
-    public List<List<String>> solveNQueens(int n) {
-
-    }
+//    public List<List<String>> solveNQueens(int n) {
+//
+//    }
 
     /**
      * 递归放置皇后

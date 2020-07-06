@@ -1,7 +1,9 @@
 package com.audi.leetcode.recursion;
 
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * https://leetcode.com/problems/combination-sum-ii/
@@ -17,9 +19,37 @@ public class CombinationSumII {
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 
+        List<Integer> linkedList = new LinkedList<>();
+        for (int i : candidates) {
+            if (i < target) {
+                linkedList.add(i);
+            }
+        }
+
+        // 使用排序  避免重复子集
+        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
+
+        Set<List<Integer>> set = new HashSet<>();
+        // 总共的子集的个数
+        int total = 1 << linkedList.size();
+        for (int i = 0; i < total; i++) {
+            // 单个子集
+            List<Integer> item = new LinkedList<>();
+            for (int j = 0; j < linkedList.size(); j++) {
+                // 左移操作
+                if ((i & (1 << j)) != 0) {
+                    item.add(linkedList.get(j));
+                }
+            }
+            set.add(item);
+        }
+        return new LinkedList<>(set);
     }
 
     public static void main(String[] args) {
-
+        int[] nums = {10, 1, 2, 7, 6, 1, 5};
+        CombinationSumII combinationSumII = new CombinationSumII();
+        List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 8);
+        System.out.println(lists);
     }
 }
