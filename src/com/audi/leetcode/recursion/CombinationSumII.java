@@ -34,16 +34,25 @@ public class CombinationSumII {
         // 总共的子集的个数
         int total = 1 << linkedList.size();
         for (int i = 0; i < total; i++) {
+            // 临时记录求和结果
+            int tempSum = 0;
             // 单个子集
             List<Integer> item = new LinkedList<>();
             for (int j = 0; j < linkedList.size(); j++) {
                 // 左移操作
                 if ((i & (1 << j)) != 0) {
+                    Integer temp = linkedList.get(j);
+                    tempSum = tempSum + temp;
                     // 加判断  减少循环次数
-                    item.add(linkedList.get(j));
+                    if (tempSum > target) {
+                        break;
+                    }
+                    item.add(temp);
                 }
             }
-            set.add(item);
+            if (item.stream().mapToInt(Integer::intValue).sum() == target) {
+                set.add(item);
+            }
         }
         return new LinkedList<>(set);
     }
