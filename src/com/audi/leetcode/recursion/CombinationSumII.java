@@ -28,7 +28,9 @@ public class CombinationSumII {
         }
 
         // 使用排序  避免重复子集
-        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
+        // 这里如果使用倒序排序的话，下面的第二层for循环的次数更少
+//        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
+        linkedList = linkedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
         Set<List<Integer>> set = new HashSet<>();
         // 总共的子集的个数
