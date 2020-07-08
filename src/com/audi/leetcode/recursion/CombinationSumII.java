@@ -61,30 +61,45 @@ public class CombinationSumII {
     }
 
 
-    public List<List<Integer>> combinationSum3(int[] candidates, int target){
-        List<List<Integer>> result = new LinkedList<>();
+    public List<List<Integer>> combinationSum3(int[] candidates, int target) {
+
+        // 预先去除比target还大的元素
+        List<Integer> linkedList = new LinkedList<>();
+        for (int i : candidates) {
+            if (i <= target) {
+                linkedList.add(i);
+            }
+        }
+
+        Set<List<Integer>> set = new HashSet<>();
+
+        // 使用排序  避免重复子集
+        // 这里如果使用倒序排序的话，下面的第二层for循环的次数更少
+        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
+//        linkedList = linkedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+
 
         List<Integer> item = new LinkedList<>();
         // 放入空子集
-        result.add(item);
+        set.add(item);
         // 递归回溯
-        subset(0, nums, item, result);
-        return result;
+        subset(0, linkedList, item, set, 0);
+        return new LinkedList<>(set);
     }
 
-    private void subset(int i, int[] nums, List<Integer> item, List<List<Integer>> result) {
-        if (i >= nums.length) {
+    private void subset(int i, List<Integer> linkedList, List<Integer> item, Set<List<Integer>> resultSet, int tempSum) {
+        if (i >= linkedList.size()) {
             return;
         }
-        item.add(nums[i]);
+        item.add(linkedList.get(i));
         // 注意这里要新建一个对象放入result，不能直接放入item到result
-        result.add(new LinkedList<>(item));
+        resultSet.add(new LinkedList<>(item));
         // 选择nums[i+1]
-        subset(i + 1, nums, item, result);
+        subset(i + 1, linkedList, item, resultSet);
 
         // 不选择nums[i+1]
         item.remove(item.size() - 1);
-        subset(i + 1, nums, item, result);
+        subset(i + 1, linkedList, item, resultSet);
 
     }
 
