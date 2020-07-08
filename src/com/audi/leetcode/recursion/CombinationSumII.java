@@ -60,6 +60,34 @@ public class CombinationSumII {
         return new LinkedList<>(set);
     }
 
+
+    public List<List<Integer>> combinationSum3(int[] candidates, int target){
+        List<List<Integer>> result = new LinkedList<>();
+
+        List<Integer> item = new LinkedList<>();
+        // 放入空子集
+        result.add(item);
+        // 递归回溯
+        subset(0, nums, item, result);
+        return result;
+    }
+
+    private void subset(int i, int[] nums, List<Integer> item, List<List<Integer>> result) {
+        if (i >= nums.length) {
+            return;
+        }
+        item.add(nums[i]);
+        // 注意这里要新建一个对象放入result，不能直接放入item到result
+        result.add(new LinkedList<>(item));
+        // 选择nums[i+1]
+        subset(i + 1, nums, item, result);
+
+        // 不选择nums[i+1]
+        item.remove(item.size() - 1);
+        subset(i + 1, nums, item, result);
+
+    }
+
     public static void main(String[] args) {
 //        int[] nums = {10, 1, 2, 7, 6, 1, 5};
 //        [[6,6,7,8],[6,7,14],[6,8,13],[6,9,12],[6,10,11],[6,21],[7,8,12],[7,9,11],[7,20],[8,8,11],[8,9,10],[9,9,9],[9,18],[10,17],[11,16],[13,14],[27]]
