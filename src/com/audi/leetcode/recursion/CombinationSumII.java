@@ -22,20 +22,21 @@ public class CombinationSumII {
         // 预先去除比target还大的元素
         List<Integer> linkedList = new LinkedList<>();
         for (int i : candidates) {
-            if (i < target) {
+            if (i <= target) {
                 linkedList.add(i);
             }
         }
 
         // 使用排序  避免重复子集
         // 这里如果使用倒序排序的话，下面的第二层for循环的次数更少
-//        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
-        linkedList = linkedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
+//        linkedList = linkedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
         Set<List<Integer>> set = new HashSet<>();
         // 总共的子集的个数
-        int total = 1 << linkedList.size();
-        for (int i = 0; i < total; i++) {
+        // 这里即便使用long  对于比较长的nums输入 也会越界  所以还是需要改成递归回溯的方式来处理
+        long total = 1 << linkedList.size();
+        for (long i = 0; i < total; i++) {
             // 临时记录求和结果
             int tempSum = 0;
             // 单个子集
@@ -60,9 +61,13 @@ public class CombinationSumII {
     }
 
     public static void main(String[] args) {
-        int[] nums = {10, 1, 2, 7, 6, 1, 5};
+//        int[] nums = {10, 1, 2, 7, 6, 1, 5};
+//        [[6,6,7,8],[6,7,14],[6,8,13],[6,9,12],[6,10,11],[6,21],[7,8,12],[7,9,11],[7,20],[8,8,11],[8,9,10],[9,9,9],[9,18],[10,17],[11,16],[13,14],[27]]
+        int[] nums = {14, 6, 25, 9, 30, 20, 33, 34, 28, 30, 16, 12, 31, 9, 9, 12, 34, 16, 25, 32, 8, 7, 30, 12, 33,
+                20, 21, 29, 24, 17, 27, 34, 11, 17, 30, 6, 32, 21, 27, 17, 16, 8, 24, 12, 12, 28, 11, 33, 10, 32, 22, 13, 34, 18, 12};
         CombinationSumII combinationSumII = new CombinationSumII();
-        List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 8);
+        List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 27);
         System.out.println(lists);
+        System.out.println(1 << 20);
     }
 }
