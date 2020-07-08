@@ -83,24 +83,27 @@ public class CombinationSumII {
         // 放入空子集
         set.add(item);
         // 递归回溯
-        subset(0, linkedList, item, set, 0);
+        subset(0, linkedList, item, set, 0, target);
         return new LinkedList<>(set);
     }
 
-    private void subset(int i, List<Integer> linkedList, List<Integer> item, Set<List<Integer>> resultSet, int tempSum) {
-        if (i >= linkedList.size()) {
+    private void subset(int i, List<Integer> linkedList, List<Integer> item, Set<List<Integer>> resultSet, int tempSum, int target) {
+        if (i >= linkedList.size() || tempSum > target) {
             return;
         }
+        tempSum += linkedList.get(i);
         item.add(linkedList.get(i));
         // 注意这里要新建一个对象放入result，不能直接放入item到result
-        resultSet.add(new LinkedList<>(item));
+        if (target == tempSum && i == linkedList.size() - 1) {
+            resultSet.add(new LinkedList<>(item));
+        }
         // 选择nums[i+1]
-        subset(i + 1, linkedList, item, resultSet);
+        subset(i + 1, linkedList, item, resultSet, tempSum, target);
 
         // 不选择nums[i+1]
         item.remove(item.size() - 1);
-        subset(i + 1, linkedList, item, resultSet);
-
+        tempSum -= linkedList.get(i);
+        subset(i + 1, linkedList, item, resultSet, tempSum, target);
     }
 
     public static void main(String[] args) {
@@ -111,6 +114,5 @@ public class CombinationSumII {
         CombinationSumII combinationSumII = new CombinationSumII();
         List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 27);
         System.out.println(lists);
-        System.out.println(1 << 20);
     }
 }
