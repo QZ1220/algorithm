@@ -1,8 +1,7 @@
 package com.audi.leetcode.recursion;
 
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,9 +14,26 @@ import java.util.List;
  */
 public class NQueens {
 
-//    public List<List<String>> solveNQueens(int n) {
-//
-//    }
+    public List<List<String>> solveNQueens(int n) {
+
+        int[][] mark = new int[n][n];
+
+        List<String> item = new LinkedList<>();
+
+        List<List<String>> result = new LinkedList<>();
+
+        for (int i = 0; i < n; i++) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int j = 0; j < n; j++) {
+                stringBuilder.append(".");
+            }
+            item.add(stringBuilder.toString());
+        }
+
+        putQueen(0, n, item, result, mark);
+        return result;
+
+    }
 
     /**
      * 递归放置皇后
@@ -39,7 +55,15 @@ public class NQueens {
                 // 暂存更新前的mark
                 int[][] tempMark = mark;
                 String s = item.get(k);
+                StringBuilder stringBuilder = new StringBuilder(s);
+                stringBuilder.replace(i, i, "Q");
+                item.set(k, stringBuilder.toString());
 
+                updateMark(k, i, mark);
+                putQueen(k + 1, n, item, result, mark);
+
+                mark = tempMark;
+                item.set(k, s);
             }
         }
     }
@@ -74,6 +98,7 @@ public class NQueens {
     }
 
     public static void main(String[] args) {
-
+        NQueens nQueens = new NQueens();
+        System.out.println(nQueens.solveNQueens(8));
     }
 }
