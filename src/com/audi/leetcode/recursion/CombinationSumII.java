@@ -1,9 +1,11 @@
 package com.audi.leetcode.recursion;
 
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * https://leetcode.com/problems/combination-sum-ii/
@@ -80,8 +82,6 @@ public class CombinationSumII {
 
 
         List<Integer> item = new LinkedList<>();
-        // 放入空子集
-        set.add(item);
         // 递归回溯
         subset(0, linkedList, item, set, 0, target);
         return new LinkedList<>(set);
@@ -94,7 +94,7 @@ public class CombinationSumII {
         tempSum += linkedList.get(i);
         item.add(linkedList.get(i));
         // 注意这里要新建一个对象放入result，不能直接放入item到result
-        if (target == tempSum && i == linkedList.size() - 1) {
+        if (target == tempSum) {
             resultSet.add(new LinkedList<>(item));
         }
         // 选择nums[i+1]
@@ -112,7 +112,8 @@ public class CombinationSumII {
         int[] nums = {14, 6, 25, 9, 30, 20, 33, 34, 28, 30, 16, 12, 31, 9, 9, 12, 34, 16, 25, 32, 8, 7, 30, 12, 33,
                 20, 21, 29, 24, 17, 27, 34, 11, 17, 30, 6, 32, 21, 27, 17, 16, 8, 24, 12, 12, 28, 11, 33, 10, 32, 22, 13, 34, 18, 12};
         CombinationSumII combinationSumII = new CombinationSumII();
-        List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 27);
+//        List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 27);
+        List<List<Integer>> lists = combinationSumII.combinationSum3(nums, 27);
         System.out.println(lists);
     }
 }
