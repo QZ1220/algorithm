@@ -1,10 +1,7 @@
 package com.audi.leetcode.recursion;
 
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -76,9 +73,9 @@ public class CombinationSumII {
         Set<List<Integer>> set = new HashSet<>();
 
         // 使用排序  避免重复子集
-        // 这里如果使用倒序排序的话，下面的第二层for循环的次数更少
-        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
-//        linkedList = linkedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        // 这里如果使用倒序排序的话，会提升一点效率
+//        linkedList = linkedList.stream().sorted().collect(Collectors.toList());
+        linkedList = linkedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
 
         List<Integer> item = new LinkedList<>();
