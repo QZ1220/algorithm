@@ -54,7 +54,7 @@ public class NQueens {
             // （k,i）位置可以放置皇后
             if (mark[k][i] == 0) {
                 // 暂存更新前的mark
-                int[][] tempMark = mark.clone();
+                int[][] tempMark = copy(mark);
                 String s = item.get(k);
                 StringBuilder stringBuilder = new StringBuilder(s);
                 stringBuilder.replace(i, i, "Q");
@@ -101,21 +101,35 @@ public class NQueens {
     public static void main(String[] args) {
         NQueens nQueens = new NQueens();
         System.out.println(nQueens.solveNQueens(8));
+    }
+
+    public static void show1(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 
 
-        int[][] mark = new int[2][2];
-        System.out.println(mark[1][1]);
-        int[][] mark2 = Arrays.copyOf(mark);
-        mark[1][1] = 100;
-        System.out.println(Arrays.toString(mark));
-        System.out.println(Arrays.toString(mark2));
+    /**
+     * 二维数组的拷贝
+     *
+     * @param src 源数组
+     * @return 拷贝后的数组
+     */
+    private int[][] copy(int[][] src) {
+        if (null == src || src.length == 0) {
+            return null;
+        }
 
-
-        int[] a1 = {1, 3};
-        int[] a2 = a1.clone();
-
-        a1[0] = 666;
-        System.out.println(Arrays.toString(a1));   //[666, 3]
-        System.out.println(Arrays.toString(a2));   //[1, 3]
+        int length = src.length;
+        int width = src[0].length;
+        int[][] dst = new int[length][width];
+        for (int i = 0; i < length; i++) {
+            dst[i] = src[i].clone();
+        }
+        return dst;
     }
 }
