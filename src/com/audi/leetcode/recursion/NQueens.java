@@ -60,7 +60,7 @@ public class NQueens {
                 item.set(k, stringBuilder.toString());
 
                 updateMark(k, i, mark);
-                putQueen(k + 1, n, item, result, mark);
+                putQueen(i + 1, n, item, result, mark);
 
                 mark = tempMark;
                 item.set(k, s);
