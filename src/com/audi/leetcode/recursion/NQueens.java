@@ -1,6 +1,7 @@
 package com.audi.leetcode.recursion;
 
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class NQueens {
     }
 
     /**
-     * 递归放置皇后
+     * 递归放置皇后到第k行
      *
      * @param k      当前放了已放置几个皇后（已处理到第几行）
      * @param n      总共n个皇后
@@ -46,23 +47,31 @@ public class NQueens {
      */
     private void putQueen(int k, int n, List<String> item, List<List<String>> result, int[][] mark) {
         if (k == n) {
-            result.add(item);
+            System.out.println("添加一个可行的放置方案：\n" + item);
+            // 这里需要做深拷贝
+            result.add(new LinkedList<>(item));
+            return;
         }
         // 循环n列
         for (int i = 0; i < n; i++) {
+            // 打印  复现循环过程
+            System.out.println("k = " + k + " n = " + n + " i = " + i);
             // （k,i）位置可以放置皇后
             if (mark[k][i] == 0) {
-                // 暂存更新前的mark
+                // 暂存更新前的mark  深拷贝
                 int[][] tempMark = copy(mark);
                 String s = item.get(k);
                 StringBuilder stringBuilder = new StringBuilder(s);
-                stringBuilder.replace(i, i, "Q");
+                // 注意StringBuilder到replace方法到用法
+                stringBuilder.replace(i, i + 1, "Q");
                 item.set(k, stringBuilder.toString());
-
+                // 更新mark矩阵
                 updateMark(k, i, mark);
-                putQueen(i + 1, n, item, result, mark);
-
+                // 递归放置皇后到第k+1行
+                putQueen(k + 1, n, item, result, mark);
+                // 还原mark矩阵到第k行时的情形
                 mark = tempMark;
+                // 还原第k行到item
                 item.set(k, s);
             }
         }
@@ -84,7 +93,8 @@ public class NQueens {
 
         mark[x][y] = 1;
         for (int i = 1; i < mark.length; i++) {
-            for (int j = 0; j < mark.length; j++) {
+            // 循环8个方向
+            for (int j = 0; j < 8; j++) {
                 int newX = x + i * dx[j];
                 int newY = y + i * dy[j];
 
@@ -97,10 +107,6 @@ public class NQueens {
         }
     }
 
-    public static void main(String[] args) {
-        NQueens nQueens = new NQueens();
-        System.out.println(nQueens.solveNQueens(8));
-    }
 
     public static void show1(int[][] array) {
         for (int i = 0; i < array.length; i++) {
@@ -133,4 +139,13 @@ public class NQueens {
         }
         return dst;
     }
+
+
+    public static void main(String[] args) {
+        NQueens nQueens = new NQueens();
+        List<List<String>> list = nQueens.solveNQueens(4);
+        System.out.println(list.size());
+        list.forEach(item -> System.out.println(item));
+    }
+
 }
