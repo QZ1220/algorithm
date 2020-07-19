@@ -1,6 +1,7 @@
 package com.audi.leetcode.array;
 
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,40 +52,46 @@ public class CountofSmallerNumbersAfterSelf {
 
     /**
      * 既然算法1这种原始的方法不行，那我们看看能不能有其他优化的算法
+     * <p>
+     * https://www.cnblogs.com/grandyang/p/5078490.html
      *
      * @param nums
      * @return
      */
     public List<Integer> countSmaller2(int[] nums) {
-        List<Integer> res = new LinkedList<>();
         if (nums == null || nums.length == 0) {
-            return res;
+            return new LinkedList<>();
         }
 
-        if (nums.length == 1) {
-            res.add(0);
-            return res;
-        }
 
-        for (int i = 0; i < nums.length - 1; i++) {
-            int temp = nums[i];
-            int count = 0;
-            for (int j = i + 1; j < nums.length; j++) {
-                if (temp > nums[j]) {
-                    count++;
+        Integer[] res = new Integer[nums.length];
+
+        List<Integer> tempList = new LinkedList<>();
+        // 注意这里是从nums数组 的后往前便利
+        for (int i = nums.length - 1; i >= 0; i--) {
+//        for (int i = 0; i < nums.length; i++) {
+            int left = 0, right = tempList.size();
+            while (left < right) {
+                int mid = (left + right) / 2;
+                if (tempList.get(mid) >= nums[i]) {
+                    right = mid;
+                } else {
+                    left = mid + 1;
                 }
             }
-            res.add(count);
+
+            res[i] = right;
+            tempList.add(right, nums[i]);
         }
-        res.add(0);
-        return res;
+
+        return Arrays.asList(res);
     }
 
     public static void main(String[] args) {
         CountofSmallerNumbersAfterSelf countofSmallerNumbersAfterSelf = new CountofSmallerNumbersAfterSelf();
 //        int nums[] = {5, 2, 6, 1};
         int nums[] = {6, 6, 6, 1, 1, 1};
-        System.out.println(countofSmallerNumbersAfterSelf.countSmaller(nums));
+        System.out.println(countofSmallerNumbersAfterSelf.countSmaller2(nums));
     }
 
 }
