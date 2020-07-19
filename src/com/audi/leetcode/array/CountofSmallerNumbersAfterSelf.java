@@ -90,6 +90,45 @@ public class CountofSmallerNumbersAfterSelf {
         return Arrays.asList(res);
     }
 
+
+    /**
+     * 使用归并排序的方式来解决这个问题
+     *
+     * @param nums
+     * @return
+     */
+    public List<Integer> countSmaller3(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new LinkedList<>();
+        }
+        // todo 待完善
+
+
+        Integer[] res = new Integer[nums.length];
+
+        List<Integer> tempList = new LinkedList<>();
+        // 注意这里是从nums数组 的后往前便利
+        for (int i = nums.length - 1; i >= 0; i--) {
+//        for (int i = 0; i < nums.length; i++) {
+            int left = 0, right = tempList.size();
+            while (left < right) {
+                int mid = (left + right) / 2;
+                if (tempList.get(mid) >= nums[i]) {
+                    right = mid;
+                } else {
+                    left = mid + 1;
+                }
+            }
+
+            // right的值代表了新元素需要插入的位置
+            res[i] = right;
+            tempList.add(right, nums[i]);
+        }
+
+        return Arrays.asList(res);
+    }
+
+
     public static void main(String[] args) {
         CountofSmallerNumbersAfterSelf countofSmallerNumbersAfterSelf = new CountofSmallerNumbersAfterSelf();
         int nums[] = {5, 2, 6, 1};
