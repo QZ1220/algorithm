@@ -54,6 +54,8 @@ public class CountofSmallerNumbersAfterSelf {
      * 既然算法1这种原始的方法不行，那我们看看能不能有其他优化的算法
      * <p>
      * https://www.cnblogs.com/grandyang/p/5078490.html
+     * 参考这个链接，使用这种二分插入的思想，依然TLE  fuck
+     * 这个算法的思路有点清奇 从数组的最右边（因为是计算右边的小的元素）开始，以此使用二分插入到新数组，插入的数组位置就是答案
      *
      * @param nums
      * @return
@@ -80,6 +82,7 @@ public class CountofSmallerNumbersAfterSelf {
                 }
             }
 
+            // right的值代表了新元素需要插入的位置
             res[i] = right;
             tempList.add(right, nums[i]);
         }
@@ -89,8 +92,8 @@ public class CountofSmallerNumbersAfterSelf {
 
     public static void main(String[] args) {
         CountofSmallerNumbersAfterSelf countofSmallerNumbersAfterSelf = new CountofSmallerNumbersAfterSelf();
-//        int nums[] = {5, 2, 6, 1};
-        int nums[] = {6, 6, 6, 1, 1, 1};
+        int nums[] = {5, 2, 6, 1};
+//        int nums[] = {6, 6, 6, 1, 1, 1};
         System.out.println(countofSmallerNumbersAfterSelf.countSmaller2(nums));
     }
 
