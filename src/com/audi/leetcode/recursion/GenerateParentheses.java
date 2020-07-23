@@ -7,6 +7,12 @@ import java.util.List;
 /**
  * https://leetcode.com/problems/generate-parentheses/
  *
+ * 给定数字n，代表n组括号，求使用n组括号可以组成多少种合法的括号子集
+ *
+ * n=3
+ *
+ * ((())), (()()), (())(), ()(()), ()()()
+ *
  * @author: WangQuanzhou
  * @date: 2020/6/27 22:24
  */
