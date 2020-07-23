@@ -1,7 +1,6 @@
 package com.audi.leetcode.recursion;
 
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,7 +42,9 @@ public class Subsets {
     //  本题还可以使用位运算进行优化
     public List<List<Integer>> subsets2(int[] nums) {
         List<List<Integer>> result = new LinkedList<>();
-        // 总共的子集的个数
+        // 总共的子集的个数  1左移nums.length位
+        // 之所以可以这么算，因为所有的子集个数可以这么算：nums的每一个元素都可以放或者不放，若用1表示放，0表示不放，其实就是二进制，也就是2^(nums.length)
+        // 正好可以使用移位算法
         int total = 1 << nums.length;
         for (int i = 0; i < total; i++) {
             // 单个子集
