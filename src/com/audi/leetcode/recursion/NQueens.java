@@ -1,7 +1,6 @@
 package com.audi.leetcode.recursion;
 
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -121,7 +120,7 @@ public class NQueens {
     /**
      * 二维数组的拷贝
      * <p>
-     * 以为数组的拷贝直接使用.clone()方法就可以  二维数组需要拷贝各个一维数组
+     * 一维数组的拷贝直接使用.clone()方法就可以  二维数组需要拷贝各个一维数组
      *
      * @param src 源数组
      * @return 拷贝后的数组
