@@ -92,7 +92,9 @@ public class CountofSmallerNumbersAfterSelf {
 
 
     /**
-     * 使用归并排序的方式来解决这个问题
+     * 使用归并排序or二分搜索树的方式来解决这个问题
+     * <p>
+     * https://www.ucloud.cn/yun/66253.html
      *
      * @param nums
      * @return
