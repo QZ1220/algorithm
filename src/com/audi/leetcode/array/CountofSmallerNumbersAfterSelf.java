@@ -138,7 +138,7 @@ public class CountofSmallerNumbersAfterSelf {
             return new Node(val);
         }
         if (root.val == val) {
-            // nums数组中有重复到元素
+            // nums数组中有重复的元素
             root.dup++;
             res.addFirst(preNum + root.leftSum);
         } else if (root.val > val) {
@@ -147,6 +147,7 @@ public class CountofSmallerNumbersAfterSelf {
             root.left = insert(val, root.left, preNum, res);
         } else {
             // 右分支添加元素
+            // emm let me have a think...
             root.right = insert(val, root.right, preNum + root.leftSum + root.dup, res);
         }
         return root;
