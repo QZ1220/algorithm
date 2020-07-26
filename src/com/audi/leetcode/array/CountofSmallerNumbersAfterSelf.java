@@ -92,9 +92,29 @@ public class CountofSmallerNumbersAfterSelf {
 
 
     /**
+     * 定义BST的Node结构
+     */
+    class Node {
+        int val;
+        int leftSum;
+        // 注意这里需要初始化为1
+        int dup = 1;
+        Node left;
+        Node right;
+
+        public Node(int val) {
+            this.val = val;
+        }
+    }
+
+    /**
      * 使用归并排序or二分搜索树的方式来解决这个问题
      * <p>
      * https://www.ucloud.cn/yun/66253.html
+     * <p>
+     * http://www.voidcn.com/article/p-nuqvuteb-d.html
+     * <p>
+     * 这里我们使用二分搜索树来实现一下
      *
      * @param nums
      * @return
@@ -103,39 +123,42 @@ public class CountofSmallerNumbersAfterSelf {
         if (nums == null || nums.length == 0) {
             return new LinkedList<>();
         }
-        // todo 待完善
+        LinkedList<Integer> res = new LinkedList<>();
 
-
-        Integer[] res = new Integer[nums.length];
-
-        List<Integer> tempList = new LinkedList<>();
-        // 注意这里是从nums数组 的后往前便利
+        Node root = null;
         for (int i = nums.length - 1; i >= 0; i--) {
-//        for (int i = 0; i < nums.length; i++) {
-            int left = 0, right = tempList.size();
-            while (left < right) {
-                int mid = (left + right) / 2;
-                if (tempList.get(mid) >= nums[i]) {
-                    right = mid;
-                } else {
-                    left = mid + 1;
-                }
-            }
-
-            // right的值代表了新元素需要插入的位置
-            res[i] = right;
-            tempList.add(right, nums[i]);
+            root = insert(nums[i], root, 0, res);
         }
+        return res;
+    }
 
-        return Arrays.asList(res);
+    private Node insert(int val, Node root, int preNum, LinkedList<Integer> res) {
+        if (root == null) {
+            res.addFirst(preNum);
+            return new Node(val);
+        }
+        if (root.val == val) {
+            // nums数组中有重复到元素
+            root.dup++;
+            res.addFirst(preNum + root.leftSum);
+        } else if (root.val > val) {
+            // 左分支添加元素
+            root.leftSum++;
+            root.left = insert(val, root.left, preNum, res);
+        } else {
+            // 右分支添加元素
+            root.right = insert(val, root.right, preNum + root.leftSum + root.dup, res);
+        }
+        return root;
     }
 
 
     public static void main(String[] args) {
         CountofSmallerNumbersAfterSelf countofSmallerNumbersAfterSelf = new CountofSmallerNumbersAfterSelf();
-        int nums[] = {5, 2, 6, 1};
-//        int nums[] = {6, 6, 6, 1, 1, 1};
-        System.out.println(countofSmallerNumbersAfterSelf.countSmaller2(nums));
+//        int nums[] = {5, 2, 6, 1};
+        int nums[] = {6, 6, 6, 1, 1, 1};
+//        System.out.println(countofSmallerNumbersAfterSelf.countSmaller2(nums));
+        System.out.println(countofSmallerNumbersAfterSelf.countSmaller3(nums));
     }
 
 }
