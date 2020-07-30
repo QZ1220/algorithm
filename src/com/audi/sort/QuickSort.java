@@ -54,6 +54,7 @@ public class QuickSort {
             System.out.print(nums[i] + " ");
         }
         System.out.println();
+        // fixme still has problem fuck
         quickSort.quickSort(nums, 0, nums.length - 1);
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");
