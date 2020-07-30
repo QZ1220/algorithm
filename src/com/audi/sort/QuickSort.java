@@ -24,11 +24,11 @@ public class QuickSort {
         int j = right;
         int base = nums[left];
         while (left < right) {
-            while (right >= left && nums[right] > base) {
+            while (right > left && nums[right] >= base) {
                 right--;
             }
 
-            while (left <= right && nums[left] < base) {
+            while (left < right && nums[left] <= base) {
                 left++;
             }
 
