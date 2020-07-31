@@ -43,18 +43,19 @@ public class QuickSort {
         nums[left] = base;
 
         quickSort(nums, i, left - 1);
-        quickSort(nums, left++, j);
+        // 注意下面不能使用left++
+        quickSort(nums, left + 1, j);
 
     }
 
     public static void main(String[] args) {
         QuickSort quickSort = new QuickSort();
         int[] nums = {1, 2, 4, 5, 2, 1, 8, 5};
+//        int[] nums = {5, 6, 9, 2, 3};
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");
         }
         System.out.println();
-        // fixme still has problem fuck
         quickSort.quickSort(nums, 0, nums.length - 1);
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");
