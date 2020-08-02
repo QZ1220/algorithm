@@ -1,6 +1,8 @@
 package com.audi.bst;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 二分搜索树
@@ -216,6 +218,33 @@ public class BST<K extends Comparable<K>, V> {
         System.out.print(root.value + " ");
     }
 
+
+    /**
+     * 程序遍历
+     *
+     * @param root 根节点
+     */
+    public void levelOrder(Node root) {
+        if (null == root) {
+            return;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
+            if (node.left != null) {
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+            }
+            System.out.print(node.value + " ");
+        }
+    }
+
     public static void main(String[] args) {
 
         System.out.println("Pride and Prejudice");
@@ -253,5 +282,7 @@ public class BST<K extends Comparable<K>, V> {
         bst.midOrder(bst.root);
         System.out.println();
         bst.postOrder(bst.root);
+        System.out.println();
+        bst.levelOrder(bst.root);
     }
 }
