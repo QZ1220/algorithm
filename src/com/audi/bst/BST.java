@@ -171,6 +171,51 @@ public class BST<K extends Comparable<K>, V> {
         }
     }
 
+    /**
+     * 递归前序遍历
+     *
+     * @param root 根节点
+     */
+    public void preOrder(Node root) {
+        if (null == root) {
+            return;
+        }
+        System.out.print(root.value + " ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+
+    /**
+     * 递归中序遍历
+     * <p>
+     * 注意  针对BST的中序办理结果来看，中序遍历结果是一个有序的数组
+     *
+     * @param root 根节点
+     */
+    public void midOrder(Node root) {
+        if (null == root) {
+            return;
+        }
+        midOrder(root.left);
+        System.out.print(root.value + " ");
+        midOrder(root.right);
+    }
+
+
+    /**
+     * 递归后序遍历
+     *
+     * @param root 根节点
+     */
+    public void postOrder(Node root) {
+        if (null == root) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.value + " ");
+    }
+
     public static void main(String[] args) {
 
         System.out.println("Pride and Prejudice");
@@ -193,5 +238,20 @@ public class BST<K extends Comparable<K>, V> {
         }
 
         System.out.println();
+
+        BST<Integer, Integer> bst = new BST<>();
+        bst.add(10, 10);
+        bst.add(7, 7);
+        bst.add(2, 2);
+        bst.add(8, 8);
+        bst.add(11, 11);
+        bst.add(15, 15);
+        bst.add(14, 14);
+        bst.add(18, 18);
+        bst.preOrder(bst.root);
+        System.out.println();
+        bst.midOrder(bst.root);
+        System.out.println();
+        bst.postOrder(bst.root);
     }
 }
