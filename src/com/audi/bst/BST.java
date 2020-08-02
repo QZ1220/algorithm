@@ -57,7 +57,7 @@ public class BST<K extends Comparable<K>, V> {
             node.left = add(node.left, key, value);
         else if (key.compareTo(node.key) > 0)
             node.right = add(node.right, key, value);
-        else // key.compareTo(node.key) == 0
+        else // key.compareTo(node.key) == 0  这里使用的直接替换
             node.value = value;
 
         return node;
