@@ -40,7 +40,7 @@ public class ReverseLinkedList {
 
         ListNode head = reverseLinkedList.reverseList(node1);
         while (null != head) {
-            System.out.println(head.getVal());
+            System.out.println(head.val);
             head = head.next;
         }
     }
@@ -60,10 +60,6 @@ public class ReverseLinkedList {
         ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
-        }
-
-        public int getVal() {
-            return this.val;
         }
     }
 }
