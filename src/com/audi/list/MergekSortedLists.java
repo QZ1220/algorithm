@@ -1,5 +1,7 @@
 package com.audi.list;
 
+import com.audi.bst.Main;
+
 /**
  * https://leetcode.com/problems/merge-k-sorted-lists/
  * <p>
@@ -31,11 +33,13 @@ public class MergekSortedLists {
      * 合并K个有序的链表
      * <p>
      * 本质上来说可以不断调用合并两个链表的方法来实现
+     * <p>
+     * 其实这个题  还可以使用分治的思想进行解决
      *
      * @param lists
      * @return
      */
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists2(ListNode[] lists) {
         if (null == lists || lists.length == 0) {
             return null;
         }
@@ -46,6 +50,51 @@ public class MergekSortedLists {
         }
         return firstListHead;
 
+    }
+
+    /**
+     * 合并K个有序的链表
+     * <p>
+     * 其实这个题  还可以使用分治的思想进行解决
+     *
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (null == lists || lists.length == 0) {
+            return null;
+        }
+
+        if (lists.length == 1) {
+            return lists[0];
+        }
+        if (lists.length == 2) {
+            return mergeTwoLists(lists[0], lists[1]);
+        }
+
+        // 进行二分处理
+        int mid = lists.length / 2;
+        ListNode[] lists1 = new ListNode[mid + 1];
+        ListNode[] lists2 = new ListNode[mid + 1];
+        for (int i = 0; i < mid; i++) {
+            lists1[i] = lists[i];
+        }
+        for (int i = mid; i < lists.length; i++) {
+            lists2[i - mid] = lists[i];
+        }
+
+        // 分治合并
+        ListNode node1 = mergeKLists(lists1);
+        ListNode node2 = mergeKLists(lists2);
+
+        // 最后归总 合并
+        return mergeTwoLists(node1, node2);
+    }
+
+    public static void main(String[] args) {
+        int[] ints = new int[3];
+        ints[0] = 123;
+        System.out.println(ints.length);
     }
 
     /**
