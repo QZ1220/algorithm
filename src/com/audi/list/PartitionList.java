@@ -35,32 +35,31 @@ public class PartitionList {
             return head;
         }
 
-        ListNode leftDummyHead = new ListNode(-1);
-        ListNode rightDummyHead = new ListNode(-1);
-        ListNode leftHead = leftDummyHead;
-        ListNode rightHead = rightDummyHead;
+        ListNode leftHead = new ListNode(-1);
+        ListNode rightHead = new ListNode(-1);
+        ListNode leftDummyHead = leftHead;
+        ListNode rightDummyHead = rightHead;
 
         while (null != head) {
             if (head.val < x) {
+                // 注意下面两行代码的顺序不能错
+                leftHead.next = head;
                 leftHead = leftHead.next;
-                leftHead = head;
             } else {
+                // 注意下面两行代码的顺序不能错
+                rightHead.next = head;
                 rightHead = rightHead.next;
-                rightHead = head;
             }
             head = head.next;
         }
 
-        leftHead = leftDummyHead.next;
-        rightHead = rightDummyHead.next;
+        rightHead.next = null;
         // 合并左右链表
         if (null == leftHead) {
             return rightHead;
         }
-        while (null != leftHead.next) {
-            leftHead = leftHead.next;
-        }
-        leftHead.next = rightHead;
+
+        leftHead.next = rightDummyHead.next;
 
         return leftDummyHead.next;
     }
@@ -82,6 +81,7 @@ public class PartitionList {
 
         PartitionList partitionList = new PartitionList();
         ListNode head = partitionList.partition(node1, 3);
+//        ListNode head = partitionList.partition2(node1, 3);
         while (null != head) {
             System.out.println(head.val);
             head = head.next;
