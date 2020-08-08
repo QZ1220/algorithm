@@ -2,6 +2,10 @@ package com.audi.list;
 
 /**
  * https://leetcode.com/problems/linked-list-cycle-ii/
+ * <p>
+ * 典型的可以使用快慢指针来解决这个问题
+ * <p>
+ * 或者也可以使用set来解决，但是需要申请额外的内存空间
  *
  * @author WangQuanzhou
  * @date 2020-08-08
