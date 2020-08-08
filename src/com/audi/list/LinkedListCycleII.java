@@ -50,6 +50,7 @@ public class LinkedListCycleII {
 
 
         slow = head;
+        // 下面计算相遇的起点位置 借助了一定的数学原理 具体可以参考这张图./list_cycleII.png
         while (slow != null && meet != null) {
             if (slow == meet) {
                 return slow;
