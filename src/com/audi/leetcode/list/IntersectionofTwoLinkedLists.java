@@ -1,4 +1,4 @@
-package com.audi.list;
+package com.audi.leetcode.list;
 
 /**
  * https://leetcode.com/problems/intersection-of-two-linked-lists/

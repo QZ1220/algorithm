@@ -1,4 +1,4 @@
-package com.audi.list;
+package com.audi.leetcode.list;
 
 /**
  * https://leetcode.com/problems/merge-two-sorted-lists/

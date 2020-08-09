@@ -1,6 +1,4 @@
-package com.audi.list;
-
-import com.audi.bst.Main;
+package com.audi.leetcode.list;
 
 /**
  * https://leetcode.com/problems/merge-k-sorted-lists/
