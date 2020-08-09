@@ -28,7 +28,7 @@ public class NumberofIslands {
 
 
     public int numIslands(char[][] grid) {
-        if (null == grid) {
+        if (null == grid || grid.length == 0) {
             return 0;
         }
 
@@ -87,16 +87,17 @@ public class NumberofIslands {
         mark[x][y] = LAND;
 
         for (int i = 0; i < 4; i++) {
-            x = x + dx[i];
-            y = y + dy[i];
+            // 注意下面的对新坐标的计算 一定要新指定一个变量名称  否则下面的continue语句会遍历不到4个方向
+            int newX = x + dx[i];
+            int newY = y + dy[i];
             // 如果超出边界  直接返回
-            if (x < 0 || y < 0 || x >= rows || y >= columns || mark[x][y] == LAND) {
+            if (newX < 0 || newY < 0 || newX >= rows || newY >= columns) {
                 continue;
             }
 
-            // 如果mark矩阵的x，y位置未被便利过  且  grid矩阵的该位置是陆地  那么就进行进行搜索
-            if (mark[x][y] == WATER && grid[x][y] == LAND) {
-                DFS(grid, mark, x, y, rows, columns);
+            // 如果mark矩阵的newX，newY位置未被便利过  且  grid矩阵的该位置是陆地  那么就进行进行搜索
+            if (mark[newX][newY] == WATER && grid[newX][newY] == LAND) {
+                DFS(grid, mark, newX, newY, rows, columns);
             }
         }
     }
@@ -118,7 +119,7 @@ public class NumberofIslands {
 
 
         NumberofIslands numberofIslands = new NumberofIslands();
-        System.out.println(numberofIslands.numIslands(grid));
-
+//        System.out.println(numberofIslands.numIslands(grid));
+        System.out.println(numberofIslands.numIslands(new char[0][0]));
     }
 }
