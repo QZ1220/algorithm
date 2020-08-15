@@ -11,6 +11,8 @@ import java.util.List;
  * <p>
  * 本题需要注意beginWord初始时在不在wordList中的情况，否则求出的结果会有重复的情况出现
  *
+ * 还是使用广度优先搜索的思想来解决这个问题
+ *
  * @author WangQuanzhou
  * @date 2020-08-15
  */
