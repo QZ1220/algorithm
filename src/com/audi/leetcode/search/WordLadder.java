@@ -30,7 +30,7 @@ public class WordLadder {
         // 构造图
         Map<String, List<String>> graph = constructGraph(wordList);
 
-        // 建立广搜的队列
+        // 建立广搜的队列 key为单词  value为访问到该单词时走过的步数
         Queue<Pair<String, Integer>> queue = new LinkedList<>();
 
         // 将起始节点入队
