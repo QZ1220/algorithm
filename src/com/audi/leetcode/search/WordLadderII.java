@@ -1,9 +1,6 @@
 package com.audi.leetcode.search;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/word-ladder-ii/
@@ -22,6 +19,31 @@ import java.util.Map;
 public class WordLadderII {
 
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        if (wordList == null || wordList.size() < 1) {
+            return new LinkedList<>();
+        }
+
+        Boolean containsBeginWord = Boolean.FALSE;
+        Boolean containsEndWord = Boolean.FALSE;
+
+        for (String word : wordList) {
+            if (word.equals(endWord)) {
+                containsEndWord = Boolean.TRUE;
+            }
+            if (word.equals(beginWord)) {
+                containsBeginWord = Boolean.TRUE;
+            }
+        }
+
+        // 如果wordList不包含endWord，直接return
+        if (!containsEndWord) {
+            return new LinkedList<>();
+        }
+        // 如果wordList不包含beginWord，直接将其加入到wordList方便后续构建graph
+        if (!containsBeginWord) {
+            wordList.add(beginWord);
+        }
+
 
     }
 
@@ -68,7 +90,7 @@ public class WordLadderII {
         return graph;
     }
 
-    // 保存单签单词的信息，包括前继节点 以及走到该节点耗费的步数
+    // 保存当前单词的信息，包括前继节点 以及走到该节点耗费的步数
     class Item {
         // 当前单词
         String word;
