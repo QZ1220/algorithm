@@ -44,8 +44,12 @@ public class WordLadderII {
             wordList.add(beginWord);
         }
 
+        // 构建图
+        Map<String, List<String>> graph = constructGraph(wordList);
+
 
     }
+
 
     /**
      * 判断两个单词是否直接相连
