@@ -152,7 +152,12 @@ public class TrappingRainWaterII {
         }
     }
 
-    // 除了上面这种做法以外，还可以使用带优先级的广度优先搜索来做
+    /**
+     * 除了上面这种做法以外，还可以使用带优先级的广度优先搜索来做
+     *
+     * @param heightMap
+     * @return
+     */
     public int trapRainWater2(int[][] heightMap) {
         // 要能积水，三维模型的长度、宽度必须都大于2
         if (null == heightMap || heightMap.length < 3 || heightMap[0].length < 3) {
@@ -174,7 +179,7 @@ public class TrappingRainWaterII {
             queue.add(new Item(0, i, heightMap[0][i]));
             queue.add(new Item(row - 1, i, heightMap[row - 1][i]));
         }
-        // 首位列元素入队
+        // 首尾列元素入队
         for (int i = 1; i < row - 1; i++) {
             queue.add(new Item(i, 0, heightMap[i][0]));
             queue.add(new Item(i, column - 1, heightMap[i][column - 1]));
@@ -191,14 +196,17 @@ public class TrappingRainWaterII {
             for (int i = 0; i < 4; i++) {
                 int newX = x + dx[i];
                 int newY = y + dy[i];
+                // 超出边界  或者已经被搜索过
                 if (newX < 0 || newY < 0 || newX >= column || newY >= row || mask[newX][newY] == 1) {
                     continue;
                 }
                 if (h > heightMap[newX][newY]) {
                     total = total + h - heightMap[newX][newY];
+                    // 将当前位置填平
                     heightMap[newX][newY] = h;
                 }
                 queue.add(new Item(newX, newY, heightMap[newX][newY]));
+                // 标记当前点已经访问过
                 mask[newX][newY] = 1;
             }
         }
