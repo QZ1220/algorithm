@@ -13,9 +13,11 @@ public class TrappingRainWaterII {
 
     /**
      * 这道题同样可以使用类似于TrappingRainWater的思路  只不过这里不仅仅要考虑左右方向，还要考虑上下方向
-     *
+     * <p>
+     * 同时需要定义一个mask矩阵，维护上下左右的最大值中的最小值，存入mask矩阵
+     * <p>
      * 提交leetcode 16 / 39 test cases passed.
-     *
+     * <p>
      * 提示[[12,13,1,12],[13,4,13,12],[13,8,10,12],[12,13,12,12],[13,13,13,13]]这个用例没通过
      * 我的输出是15，期望的输出是14，但是我手动演算了一次，也应该是15才对啊  不管了。。。
      *
@@ -63,6 +65,7 @@ public class TrappingRainWaterII {
             for (int j = 1; j < row - 1; j++) {
                 int upMax = up[j];
                 int downMax = down[j];
+                // 注意这里是先 j 后 i
                 int temp = mask[j][i];
                 int verticalMin = upMax - downMax >= 0 ? downMax : upMax;
                 mask[j][i] = verticalMin - temp >= 0 ? temp : verticalMin;
