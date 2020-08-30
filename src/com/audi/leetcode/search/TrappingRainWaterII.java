@@ -164,29 +164,34 @@ public class TrappingRainWaterII {
             return 0;
         }
 
-        // 列数  横向
+        // 列数  横向  y方向
         int column = heightMap[0].length;
-        // 行数  纵向
+        // 行数  纵向  x方向
         int row = heightMap.length;
 
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
         int total = 0;
+
+        // 标记哪些点已经被搜索过 注意这里由于最外围节点位置不可能积水，所以也初始标记为1
+        int[][] mask = new int[row][column];
+
         // 定义一个优先级队列  按照h从小到大排列
         Queue<Item> queue = new PriorityQueue<Item>(Comparator.comparing(item -> item.h));
         // 首尾行元素入队
         for (int i = 0; i < column; i++) {
             queue.add(new Item(0, i, heightMap[0][i]));
+            mask[0][i] = 1;
             queue.add(new Item(row - 1, i, heightMap[row - 1][i]));
+            mask[row - 1][i] = 1;
         }
         // 首尾列元素入队
         for (int i = 1; i < row - 1; i++) {
             queue.add(new Item(i, 0, heightMap[i][0]));
+            mask[i][0] = 1;
             queue.add(new Item(i, column - 1, heightMap[i][column - 1]));
+            mask[i][column - 1] = 1;
         }
-
-        // 标记哪些点已经被搜索过
-        int[][] mask = new int[row][column];
 
         while (!queue.isEmpty()) {
             Item head = queue.poll();
@@ -196,8 +201,10 @@ public class TrappingRainWaterII {
             for (int i = 0; i < 4; i++) {
                 int newX = x + dx[i];
                 int newY = y + dy[i];
+                // 增加打印辅助输出 查看中间结果
+//                System.out.println("newX = " + newX + "   newY = " + newY);
                 // 超出边界  或者已经被搜索过
-                if (newX < 0 || newY < 0 || newX >= column || newY >= row || mask[newX][newY] == 1) {
+                if (newX < 0 || newY < 0 || newX >= row || newY >= column || mask[newX][newY] == 1) {
                     continue;
                 }
                 if (h > heightMap[newX][newY]) {
@@ -219,19 +226,22 @@ public class TrappingRainWaterII {
         int h;
 
         public Item(int x, int y, int h) {
-            x = x;
-            y = y;
-            h = h;
+            this.x = x;
+            this.y = y;
+            this.h = h;
         }
     }
 
 
     public static void main(String[] args) {
 //        int[][] heightMap = {{9, 9, 9, 2, 3}, {9, 1, 7, 1, 3}, {9, 9, 9, 3, 3}};
-//        int[}[] heightMap = {{2, 3, 4, 1}, {2, 1, 1, 5}, {9, 6, 7, 8}};
+//        int[][] heightMap = {{2, 3, 4, 1}, {2, 1, 1, 5}, {9, 6, 7, 8}};
         int[][] heightMap = {{12, 13, 1, 12}, {13, 4, 13, 12}, {13, 8, 10, 12}, {12, 13, 12, 12}, {13, 13, 13, 13}};
         TrappingRainWaterII waterII = new TrappingRainWaterII();
         System.out.println(waterII.trapRainWater(heightMap));
-        System.out.println(waterII.trapRainWater2(heightMap));
+//        int[][] heightMap2 = {{9, 9, 9, 2, 3}, {9, 1, 7, 1, 3}, {9, 9, 9, 3, 3}};
+//        int[][] heightMap2 = {{2, 3, 4, 1}, {2, 1, 1, 5}, {9, 6, 7, 8}};
+        int[][] heightMap2 = {{12, 13, 1, 12}, {13, 4, 13, 12}, {13, 8, 10, 12}, {12, 13, 12, 12}, {13, 13, 13, 13}};
+        System.out.println(waterII.trapRainWater2(heightMap2));
     }
 }
