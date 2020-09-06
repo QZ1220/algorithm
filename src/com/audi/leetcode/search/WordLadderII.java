@@ -50,6 +50,56 @@ public class WordLadderII {
         return null;
     }
 
+    /**
+     * 对构建的图进行广度优先搜索
+     *
+     * @param beginWord  搜索起始单词
+     * @param endWord    搜索结束单词
+     * @param graph      图
+     * @param queue      队列
+     * @param endPosList 记录终点位置元素的下标（可能有多条路径搜索到endWord，因此这里是个List）
+     */
+    private void BFS_graph(String beginWord, String endWord, Map<String, List<String>> graph, List<Item> queue,
+                           List<Integer> endPosList) {
+        // 构造一个map  记录哪些单词搜索过，并且记录搜索到该单词花费的步数
+        Map<String, Integer> visitMap = new LinkedHashMap<>();
+        // 搜索结束需要的最小步数
+        int minStep = 0;
+        // beginWord入队
+        queue.add(new Item(beginWord, -1, 1));
+        // 标记beginWord已经访问过
+        visitMap.put(beginWord, 1);
+        // 标记前驱节点的位置
+        int front = 0;
+        // 这里的循环  queue中的元素不会进行出队操作
+        // 如果front等于queue.size 说明元素都已经被搜索过
+        while (front != queue.size()) {
+            // 获取队列指定位置元素
+            Item item = queue.get(front);
+            String word = item.word;
+            Integer step = item.step;
+
+            // 此时表示所有到终点的路径都已完成搜索
+            if (minStep != 0 && step > minStep) {
+                break;
+            }
+
+            if (word.equals(endWord)) {
+                minStep = step;
+                endPosList.add(front);
+            }
+
+            // 遍历当前单词的邻接节点
+            List<String> neighbors = graph.get(word);
+            for (int i = 0; i < neighbors.size(); i++) {
+                // 节点没被访问或者另外一条最短路径
+                if (visitMap.get(neighbors.get(i)) == step + 1 ||(visitMap.get(neighbors.get(i))==visitMap)) {
+
+                }
+            }
+        }
+    }
+
 
     /**
      * 判断两个单词是否直接相连
@@ -99,11 +149,24 @@ public class WordLadderII {
         // 当前单词
         String word;
 
-        // 通过那个单词 访问到的当前单词
-        Integer prefix;
+        // 通过哪个单词 访问到的当前单词
+        Integer front;
 
-        //
+        // 走到当前节点花费的步数
         Integer step;
+
+        /**
+         * 构造函数
+         *
+         * @param word
+         * @param front
+         * @param step
+         */
+        Item(String word, Integer front, Integer step) {
+            this.word = word;
+            this.front = front;
+            this.step = step;
+        }
     }
 
 
