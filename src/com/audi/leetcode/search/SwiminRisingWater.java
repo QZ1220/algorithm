@@ -54,6 +54,8 @@ public class SwiminRisingWater {
                     int newY = j + dy[k];
                     // 判断是否超出边界，或者已经访问过，则忽略改点
                     if ()
+
+                        // 寻找可联通位置「找比当前位置小的点」
                 }
             }
         }
