@@ -14,8 +14,37 @@ package com.audi.leetcode.search;
  */
 public class SwiminRisingWater {
 
+    // 以grid左上角为原点，横向为X轴，纵向为Y轴
     public int swimInWater(int[][] grid) {
 
+        if (null==grid||grid)
+
+        // 行数
+        int rows = grid.length;
+        int columns = grid[0].length;
+
+    }
+
+    class Point {
+        int x;
+        int y;
+
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        /**
+         * 重写equals方法，便于后续Set判重
+         *
+         * @param obj
+         * @return
+         */
+        @Override
+        public boolean equals(Object obj) {
+            Point point = (Point) obj;
+            return this.x == point.x && this.y == point.y;
+        }
     }
 
     public static void main(String[] args) {
