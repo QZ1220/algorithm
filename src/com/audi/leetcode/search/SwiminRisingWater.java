@@ -76,6 +76,8 @@ public class SwiminRisingWater {
                     queue.add(newPoint);
                 }
 
+                // fixme t何时进行++操作
+
             }
         }
         return t;
