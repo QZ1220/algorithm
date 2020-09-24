@@ -93,11 +93,12 @@ public class WordLadderII {
             List<String> neighbors = graph.get(word);
             for (int i = 0; i < neighbors.size(); i++) {
                 // 节点没被访问或者另外一条最短路径
-                if (visitMap.get(neighbors.get(i)) == step + 1 ||(visitMap.get(neighbors.get(i))==visitMap)) {
+//                if (visitMap.get(neighbors.get(i)) == step + 1 ||(visitMap.get(neighbors.get(i))==visitMap)) {
 
-                }
             }
         }
+//        }
+
     }
 
 

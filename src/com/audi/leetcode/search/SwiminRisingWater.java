@@ -48,30 +48,37 @@ public class SwiminRisingWater {
         int t = 0;
 
         // 注意这里x y方向与grid数组的行列关系
-        for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < columns; x++) {
-                for (int k = 0; k < 4; k++) {
-                    int newY = y + dy[k];
-                    int newX = x + dx[k];
-                    Point newPoint = new Point(newX, newY);
-                    // 判断是否超出边界，或者已经访问过，则忽略该点
-                    if (newX < 0 || newY < 0 || newX >= columns || newY >= rows || visitSet.contains(newPoint)) {
-                        // 直接忽略
-                        continue;
-                    }
-
-                    // 寻找可联通位置「寻找与当前位置高度相等的点」
-                    if (grid[x][y] == grid[newX][newY]) {
-                        // 将newPoint标记为已经访问过
-                        visitSet.add(newPoint);
-                        // 将newPoint存入队列，便于下一次以其为基点进行搜索
-                        queue.add(newPoint);
-                    }
-
+        while (queue.isEmpty()) {
+            Point point = queue.peek();
+            int x = point.x;
+            int y = point.y;
+            for (int k = 0; k < 4; k++) {
+                int newY = y + dy[k];
+                int newX = x + dx[k];
+                Point newPoint = new Point(newX, newY);
+                // 判断是否超出边界，或者已经访问过，则忽略该点
+                if (newX < 0 || newY < 0 || newX >= columns || newY >= rows || visitSet.contains(newPoint)) {
+                    // 直接忽略
+                    continue;
                 }
+
+                // 寻找可联通位置「寻找与当前位置高度相等的点」
+                if (grid[x][y] == grid[newX][newY]) {
+                    if (newX == columns - 1 && newY == rows - 1) {
+                        // 已经到达右下角，搜索结束
+                        return t;
+                    }
+                    // 将newPoint标记为已经访问过
+                    visitSet.add(newPoint);
+                    // 移除队头，也就是point点
+                    queue.remove();
+                    // 将newPoint存入队列，便于下一次以其为基点进行搜索
+                    queue.add(newPoint);
+                }
+
             }
         }
-
+        return t;
     }
 
     /**
