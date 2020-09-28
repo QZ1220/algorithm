@@ -45,42 +45,42 @@ public class SwiminRisingWater {
         visitSet.add(startPoint);
 
         // t时刻
-        int t = 0;
+        int max = max(grid, rows, columns);
 
-        // 注意这里x y方向与grid数组的行列关系
-        while (queue.isEmpty()) {
-            Point point = queue.peek();
-            int x = point.x;
-            int y = point.y;
-            for (int k = 0; k < 4; k++) {
-                int newY = y + dy[k];
-                int newX = x + dx[k];
-                Point newPoint = new Point(newX, newY);
-                // 判断是否超出边界，或者已经访问过，则忽略该点
-                if (newX < 0 || newY < 0 || newX >= columns || newY >= rows || visitSet.contains(newPoint)) {
-                    // 直接忽略
-                    continue;
-                }
-
-                // 寻找可联通位置「寻找与当前位置高度相等的点」
-                if (grid[x][y] == grid[newX][newY]) {
-                    if (newX == columns - 1 && newY == rows - 1) {
-                        // 已经到达右下角，搜索结束
-                        return t;
+        for (int t = 0; t < max; t++) {
+            // 注意这里x y方向与grid数组的行列关系
+            while (!queue.isEmpty()) {
+                // fixme 如何跳出while循环 进入for循环？？？  2020年09月28日21:00:16
+                Point point = queue.peek();
+                int x = point.x;
+                int y = point.y;
+                for (int k = 0; k < 4; k++) {
+                    int newY = y + dy[k];
+                    int newX = x + dx[k];
+                    Point newPoint = new Point(newX, newY);
+                    // 判断是否超出边界，或者已经访问过，则忽略该点
+                    if (newX < 0 || newY < 0 || newX >= columns || newY >= rows || visitSet.contains(newPoint)) {
+                        // 直接忽略
+                        continue;
                     }
-                    // 将newPoint标记为已经访问过
-                    visitSet.add(newPoint);
-                    // 移除队头，也就是point点
-                    queue.remove();
-                    // 将newPoint存入队列，便于下一次以其为基点进行搜索
-                    queue.add(newPoint);
+
+                    // 寻找可联通位置「寻找与当前位置高度相等的点」
+                    if (grid[x][y] == grid[newX][newY]) {
+                        if (newX == columns - 1 && newY == rows - 1) {
+                            // 已经到达右下角，搜索结束
+                            return t;
+                        }
+                        // 将newPoint标记为已经访问过
+                        visitSet.add(newPoint);
+                        // 移除队头，也就是point点
+                        queue.remove();
+                        // 将newPoint存入队列，便于下一次以其为基点进行搜索
+                        queue.add(newPoint);
+                    }
                 }
-
-                // fixme t何时进行++操作  08点24分
-
             }
         }
-        return t;
+        return -1;
     }
 
     /**
@@ -97,6 +97,27 @@ public class SwiminRisingWater {
                 }
             }
         }
+    }
+
+
+    /**
+     * 找到grid二维数组中值最大的节点
+     *
+     * @param grid
+     * @param rows
+     * @param columns
+     * @return
+     */
+    private int max(int[][] grid, int rows, int columns) {
+        int max = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (grid[i][j] > max) {
+                    max = grid[i][j];
+                }
+            }
+        }
+        return max;
     }
 
     class Point {
@@ -122,6 +143,9 @@ public class SwiminRisingWater {
     }
 
     public static void main(String[] args) {
-
+        int[][] grid = {{0, 1, 2, 3, 4}, {24, 23, 22, 21, 5}, {12, 13, 14, 15, 16}, {11, 17, 18, 19, 20}, {10, 9, 8, 7, 6}};
+        SwiminRisingWater swiminRisingWater = new SwiminRisingWater();
+        int time = swiminRisingWater.swimInWater(grid);
+        System.out.println(time);
     }
 }
