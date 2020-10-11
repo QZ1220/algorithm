@@ -20,6 +20,7 @@ import java.util.Set;
  */
 public class SwiminRisingWater {
 
+    // x、y方向向量
     public static final int[] dx = {0, 0, 1, -1};
     public static final int[] dy = {1, -1, 0, 0};
 
@@ -35,11 +36,10 @@ public class SwiminRisingWater {
         int rows = grid.length;
         int columns = grid[0].length;
 
-        Point startPoint = new Point(0, 0);
 
+        Point startPoint = new Point(0, 0);
         // 采用广度优先搜索来解决本题
         Queue<Point> queue = new LinkedList<>();
-        queue.add(startPoint);
         // 已经便利过的点
         Set<Point> visitSet = new HashSet<>();
         visitSet.add(startPoint);
@@ -48,7 +48,8 @@ public class SwiminRisingWater {
         int max = max(grid, rows, columns);
 
         for (int t = 0; t < max; t++) {
-            // 注意这里x y方向与grid数组的行列关系
+            updateGrid(grid, t, rows, columns);
+            queue.add(startPoint);
             while (!queue.isEmpty()) {
                 // fixme 如何跳出while循环 进入for循环？？？  2020年09月28日21:00:16
                 Point point = queue.peek();
@@ -59,6 +60,7 @@ public class SwiminRisingWater {
                     int newX = x + dx[k];
                     Point newPoint = new Point(newX, newY);
                     // 判断是否超出边界，或者已经访问过，则忽略该点
+                    // 注意这里x y方向与grid数组的行列关系
                     if (newX < 0 || newY < 0 || newX >= columns || newY >= rows || visitSet.contains(newPoint)) {
                         // 直接忽略
                         continue;
@@ -72,12 +74,12 @@ public class SwiminRisingWater {
                         }
                         // 将newPoint标记为已经访问过
                         visitSet.add(newPoint);
-                        // 移除队头，也就是point点
-                        queue.remove();
                         // 将newPoint存入队列，便于下一次以其为基点进行搜索
                         queue.add(newPoint);
                     }
                 }
+                // 移除队头，也就是point点
+                queue.remove();
             }
         }
         return -1;
@@ -143,7 +145,8 @@ public class SwiminRisingWater {
     }
 
     public static void main(String[] args) {
-        int[][] grid = {{0, 1, 2, 3, 4}, {24, 23, 22, 21, 5}, {12, 13, 14, 15, 16}, {11, 17, 18, 19, 20}, {10, 9, 8, 7, 6}};
+        int[][] grid = {{0, 2}, {1, 3}};
+//        int[][] grid = {{0, 1, 2, 3, 4}, {24, 23, 22, 21, 5}, {12, 13, 14, 15, 16}, {11, 17, 18, 19, 20}, {10, 9, 8, 7, 6}};
         SwiminRisingWater swiminRisingWater = new SwiminRisingWater();
         int time = swiminRisingWater.swimInWater(grid);
         System.out.println(time);
