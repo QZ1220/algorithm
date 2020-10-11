@@ -51,6 +51,8 @@ public class SwiminRisingWater {
             updateGrid(grid, t, rows, columns);
             queue.add(startPoint);
             while (!queue.isEmpty()) {
+                // still have problem...
+                int initSize = queue.size();
                 // fixme 如何跳出while循环 进入for循环？？？  2020年09月28日21:00:16
                 Point point = queue.peek();
                 int x = point.x;
