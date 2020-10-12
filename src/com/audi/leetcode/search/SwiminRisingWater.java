@@ -69,7 +69,7 @@ public class SwiminRisingWater {
                     }
 
                     // 寻找可联通位置「寻找与当前位置高度相等的点」
-                    if (grid[x][y] == grid[newX][newY]) {
+                    if (grid[y][x] == grid[newY][newX]) {
                         if (newX == columns - 1 && newY == rows - 1) {
                             // 已经到达右下角，搜索结束
                             return t;
@@ -131,6 +131,17 @@ public class SwiminRisingWater {
         Point(int x, int y) {
             this.x = x;
             this.y = y;
+        }
+
+        /**
+         * 重写hashCode方法，便于后续Set判重
+         *
+         * @return
+         */
+        @Override
+        public int hashCode() {
+            int base = 64;
+            return base << 1 + this.x << 1 + this.y << 2;
         }
 
         /**
