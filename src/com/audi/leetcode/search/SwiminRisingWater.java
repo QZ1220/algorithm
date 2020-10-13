@@ -1,10 +1,9 @@
 package com.audi.leetcode.search;
 
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import javafx.util.Pair;
+
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/swim-in-rising-water/
@@ -23,6 +22,49 @@ public class SwiminRisingWater {
     // x、y方向向量
     public static final int[] dx = {0, 0, 1, -1};
     public static final int[] dy = {1, -1, 0, 0};
+
+    /**
+     * https://blog.csdn.net/fuxuemingzhu/article/details/82926674
+     * <p>
+     * 参考这篇文章的第二种解题方法做的
+     *
+     * @param grid
+     * @return
+     */
+    // 以grid左上角为原点，横向为X轴，纵向为Y轴
+    public int swimInWater2(int[][] grid) {
+        // 定义一个优先级队列  按照h从小到大排列
+        Queue<Pair<Integer, Pair<Integer, Integer>>> queue = new PriorityQueue<>(Comparator.comparing(Pair::getKey));
+        queue.add(new Pair<>(grid[0][0], new Pair<>(0, 0)));
+        // 已经遍历过的点
+        Set<Pair<Integer, Integer>> visitSet = new HashSet<>();
+        visitSet.add(new Pair<>(0, 0));
+
+        int res = 0;
+        int length = grid.length;
+
+        while (!queue.isEmpty()) {
+            Pair<Integer, Pair<Integer, Integer>> top = queue.poll();
+            Integer x = top.getValue().getKey();
+            Integer y = top.getValue().getValue();
+            res = Math.max(res, top.getKey());
+            if (x == top.getValue().getValue() && y == length) {
+                break;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int newY = y + dy[i];
+                int newX = x + dx[i];
+                if (newX < 0 || newY < 0 || newX >= length || newY >= length || visitSet.contains(new Pair<>(newX, newY))) {
+                    // 直接忽略
+                    continue;
+                }
+                queue.add(new Pair<>(grid[newX][newY], new Pair<>(newX, newY)));
+                visitSet.add(new Pair<>(newX, newY));
+            }
+        }
+        return res;
+    }
 
     // 以grid左上角为原点，横向为X轴，纵向为Y轴
     public int swimInWater(int[][] grid) {
@@ -47,7 +89,8 @@ public class SwiminRisingWater {
         // t时刻
         int max = max(grid, rows, columns);
 
-        for (int t = 0; t < max; t++) {
+        for (int t = 0; t <= max; t++) {
+            System.out.println("t = " + t);
             updateGrid(grid, t, rows, columns);
             queue.add(startPoint);
             while (!queue.isEmpty()) {
@@ -158,10 +201,11 @@ public class SwiminRisingWater {
     }
 
     public static void main(String[] args) {
-        int[][] grid = {{0, 2}, {1, 3}};
-//        int[][] grid = {{0, 1, 2, 3, 4}, {24, 23, 22, 21, 5}, {12, 13, 14, 15, 16}, {11, 17, 18, 19, 20}, {10, 9, 8, 7, 6}};
+//        int[][] grid = {{0, 2}, {1, 3}};
+        int[][] grid = {{0, 1, 2, 3, 4}, {24, 23, 22, 21, 5}, {12, 13, 14, 15, 16}, {11, 17, 18, 19, 20}, {10, 9, 8, 7, 6}};
         SwiminRisingWater swiminRisingWater = new SwiminRisingWater();
-        int time = swiminRisingWater.swimInWater(grid);
+//        int time = swiminRisingWater.swimInWater(grid);
+        int time = swiminRisingWater.swimInWater2(grid);
         System.out.println(time);
     }
 }
