@@ -48,7 +48,7 @@ public class SwiminRisingWater {
             Integer x = top.getValue().getKey();
             Integer y = top.getValue().getValue();
             res = Math.max(res, top.getKey());
-            if (x == top.getValue().getValue() && y == length) {
+            if (x == top.getValue().getValue() && y == length - 1) {
                 break;
             }
 
