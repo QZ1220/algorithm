@@ -27,6 +27,8 @@ public class SwiminRisingWater {
      * https://blog.csdn.net/fuxuemingzhu/article/details/82926674
      * <p>
      * 参考这篇文章的第二种解题方法做的
+     * <p>
+     * 通过优先级队列找寻局部最优解  最终的得到的结果就是全局最优解
      *
      * @param grid
      * @return
@@ -48,6 +50,7 @@ public class SwiminRisingWater {
             Integer x = top.getValue().getKey();
             Integer y = top.getValue().getValue();
             res = Math.max(res, top.getKey());
+            // 2 <= N <= 50 这个范围内可以直接使用==进行Integer的比较
             if (x == top.getValue().getValue() && y == length - 1) {
                 break;
             }
