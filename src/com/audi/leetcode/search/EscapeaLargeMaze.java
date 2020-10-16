@@ -20,6 +20,8 @@ import java.util.Set;
  * <p>
  * <p>
  * 这题和https://leetcode.com/problems/number-of-islands/类似  但是这题的搜索数量级要大一些
+ * <p>
+ * 如果直接粗暴的BFS的话，我本机直接OOM了
  *
  * @author: WangQuanzhou
  * @date: 2020/10/16 7:55
