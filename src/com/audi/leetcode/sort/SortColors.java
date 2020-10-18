@@ -18,12 +18,14 @@ public class SortColors {
             return;
         }
 
+        // 使用countArray记录0、1、2出现的次数，并且将相应的次数存入countArray中对应下标的位置
         int[] countArray = new int[3];
         for (int num : nums) {
             countArray[num]++;
         }
 
         int pos = 0;
+        // 利用countArray的数据恢复出排序后的nums数组
         for (int i = 0; i < countArray.length; i++) {
             for (int j = 0; j < countArray[i]; j++) {
                 nums[pos++] = i;
