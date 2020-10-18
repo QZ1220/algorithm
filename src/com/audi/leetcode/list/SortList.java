@@ -26,12 +26,15 @@ public class SortList {
         if (head == null || head.next == null) {
             return head;
         }
+        // 使用快慢指针的思想，当fast走到链表末尾时，slow正好走到链表的中间位置
+        // pre指针的作用是断开前后子链表的链接  否则递归调用会栈溢出
         ListNode fast = head, slow = head, pre = head;
         while (fast != null && fast.next != null) {
             pre = slow;
             slow = slow.next;
             fast = fast.next.next;
         }
+        // 断开前后链表之前的链接关系
         pre.next = null;
         return merge(sortList(head), sortList(slow));
     }
