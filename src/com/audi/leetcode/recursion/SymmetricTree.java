@@ -34,13 +34,15 @@ public class SymmetricTree {
             return Boolean.TRUE;
         }
 
-        return isSymmetric(root.left) && isSymmetric(root.right);
+        return isSymmetric(root.left, root.right);
     }
 
     private boolean isSymmetric(TreeNode left, TreeNode right) {
+        // 递归到底了
         if (left == null && right == null) {
             return Boolean.TRUE;
         }
+        // 如果左右的值不相等或者不对称 那么就不需要再继续进行递归  直接返回false
         if (left == null || right == null || left.val != right.val) {
             return Boolean.FALSE;
         }
