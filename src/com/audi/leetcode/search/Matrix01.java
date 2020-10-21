@@ -1,8 +1,6 @@
 package com.audi.leetcode.search;
 
 
-import com.audi.heap.MaxHeap;
-
 /**
  * https://leetcode.com/problems/01-matrix/
  * <p>
@@ -45,12 +43,13 @@ public class Matrix01 {
             return matrix;
         }
         // 矩阵大小
-        int N = matrix.length;
+        int height = matrix.length;
+        int width = matrix[0].length;
         // int初始化默认为0
-        int[][] distance = new int[N][N];
+        int[][] distance = new int[height][width];
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 if (matrix[i][j] == 0) {
                     continue;
                 }
@@ -59,7 +58,7 @@ public class Matrix01 {
                 int right = j + 1;
                 int up = i - 1;
                 int down = i + 1;
-                int zeroDis = N - 1;
+                int zeroDis = height > width ? height - 1 : width - 1;
 
                 if (left >= 0) {
                     int leftZeroDis = 1;
@@ -73,9 +72,9 @@ public class Matrix01 {
                     zeroDis = zeroDis > leftZeroDis ? leftZeroDis : zeroDis;
                 }
 
-                if (right < N) {
+                if (right < width) {
                     int rightZeroDis = 1;
-                    while (right < N) {
+                    while (right < width) {
                         if (matrix[i][right] == 0) {
                             break;
                         }
@@ -98,9 +97,9 @@ public class Matrix01 {
                 }
 
 
-                if (down < N) {
+                if (down < height) {
                     int downZeroDis = 1;
-                    while (down < N) {
+                    while (down < height) {
                         if (matrix[down][j] == 0) {
                             break;
                         }
@@ -118,15 +117,33 @@ public class Matrix01 {
     }
 
     public static void main(String[] args) {
+//        int[][] matrix = {
+//                {
+//                        1, 1, 0
+//                },
+//                {
+//                        0, 1, 0
+//                },
+//                {
+//                        1, 1, 1
+//                }
+//        };
+
         int[][] matrix = {
                 {
-                        1, 1, 0
+                        0
                 },
                 {
-                        0, 1, 0
+                        0
                 },
                 {
-                        1, 1, 1
+                        0
+                },
+                {
+                        0
+                },
+                {
+                        0
                 }
         };
 
