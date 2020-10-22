@@ -38,6 +38,12 @@ package com.audi.leetcode.search;
  */
 public class Matrix01 {
 
+    /**
+     * 这种解法，仅限于寻找同行、列最近的0
+     *
+     * @param matrix
+     * @return
+     */
     public int[][] updateMatrix(int[][] matrix) {
         if (matrix == null || matrix.length < 2) {
             return matrix;
@@ -116,6 +122,18 @@ public class Matrix01 {
 
     }
 
+    /**
+     * 看来只能进行BFS了
+     *
+     * 虽然题目要求只能上下左右走，但是结合实际，最近的0有可能是在对角
+     *
+     * @param matrix
+     * @return
+     */
+    public int[][] updateMatrix2(int[][] matrix) {
+
+    }
+
     public static void main(String[] args) {
 //        int[][] matrix = {
 //                {
@@ -129,29 +147,27 @@ public class Matrix01 {
 //                }
 //        };
 
+        // 直到遇到这个测试用例之前，我都认为我的思路没错。
+        // 我原本以为最近的0只能在自己这一行或者这一列找，是我太年轻，最近的0是环形辐射最近的0.。。
+        // 看来这题标成「中等」难度，确实还是有点道理
         int[][] matrix = {
-                {
-                        0
-                },
-                {
-                        0
-                },
-                {
-                        0
-                },
-                {
-                        0
-                },
-                {
-                        0
-                }
-        };
+                {0, 0, 1, 0, 1, 1, 1, 0, 1, 1},
+                {1, 1, 1, 1, 0, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 0, 0, 0, 1, 1},
+                {1, 0, 1, 0, 1, 1, 1, 0, 1, 1},
+                {0, 0, 1, 1, 1, 0, 1, 1, 1, 1},
+                {1, 0, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 0, 1, 0, 1, 0, 1},
+                {0, 1, 0, 0, 0, 1, 0, 0, 1, 1},
+                {1, 1, 1, 0, 1, 1, 0, 1, 0, 1},
+                {1, 0, 1, 1, 1, 0, 1, 1, 1, 0}};
 
         Matrix01 matrix01 = new Matrix01();
         int[][] dis = matrix01.updateMatrix(matrix);
         int length = dis.length;
+        int width = dis[0].length;
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
+            for (int j = 0; j < width; j++) {
                 System.out.print(dis[i][j] + " ");
             }
             System.out.println();
