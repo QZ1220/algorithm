@@ -28,6 +28,8 @@ public class SurroundedRegions {
     private static final int[] dy = {1, -1, 0, 0};
 
     /**
+     * 算法的大致思路是先把最外围的O加入队列，然后看内圈层的哪些O和最外层的O是相连的，除去这些O，剩余的O都应该变成X
+     * <p>
      * Runtime: 7 ms, faster than 12.49% of Java online submissions for Surrounded Regions.
      * Memory Usage: 40.2 MB, less than 13.57% of Java online submissions for Surrounded Regions.
      *
