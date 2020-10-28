@@ -12,6 +12,12 @@ import java.util.HashMap;
  * @date: 2020/10/28 22:10
  */
 public class MajorityElement {
+    /**
+     * 总感觉这个题目  除了使用Map记录每个元素出现的次数  还有通过数学特征来解题的办法
+     *
+     * @param nums
+     * @return
+     */
     public int majorityElement(int[] nums) {
         int length = nums.length;
         if (length == 1) {
