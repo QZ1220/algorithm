@@ -124,14 +124,14 @@ public class Matrix01 {
 
     /**
      * 看来只能进行BFS了
-     *
+     * <p>
      * 虽然题目要求只能上下左右走，但是结合实际，最近的0有可能是在对角
      *
      * @param matrix
      * @return
      */
     public int[][] updateMatrix2(int[][] matrix) {
-
+        return null;
     }
 
     public static void main(String[] args) {
