@@ -19,6 +19,12 @@ import java.util.*;
  */
 public class LongestSubstringWithoutRepeatingCharacters {
 
+    /**
+     * 这种揭发忽略了 重复字符之间的内容还可以和前后的未重复的字符串形成最长字符串  例如 abcb 的形式  最长的子串是abc
+     *
+     * @param s
+     * @return
+     */
     public int lengthOfLongestSubstring(String s) {
         if (null == s) {
             return 0;
