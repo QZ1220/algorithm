@@ -80,6 +80,37 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return leftMax > midMax ? (leftMax > rightMax ? leftMax : rightMax) : (midMax > rightMax ? midMax : rightMax);
     }
 
+    /**
+     * https://segmentfault.com/a/1190000016216003?utm_source=tag-newest
+     * <p>
+     * 采用滑动窗口解决
+     * <p>
+     * 自己还是走了弯路
+     *
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring2(String s) {
+        if (null == s || s.length() < 1) {
+            return 0;
+        }
+
+        Map<Character, Integer> map = new HashMap<>(s.length());
+        int max = 0;
+        // 这里pre只能初始化为-1
+        int pre = -1;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                Integer index = map.get(c);
+                pre = Math.max(pre, index);
+            }
+            max = Math.max(max, i - pre);
+            map.put(c, i);
+        }
+        return max;
+    }
+
 
     public static void main(String[] args) {
 
@@ -88,7 +119,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 //        String s = "cdd";
         String s = "abcb";
         LongestSubstringWithoutRepeatingCharacters characters = new LongestSubstringWithoutRepeatingCharacters();
-        System.out.println(characters.lengthOfLongestSubstring(s));
+        System.out.println(characters.lengthOfLongestSubstring2(s));
 
     }
 }
