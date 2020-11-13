@@ -14,6 +14,12 @@ public class LongestPalindromicSubstring {
 
     private static final Character c = ',';
 
+    /**
+     * 中心扩散法  借助辅助字符
+     *
+     * @param s
+     * @return
+     */
     public String longestPalindrome(String s) {
         if (s.length() < 2) {
             return s;
