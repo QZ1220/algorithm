@@ -29,14 +29,37 @@ public class LongestPalindromicSubstring {
         int midPos = 1;
         int maxLen = 1;
         for (int i = 2; i < newLen; i++) {
-            midPos = i;
-
-
+            // 由中心向两边扩散
+            int j = 0;
+            for (j = 0; j <= i; i++) {
+                int left = i - j;
+                int right = i + j;
+                // 如果两边字符不相等
+                if (left < 0 || right >= newLen || newStr.charAt(left) != newStr.charAt(right)) {
+                    break;
+                }
+            }
+            if (j > maxLen) {
+                maxLen = j;
+                midPos = i;
+            }
         }
+
+        String substring = newStr.substring(midPos - maxLen, midPos + maxLen + 1);
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < substring.length(); i++) {
+            if (substring.charAt(i) == c) {
+                continue;
+            }
+            builder.append(substring.charAt(i));
+        }
+        return builder.toString();
 
     }
 
     public static void main(String[] args) {
-
+        String s = "ac";
+        LongestPalindromicSubstring palindromicSubstring = new LongestPalindromicSubstring();
+        System.out.println(palindromicSubstring.longestPalindrome(s));
     }
 }
