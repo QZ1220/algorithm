@@ -25,11 +25,11 @@ public class LongestPalindromicSubstring {
             return s;
         }
         int length = s.length();
-        StringBuilder stringBuilder = new StringBuilder(c);
+        StringBuilder stringBuilder = new StringBuilder(length * 2 + 1);
         for (int i = 0; i < length; i++) {
-            stringBuilder.append(s.charAt(i)).append(c);
+            stringBuilder.append(c).append(s.charAt(i));
         }
-        String newStr = stringBuilder.toString();
+        String newStr = stringBuilder.append(c).toString();
 
         int newLen = newStr.length();
         int midPos = 1;
@@ -37,7 +37,7 @@ public class LongestPalindromicSubstring {
         for (int i = 2; i < newLen; i++) {
             // 由中心向两边扩散
             int j = 0;
-            for (j = 0; j <= i; i++) {
+            for (j = 0; j <= i; j++) {
                 int left = i - j;
                 int right = i + j;
                 // 如果两边字符不相等
@@ -46,7 +46,7 @@ public class LongestPalindromicSubstring {
                 }
             }
             if (j > maxLen) {
-                maxLen = j;
+                maxLen = --j;
                 midPos = i;
             }
         }
@@ -64,7 +64,10 @@ public class LongestPalindromicSubstring {
     }
 
     public static void main(String[] args) {
-        String s = "ac";
+//        String s = "ac";
+//        String s = "babad";
+//        String s = "cbbd";
+        String s = "a";
         LongestPalindromicSubstring palindromicSubstring = new LongestPalindromicSubstring();
         System.out.println(palindromicSubstring.longestPalindrome(s));
     }
