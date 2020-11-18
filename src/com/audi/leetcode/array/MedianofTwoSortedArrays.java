@@ -81,9 +81,9 @@ public class MedianofTwoSortedArrays {
             // 刚好到中间位置
             if (pos == mid) {
                 // 如果新数组长度是偶数
-                if (total%2==0){
+                if (total % 2 == 0) {
                     // 当前未知的元素个数为1，需要去前一位置的元素，这就是难点。。。写到这里忽然发现不得了。。
-                    if (entry.getValue()<2){
+                    if (entry.getValue() < 2) {
                         //
 //                        return Double.valueOf(entry.)
                     }
@@ -94,11 +94,56 @@ public class MedianofTwoSortedArrays {
         return m;
     }
 
+    /**
+     * https://www.jianshu.com/p/21f570caca89
+     * https://www.youtube.com/watch?v=LPFhl65R7ww&ab_channel=TusharRoy-CodingMadeSimple
+     * <p>
+     * 这位印度小哥  思路清奇
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        if (nums1.length > nums2.length) {
+            return findMedianSortedArrays2(nums2, nums1);
+        }
 
+        int x = nums1.length;
+        int y = nums2.length;
+
+        int low = 0;
+        int high = x;
+
+        while (low <= high) {
+            int partitionX = (low + high) / 2;
+            int partitionY = (x + y + 1) / 2 - partitionX;
+
+            int maxLeftX = (partitionX == 0) ? Integer.MIN_VALUE : nums1[partitionX - 1];
+            int minRightX = (partitionX == x) ? Integer.MAX_VALUE : nums1[partitionX];
+            int maxLeftY = (partitionY == 0) ? Integer.MIN_VALUE : nums2[partitionY - 1];
+            int minRightY = (partitionY == y) ? Integer.MAX_VALUE : nums2[partitionY];
+
+            if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
+                if ((x + y) % 2 == 0) {
+                    return ((double) Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY)) / 2;
+                }
+                return (double) Math.max(maxLeftX, maxLeftY);
+            } else if (maxLeftX > minRightY) {
+                high = partitionX - 1;
+            } else {
+                low = partitionX + 1;
+            }
+        }
+
+        throw new IllegalArgumentException();
+    }
 
 
     public static void main(String[] args) {
-        System.out.println(1 % 2);
-        System.out.println(1 / (2 + 0.0));
+        MedianofTwoSortedArrays medianofTwoSortedArrays = new MedianofTwoSortedArrays();
+        int[] nums1 = {1, 2};
+        int[] nums2 = {3, 4};
+        System.out.println(medianofTwoSortedArrays.findMedianSortedArrays2(nums1, nums2));
     }
 }
