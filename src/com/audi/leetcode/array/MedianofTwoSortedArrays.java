@@ -1,6 +1,8 @@
 package com.audi.leetcode.array;
 
 
+import java.util.*;
+
 /**
  * https://leetcode.com/problems/median-of-two-sorted-arrays/
  * <p>
@@ -45,9 +47,55 @@ public class MedianofTwoSortedArrays {
             return Double.valueOf((nums2[m / 2] + nums2[(m / 2) - 1] + 0.0) / 2);
         }
 
-        // fixme 是否需要合并数组
+        // 使用有序map存储数组元素，key=nums[i],value=某个nums[i]出现的次数
+        Map<Integer, Integer> map = new TreeMap();
+        for (int i = 0; i < nums1.length; i++) {
+            Integer value = map.get(nums1[i]);
+            if (value != null) {
+                map.put(nums1[i], value + 1);
+                continue;
+            }
+            map.put(nums1[i], 1);
+        }
+
+        for (int i = 0; i < nums2.length; i++) {
+            Integer value = map.get(nums2[i]);
+            if (value != null) {
+                map.put(nums2[i], value + 1);
+                continue;
+            }
+            map.put(nums2[i], 1);
+        }
+
+        int total = m + n;
+        // 中间位置
+        int mid = total / 2;
+        int pos = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            // nums数组数字个数累加
+            pos = pos + entry.getValue();
+            // 还没到中间位置
+            if (pos < mid) {
+                continue;
+            }
+            // 刚好到中间位置
+            if (pos == mid) {
+                // 如果新数组长度是偶数
+                if (total%2==0){
+                    // 当前未知的元素个数为1，需要去前一位置的元素，这就是难点。。。写到这里忽然发现不得了。。
+                    if (entry.getValue()<2){
+                        //
+//                        return Double.valueOf(entry.)
+                    }
+                }
+            }
+        }
+
         return m;
     }
+
+
+
 
     public static void main(String[] args) {
         System.out.println(1 % 2);
