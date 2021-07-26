@@ -1,4 +1,4 @@
-package com.audi.hash;
+package com.audi.leetcode.hash;
 
 
 /**
