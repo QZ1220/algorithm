@@ -5,6 +5,9 @@ package com.audi.leetcode.Tree;
  * https://leetcode.com/problems/path-sum/
  * <p>
  * 求从根节点到叶子节点，加起来的和等于target的路径
+ * <p>
+ * 深度优先遍历
+ * 递归，如果递归到根节点还没有满足条件，就返回false
  *
  * @author: WangQuanzhou
  * @date: 2021-08-05 9:25 PM
