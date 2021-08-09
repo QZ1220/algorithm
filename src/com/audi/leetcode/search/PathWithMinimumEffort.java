@@ -4,14 +4,20 @@ package com.audi.leetcode.search;
 /**
  * https://leetcode.com/problems/path-with-minimum-effort/
  * <p>
- * 给一个二维矩阵，矩阵的每个点代表一个高度
+ * 题目给出了一个二维矩阵，矩阵的每个值代表当前节点的高度
  * <p>
- * 需要从矩阵的左上角走到矩阵的右下角，求一个坡度（梯度）最缓的路径
+ * 希望求出从矩阵的左上角到矩阵的右下角，相邻两节点爬升最小的effort，可以变相的理解为找出坡度最缓的路径
  * <p>
- * 返回最桓梯度中的最大值
+ * 第一印象，感觉这个题和TrappingRainWaterII有点像
  *
  * @author: WangQuanzhou
- * @date: 2021/8/8 12:23
+ * @date: 2021-08-08 12:07 AM
  */
 public class PathWithMinimumEffort {
+    public int minimumEffortPath(int[][] heights) {
+
+    }
+
+    public static void main(String[] args) {
+    }
 }
