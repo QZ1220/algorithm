@@ -14,9 +14,9 @@ package com.audi.leetcode.search;
  * @date: 2021-08-08 12:07 AM
  */
 public class PathWithMinimumEffort {
-    public int minimumEffortPath(int[][] heights) {
-
-    }
+//    public int minimumEffortPath(int[][] heights) {
+//
+//    }
 
     public static void main(String[] args) {
     }

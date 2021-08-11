@@ -97,6 +97,7 @@ public class MaxHeap<E extends Comparable<E>> {
 
     private void siftDown(int k) {
 
+        // 这里之所以要用左孩子，是因为堆都是向左倾斜的，也就是说堆的左孩子在任何情况下都是存在的（除了堆顶节点）
         while (leftChild(k) < data.size()) {
             int j = leftChild(k); // 在此轮循环中,data[k]和data[j]交换位置
             // 选出左右子树种中较大的元素
