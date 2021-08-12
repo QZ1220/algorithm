@@ -1,10 +1,7 @@
 package com.audi.leetcode.heap;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/top-k-frequent-words/
@@ -36,17 +33,18 @@ public class TopKFrequentWords {
                 minHeap.add(new Freq(entry.getValue(), entry.getKey()));
             } else {
                 Freq head = minHeap.getHead();
-                if (entry.getValue() >= head.count) {
+                if (entry.getValue() > head.count ||
+                        (entry.getValue() == head.count && entry.getKey().compareTo(head.word) < 0)) {
                     minHeap.replace(new Freq(entry.getValue(), entry.getKey()));
                 }
             }
         }
 
-        List<String> list = new ArrayList<>();
-        for (Freq freq : minHeap.list) {
-            list.add(freq.word);
+        List<String> list = new LinkedList<>();
+        for (int i = k - 1; i >= 0; i--) {
+            // 因为是小顶堆，因此但是题目要求是按照从大到小的顺序，因此这里需要使用头插法插入list中
+            ((LinkedList<String>) list).addFirst(minHeap.pop().word);
         }
-
         return list;
     }
 
@@ -66,10 +64,11 @@ public class TopKFrequentWords {
         public int compareTo(Freq a) {
             if (this.count > a.count) {
                 return 1;
-            } else if (this.count < count) {
+            } else if (this.count < a.count) {
                 return -1;
             } else {
-                return this.word.compareTo(a.word);
+                // 字典序
+                return a.word.compareTo(this.word);
             }
 
         }
@@ -182,7 +181,8 @@ public class TopKFrequentWords {
             }
             while (leftChild(i) < list.size()) {
                 int j = leftChild(i);
-                if (rightChild(i) < list.size() && list.get(leftChild(i)).compareTo(list.get(rightChild(i))) < 0) {
+                // 注意这些条件判断以及下层的compare方法
+                if (rightChild(i) < list.size() && list.get(leftChild(i)).compareTo(list.get(rightChild(i))) > 0) {
                     j++;
                 }
 
@@ -214,8 +214,15 @@ public class TopKFrequentWords {
         TopKFrequentWords topKFrequentWords = new TopKFrequentWords();
 
 //        String[] words = {"b", "c", "a", "b", "c", "a", "e", "y", "f", "p", "k"};
-        String[] words = {"i", "love", "leetcode", "i", "love", "coding"};
-        List<String> list = topKFrequentWords.topKFrequent(words, 2);
+//        String[] words = {"i", "love", "leetcode", "i", "love", "coding"};
+//        String[] words = {"the", "the", "day", "day", "is", "hj"};
+//        String[] words = {"i", "love", "leetcode", "i", "love", "coding"};
+        String[] words = {"glarko", "zlfiwwb", "nsfspyox", "pwqvwmlgri", "qggx", "qrkgmliewc", "zskaqzwo", "zskaqzwo", "ijy", "htpvnmozay", "jqrlad", "ccjel", "qrkgmliewc", "qkjzgws", "fqizrrnmif", "jqrlad", "nbuorw", "qrkgmliewc", "htpvnmozay", "nftk", "glarko", "hdemkfr", "axyak", "hdemkfr", "nsfspyox", "nsfspyox", "qrkgmliewc", "nftk", "nftk", "ccjel", "qrkgmliewc", "ocgjsu", "ijy", "glarko", "nbuorw", "nsfspyox", "qkjzgws", "qkjzgws", "fqizrrnmif", "pwqvwmlgri", "nftk", "qrkgmliewc", "jqrlad", "nftk", "zskaqzwo", "glarko", "nsfspyox", "zlfiwwb", "hwlvqgkdbo", "htpvnmozay", "nsfspyox", "zskaqzwo", "htpvnmozay", "zskaqzwo", "nbuorw", "qkjzgws", "zlfiwwb", "pwqvwmlgri", "zskaqzwo", "qengse", "glarko", "qkjzgws", "pwqvwmlgri", "fqizrrnmif", "nbuorw", "nftk", "ijy", "hdemkfr", "nftk", "qkjzgws", "jqrlad", "nftk", "ccjel", "qggx", "ijy", "qengse", "nftk", "htpvnmozay", "qengse", "eonrg", "qengse", "fqizrrnmif", "hwlvqgkdbo", "qengse", "qengse", "qggx", "qkjzgws", "qggx", "pwqvwmlgri", "htpvnmozay", "qrkgmliewc", "qengse", "fqizrrnmif", "qkjzgws", "qengse", "nftk", "htpvnmozay", "qggx", "zlfiwwb", "bwp", "ocgjsu", "qrkgmliewc", "ccjel", "hdemkfr", "nsfspyox", "hdemkfr", "qggx", "zlfiwwb", "nsfspyox", "ijy", "qkjzgws", "fqizrrnmif", "qkjzgws", "qrkgmliewc", "glarko", "hdemkfr", "pwqvwmlgri"};
+        // ["nftk","qkjzgws","qrkgmliewc","nsfspyox","qengse","htpvnmozay","fqizrrnmif","glarko","hdemkfr","pwqvwmlgri","qggx","zskaqzwo","ijy","zlfiwwb"]
+        // [qengse, ccjel, fqizrrnmif, qrkgmliewc, nftk, hdemkfr, qkjzgws, qggx, nbuorw, nsfspyox, pwqvwmlgri, axyak, htpvnmozay, glarko]
+        List<String> list = topKFrequentWords.topKFrequent(words, 3);
+        // ["nftk","qkjzgws","qrkgmliewc"]
+//        [nftk, pwqvwmlgri, qkjzgws]
         System.out.println(list.toString());
 
     }
