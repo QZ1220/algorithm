@@ -10,7 +10,7 @@ package com.audi.leetcode.list;
  */
 public class IntersectionofTwoLinkedLists {
 
-    class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 
@@ -41,8 +41,6 @@ public class IntersectionofTwoLinkedLists {
                 distance -= 1;
                 headB = headB.next;
             }
-        } else {
-            return headA;
         }
 
         while (headA != null && headB != null) {
@@ -74,6 +72,11 @@ public class IntersectionofTwoLinkedLists {
 
 
     public static void main(String[] args) {
+        ListNode headA = new ListNode(1);
+        ListNode headB = new ListNode(2);
 
+        IntersectionofTwoLinkedLists intersectionofTwoLinkedLists = new IntersectionofTwoLinkedLists();
+        ListNode node = intersectionofTwoLinkedLists.getIntersectionNode(headA, headB);
+        System.out.println();
     }
 }
