@@ -6,6 +6,9 @@ import java.util.Arrays;
 /**
  * https://leetcode.com/problems/coin-change/
  * <p>
+ * https://www.ixigua.com/6803573365928886787?id=6803240858175930891&logTag=ef11c930411c71ec3da5
+ *
+ * <p>
  * 组成指定面值所使用的的钞票张数
  * <p>
  * 注意这道题不可以使用贪心算法，因为coins的值是未知的，既然未知就满足贪心思想的一个必备条件：当前金额是比它小的任意金额的倍数，
