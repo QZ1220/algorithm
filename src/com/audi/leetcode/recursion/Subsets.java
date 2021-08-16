@@ -36,7 +36,6 @@ public class Subsets {
         // 不选择nums[i+1]
         item.remove(item.size() - 1);
         subset(i + 1, nums, item, result);
-
     }
 
     //  本题还可以使用位运算进行优化
