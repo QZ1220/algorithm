@@ -2,15 +2,17 @@ package com.audi.leetcode.recursion;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * https://leetcode.com/problems/generate-parentheses/
- *
+ * <p>
  * 给定数字n，代表n组括号，求使用n组括号可以组成多少种合法的括号子集
- *
+ * <p>
  * n=3
- *
+ * <p>
  * ((())), (()()), (())(), ()(()), ()()()
  *
  * @author: WangQuanzhou
@@ -42,14 +44,76 @@ public class GenerateParentheses {
         if (left < right) {
             dfs(left, right - 1, s + ")", ret);
         }
-
     }
 
     // 这个题也可以使用这种解法：
     // 先求出所有可能的括号组合，再依次判断各个组合是否是合法的
+    // 这种解法性能上，要比上面的dfs差一些
+    public List<String> generateParenthesis2(int n) {
+        List<String> ret = new LinkedList<>();
+        if (n <= 0) {
+            return ret;
+        }
+
+        subset(2 * n, "", ret);
+
+        return ret;
+    }
+
+    /**
+     * 递归产生子串
+     *
+     * @param m
+     * @param s
+     * @param ret
+     */
+    private void subset(int m, String s, List<String> ret) {
+        if (s.length() == m) {
+            if (valid(s)) {
+                ret.add(s);
+            }
+            return;
+        }
+        subset(m, s + "(", ret);
+        subset(m, s + ")", ret);
+    }
+
+    /**
+     * 判断一个字符串是否是合法字符串
+     *
+     * @param s
+     * @return
+     */
+    private boolean valid(String s) {
+        if (null == s || s.length() < 2) {
+            return false;
+        }
+        if (s.startsWith(")") || s.endsWith("(")) {
+            return false;
+        }
+        // 借助栈  来判断括号字符串是否合法
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                stack.add(c);
+            }
+            if (c == ')') {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
+
 
     public static void main(String[] args) {
         GenerateParentheses generateParentheses = new GenerateParentheses();
-        System.out.println(generateParentheses.generateParenthesis(3));
+        System.out.println(generateParentheses.generateParenthesis(2));
+        System.out.println(generateParentheses.generateParenthesis(2).size());
+        System.out.println(generateParentheses.generateParenthesis2(2));
+        System.out.println(generateParentheses.generateParenthesis2(2).size());
     }
 }
