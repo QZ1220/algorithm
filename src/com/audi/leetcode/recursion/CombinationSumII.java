@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * <p>
  * 给出一组数字nums，以及一个目标值target，问能找到多少个nums的子集，使得子集的和为target
  * <p>
- * 其实这道题和SubsetsII类似，只是初始时以及循环的过程需要做一些优化
+ * 其实这道题和SubsetsII类似，只是初始时以及循环的过程需要做一些优化（剪枝操作）
  *
  * @author: WangQuanzhou
  * @date: 2020/6/27 22:14

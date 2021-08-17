@@ -45,6 +45,9 @@ public class GenerateParentheses {
 
     }
 
+    // 这个题也可以使用这种解法：
+    // 先求出所有可能的括号组合，再依次判断各个组合是否是合法的
+
     public static void main(String[] args) {
         GenerateParentheses generateParentheses = new GenerateParentheses();
         System.out.println(generateParentheses.generateParenthesis(3));
