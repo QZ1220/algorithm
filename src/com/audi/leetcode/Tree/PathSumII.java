@@ -44,6 +44,7 @@ public class PathSumII {
         pathSum(root.left, sum, targetSum, list);
         pathSum(root.right, sum, targetSum, list);
 
+        // 当前元素不满足和为sum的情况
         list.remove(list.size() - 1);
     }
 

@@ -43,6 +43,8 @@ public class PathSumIII {
 
     /**
      * 求指定的list中是否从末尾开始往前遍历，遍历的连续节点的和为targetSum
+     * <p>
+     * 因为新添加的元素都在list的尾部，尾插法，因此是从尾部开始计算和
      *
      * @param targetSum
      * @param list
@@ -63,21 +65,37 @@ public class PathSumIII {
 
     public static void main(String[] args) {
 
-        TreeNode node1 = new TreeNode(3);
-        TreeNode node2 = new TreeNode(-2);
-        TreeNode node3 = new TreeNode(3, node1, node2);
+        // 从叶子节点向上构建二叉树
+//        TreeNode node1 = new TreeNode(3);
+//        TreeNode node2 = new TreeNode(-2);
+//        TreeNode node3 = new TreeNode(3, node1, node2);
+//
+//        TreeNode node4 = new TreeNode(1);
+//        TreeNode node5 = new TreeNode(2, null, node4);
+//        TreeNode node6 = new TreeNode(5, node3, node5);
+//
+//        TreeNode node7 = new TreeNode(11);
+//        TreeNode node8 = new TreeNode(-3, null, node7);
+//        TreeNode node9 = new TreeNode(10, node6, node8);
 
-        TreeNode node4 = new TreeNode(1);
-        TreeNode node5 = new TreeNode(2, null, node4);
-        TreeNode node6 = new TreeNode(5, node3, node5);
+        // [5,4,8,11,null,13,4,7,2,null,null,5,1]
+        TreeNode node1 = new TreeNode(5);
+        TreeNode node2 = new TreeNode(1);
+        TreeNode node3 = new TreeNode(2);
 
-        TreeNode node7 = new TreeNode(11);
-        TreeNode node8 = new TreeNode(-3, null, node7);
-        TreeNode node9 = new TreeNode(10, node6, node8);
+        TreeNode node4 = new TreeNode(7);
+        TreeNode node5 = new TreeNode(4, node1, node2);
+        TreeNode node6 = new TreeNode(13);
+
+        TreeNode node7 = new TreeNode(11, node4, node3);
+        TreeNode node8 = new TreeNode(8, node6, node5);
+        TreeNode node9 = new TreeNode(4, node7, null);
+
+        TreeNode node10 = new TreeNode(5, node9, node8);
 
 
         PathSumIII pathSumIII = new PathSumIII();
-        System.out.println(pathSumIII.pathSum(node9, 8));
+        System.out.println(pathSumIII.pathSum(node10, 22));
 
     }
 }
