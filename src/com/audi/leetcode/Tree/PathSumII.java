@@ -44,7 +44,8 @@ public class PathSumII {
         pathSum(root.left, sum, targetSum, list);
         pathSum(root.right, sum, targetSum, list);
 
-        // 当前元素不满足和为sum的情况
+        sum = sum - root.val;
+        // 弹出上次遍历的数据，队列尾部的数据
         list.remove(list.size() - 1);
     }
 
