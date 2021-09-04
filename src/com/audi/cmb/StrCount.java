@@ -4,6 +4,13 @@ package com.audi.cmb;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * 求一个字符串中，各个单词出现的次数
+ *
+ * @author: WangQuanzhou
+ * @date: 2021-09-04 3:51 PM
+ */
 public class StrCount {
 
     public static String count(String str) {
