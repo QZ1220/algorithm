@@ -10,6 +10,12 @@ package com.audi.leetcode.list;
  */
 public class ReverseLinkedList {
 
+    /**
+     * 原地翻转
+     *
+     * @param head
+     * @return
+     */
     public ListNode reverseList(ListNode head) {
         if (null == head || null == head.next) {
             return head;
@@ -27,6 +33,29 @@ public class ReverseLinkedList {
         return newHead;
     }
 
+    /**
+     * 借助虚拟头节点进行翻转
+     *
+     * @param head
+     * @return
+     */
+    public ListNode reverseList2(ListNode head) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        head = head.next;
+        dummyHead.next.next = null;
+        while (null != head) {
+            ListNode node = head.next;
+            head.next = dummyHead.next;
+            dummyHead.next = head;
+            head = node;
+        }
+        return dummyHead.next;
+    }
+
     public static void main(String[] args) {
         ReverseLinkedList reverseLinkedList = new ReverseLinkedList();
         ListNode node1 = new ListNode(1);
@@ -38,7 +67,8 @@ public class ReverseLinkedList {
         node2.next = node3;
         node3.next = node4;
 
-        ListNode head = reverseLinkedList.reverseList(node1);
+//        ListNode head = reverseLinkedList.reverseList(node1);
+        ListNode head = reverseLinkedList.reverseList2(node1);
         while (null != head) {
             System.out.println(head.val);
             head = head.next;
