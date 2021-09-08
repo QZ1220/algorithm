@@ -14,6 +14,17 @@ import java.util.Queue;
  * 第一印象，这题和https://leetcode.com/problems/number-of-islands/  一模一样
  * <p>
  * 理论上，使用DFS、BFS的思想都可以求出答案
+ * <p>
+ * 当我按照number-of-islands的思路解题提交的时候，考虑如下输入矩阵g：
+ * <p>
+ * [1,0,0,1],
+ * [0,1,1,0],
+ * [0,1,1,1],
+ * [1,0,1,1]
+ * <p>
+ * 按照number-of-islands的解法，这里应该得到4，但是实际输出是1.
+ * 因为g[0][0]=1,g[0][3]=1，因此0和3实际是相连的
+ * 又因为g[2][3]=1，因此0、1、2、3四个点其实都是联调的，这是和number-of-islands不同的地方
  *
  * @author: WangQuanzhou
  * @date: 2021-09-08 6:20 PM
