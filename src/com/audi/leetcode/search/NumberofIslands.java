@@ -61,8 +61,8 @@ public class NumberofIslands {
             for (int j = 0; j < columns; j++) {
                 // 如果当前位置是陆地 且没有被搜索过
                 if (grid[i][j] == LAND && mark[i][j] == WATER) {
-//                    DFS(grid, mark, i, j, rows, columns);
-                    BFS(grid, mark, i, j, rows, columns);
+                    DFS(grid, mark, i, j, rows, columns);
+//                    BFS(grid, mark, i, j, rows, columns);
                     count += 1;
                 }
             }
@@ -87,9 +87,13 @@ public class NumberofIslands {
      */
     private void DFS(char[][] grid, char[][] mark, int x, int y, int rows, int columns) {
 
-        if (mark[x][y] == LAND) {
+        if (grid[x][y] == WATER) {
             return;
         }
+        // 使用下面的递归终止条件也可以
+//        if (mark[x][y] == LAND) {
+//            return;
+//        }
 
         // 更新mark矩阵
         mark[x][y] = LAND;
@@ -105,7 +109,7 @@ public class NumberofIslands {
 
             // 如果mark矩阵的newX，newY位置未被便利过  且  grid矩阵的该位置是陆地  那么就进行进行搜索
             if (mark[newX][newY] == WATER && grid[newX][newY] == LAND) {
-                BFS(grid, mark, newX, newY, rows, columns);
+                DFS(grid, mark, newX, newY, rows, columns);
             }
         }
     }
@@ -166,7 +170,8 @@ public class NumberofIslands {
     public static void main(String[] args) {
         char[][] grid = new char[4][5];
 
-        String[] str = {"11110", "11010", "11000", "00000"};
+//        String[] str = {"11110", "11010", "11000", "00000"};
+        String[] str = {"11000", "11000", "00100", "00011"};
 
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
