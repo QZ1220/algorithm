@@ -4,6 +4,8 @@ package com.audi.leetcode.search;
 import javafx.util.Pair;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -57,7 +59,8 @@ public class MaxAreaofIsland {
             for (int j = 0; j < column; j++) {
                 if (!visitSet.contains(new Pair<>(i, j)) && grid[i][j] == LAND) {
                     // 开始搜索
-                    DFS(visitSet, grid, i, j, row, column);
+//                    DFS(visitSet, grid, i, j, row, column);
+                    BFS(visitSet, grid, i, j, row, column);
                     if (maxArea > max) {
                         max = maxArea;
                     }
@@ -69,6 +72,16 @@ public class MaxAreaofIsland {
         return max;
     }
 
+    /**
+     * 深度优先搜索
+     *
+     * @param visitSet
+     * @param grid
+     * @param x
+     * @param y
+     * @param row
+     * @param column
+     */
     private void DFS(Set<Pair<Integer, Integer>> visitSet, int[][] grid, int x, int y, int row, int column) {
         if (visitSet.contains(new Pair<>(x, y)) || grid[x][y] == WATER) {
             return;
@@ -94,20 +107,58 @@ public class MaxAreaofIsland {
         }
     }
 
-    public static void main(String[] args) {
-        int[][] grid =
-                {
-                        {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-                        {0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-                        {0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0},
-                        {0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0},
-                        {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-                        {1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
-                };
+    /**
+     * 宽度优先搜索
+     *
+     * @param visitSet
+     * @param grid
+     * @param x
+     * @param y
+     * @param row
+     * @param column
+     */
+    private void BFS(Set<Pair<Integer, Integer>> visitSet, int[][] grid, int x, int y, int row, int column) {
+        if (visitSet.contains(new Pair<>(x, y)) || grid[x][y] == WATER) {
+            return;
+        }
 
-//        int[][] grid = {{0, 0, 0, 0, 0, 0, 0, 0}};
+        Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair<>(x, y));
+
+        while (!queue.isEmpty()) {
+            Pair<Integer, Integer> head = queue.poll();
+            maxArea++;
+            visitSet.add(new Pair<>(x, y));
+            for (int i = 0; i < 4; i++) {
+                int newX = x + dx[i];
+                int newY = y + dy[i];
+                if (newX < 0 || newY < 0 || newX >= row || newY >= column) {
+                    continue;
+                }
+
+                if (!visitSet.contains(new Pair<>(newX, newY)) && grid[newX][newY] == LAND) {
+                    // 程序调试的时候可以使用如下的辅助打印  查看程序执行的分支
+                    BFS(visitSet, grid, newX, newY, row, column);
+                }
+            }
+
+        }
+    }
+
+    public static void main(String[] args) {
+//        int[][] grid =
+//                {
+//                        {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+//                        {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+//                        {0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+//                        {0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0},
+//                        {0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0},
+//                        {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+//                        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+//                        {1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
+//                };
+
+        int[][] grid = {{0, 0, 0, 0, 0, 0, 0, 0}};
 
         MaxAreaofIsland maxAreaofIsland = new MaxAreaofIsland();
         System.out.println(maxAreaofIsland.maxAreaOfIsland(grid));
