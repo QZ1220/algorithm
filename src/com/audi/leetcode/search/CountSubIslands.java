@@ -48,6 +48,7 @@ public class CountSubIslands {
         }
 
         for (Set<Pair<Integer, Integer>> pairSet : island2) {
+            // fixme 这里这么搞不好判断两个set的元素是否相等，此方法作废，更好的解决方案是先遍历grid2，每遍历grid2的一块陆地时，都判断其在grid1中是不是陆地，不是就直接return
             if (island1.contains(pairSet)) {
                 count++;
             }
