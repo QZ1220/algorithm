@@ -37,7 +37,7 @@ public class CountSubIslands {
     private static final int[] dx = {0, 0, -1, 1};
     private static final int[] dy = {1, -1, 0, 0};
 
-    public int countSubIslands(int[][] grid1, int[][] grid2) {
+    public int countSubIslands2(int[][] grid1, int[][] grid2) {
         int count = 0;
 
         Set<Set<Pair<Integer, Integer>>> island1 = findIsland(grid1);
@@ -56,6 +56,59 @@ public class CountSubIslands {
 
         return count;
     }
+
+
+    public int countSubIslands(int[][] grid1, int[][] grid2) {
+        int count = 0;
+
+        if ((null == grid1 || grid1.length < 1) || (null == grid2 || grid2.length < 1)) {
+            return count;
+        }
+        return findSubIsland(grid1, grid2);
+    }
+
+
+    /**
+     * 使用深搜 来搜索岛屿
+     * <p>
+     * 只搜索grid2，对于grid2搜索出来的岛屿判断判断岛屿的对应 所有 位置在grid1中是否是陆地，如果是count++，否则继续后续搜搜，直至末尾
+     *
+     * @param grid1
+     * @param grid2
+     * @return
+     */
+    private int findSubIsland(int[][] grid1, int[][] grid2) {
+
+        int count = 0;
+
+        int row = grid2.length;
+        int column = grid2[0].length;
+
+        Set<Pair<Integer, Integer>> visitSet = new HashSet<>();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (grid2[i][j] == LAND) {
+                    Set<Pair<Integer, Integer>> islandSet = new HashSet<>();
+                    DFS(visitSet, islandSet, grid2, row, column, i, j);
+                    if (islandSet.size() > 0) {
+                        boolean contains = true;
+                        // 其实这里的循环比较的过程，还可以拿到DFS内部去做，这样可以加快算法的速度
+                        for (Pair<Integer, Integer> pair : islandSet) {
+                            if (grid1[pair.getKey()][pair.getValue()] == WATER) {
+                                contains = false;
+                                break;
+                            }
+                        }
+                        if (contains) {
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
 
     /**
      * 使用深搜 来搜索岛屿
