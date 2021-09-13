@@ -1,4 +1,4 @@
-package com.audi.leetcode.Tree.bst;
+package com.audi.leetcode.tree.bst;
 
 
 /**

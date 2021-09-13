@@ -1,4 +1,4 @@
-package com.audi.leetcode.Tree;
+package com.audi.leetcode.tree;
 
 public class TreeNode {
     int val;
