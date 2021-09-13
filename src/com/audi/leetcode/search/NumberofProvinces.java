@@ -26,6 +26,8 @@ import java.util.Queue;
  * 因为g[0][0]=1,g[0][3]=1，因此0和3实际是相连的
  * 又因为g[2][3]=1，因此0、1、2、3四个点其实都是联调的，这是和number-of-islands不同的地方
  *
+ * 这里需要使用并查集的思想来解题
+ *
  * @author: WangQuanzhou
  * @date: 2021-09-08 6:20 PM
  */

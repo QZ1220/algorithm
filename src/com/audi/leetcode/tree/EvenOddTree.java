@@ -14,7 +14,7 @@ import java.util.List;
  * 4、奇数层单调递减
  * <p>
  * 思路：
- * 程序遍历，依次判断
+ * 层序遍历，依次判断
  *
  * @author: WangQuanzhou
  * @date: 2021-08-03 7:12 PM

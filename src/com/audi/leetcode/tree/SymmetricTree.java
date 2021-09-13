@@ -13,18 +13,24 @@ package com.audi.leetcode.tree;
  */
 public class SymmetricTree {
 
-    public boolean isSameTree(TreeNode p, TreeNode q) {
-        if (p == null && q == null) {
-            return true;
-        }
-        if (p == null || q == null) {
-            return false;
-        }
-        if (p.val != q.val) {
-            return false;
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return Boolean.TRUE;
         }
 
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        // 递归判断左右字数是否是对称的
+        return isSymmetric(root.left, root.right);
+    }
+
+    private boolean isSymmetric(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return Boolean.TRUE;
+        }
+        if (left == null || right == null || left.val != right.val) {
+            return Boolean.FALSE;
+        }
+
+        return isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
     }
 
     public static void main(String[] args) {
