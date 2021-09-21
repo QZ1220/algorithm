@@ -1,11 +1,12 @@
 package com.audi.leetcode.sort;
 
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * https://leetcode.com/problems/largest-number/
+ * <p>
  * 题目给出了一个数字组成的数组，求这些数字能组成的最大数字，因为数字可能会很大，因此返回结果使用字符串代表数字
  * <p>
  * 直观的解题思路：将nums的每个元素转换成字符串，然后对这个字符串数组进行自然序排序
