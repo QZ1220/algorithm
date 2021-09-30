@@ -2,14 +2,18 @@ package com.audi.leetcode.dp;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
  * https://leetcode.com/problems/can-i-win/
- * <p>
- * 给定的maxChoosableInteger不能重复使用
+ * 题意要求，A、B两个人从（1-maxChoosableInteger）的数字池里拿取数字，每次的数字用完就从池里移除，desiredTotal表示取出数字的和，
+ * 如果A取得的数字使得累加和先达到desiredTotal就返回true，否则返回false。
  * <p>
  * 博弈
+ * <p>
+ * https://www.jianshu.com/p/5c03aa5ded07
  *
  * @author WangQuanzhou
  * @date 2020-04-23
@@ -32,14 +36,36 @@ public class CanIWin {
             return false;
         }
 
+        Map<Integer, Boolean> record = new HashMap<>();
+        return helper(maxChoosableInteger, desiredTotal, 0, record);
+    }
 
+    /**
+     * 这里的思路还是没想通。。。
+     *
+     * @param maxChoosableInteger
+     * @param desiredTotal
+     * @param used
+     * @param record
+     * @return
+     */
+    private boolean helper(int maxChoosableInteger, int desiredTotal, int used, Map<Integer, Boolean> record) {
+        if (record.containsKey(used)) {
+            return record.get(used);
+        }
+        for (int i = 0; i < maxChoosableInteger; i++) {
+            if ((((1 << i) & used) == 0) && (desiredTotal < i + 2 || !helper(maxChoosableInteger, desiredTotal - i - 1, used | (1 << i), record))) {
+                record.put(used, true);
+                return true;
+            }
+        }
+        record.put(used, false);
         return false;
     }
 
     public static void main(String[] args) {
-        Stream<BigInteger> bigIntStream = Stream.iterate(BigInteger.ZERO, n -> n.add(BigInteger.ONE)).limit(10);
-        BigInteger[] bigIntArr = bigIntStream.toArray(BigInteger[]::new);
-        System.out.println(Arrays.toString(bigIntArr));
-
+        CanIWin canIWin = new CanIWin();
+        boolean res = canIWin.canIWin(10, 20);
+        System.out.println(res);
     }
 }
