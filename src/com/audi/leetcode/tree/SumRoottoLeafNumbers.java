@@ -18,8 +18,10 @@ import java.util.List;
 public class SumRoottoLeafNumbers {
 
     public int sumNumbers(TreeNode root) {
-        List<List<Integer>> list = new LinkedList<>();
-        traverse(root, list, new LinkedList<>());
+//        List<List<Integer>> list = new LinkedList<>();
+        List<List<Integer>> list = new ArrayList<>();
+//        traverse(root, list, new LinkedList<>());
+        traverse(root, list, new ArrayList<>());
         int sum = 0;
         for (List<Integer> subList : list) {
             int tempSum = 0;
@@ -31,13 +33,23 @@ public class SumRoottoLeafNumbers {
         return sum;
     }
 
+    /**
+     * 执行先序遍历，遍历的过程中，记录遍历的root-leave路径上的数字
+     *
+     * @param node
+     * @param list
+     * @param subList
+     */
     public void traverse(TreeNode node, List<List<Integer>> list, List<Integer> subList) {
         if (null == node) {
             return;
         }
         subList.add(node.val);
         if (node.left == null && node.right == null) {
-            list.add(new LinkedList<>(subList));
+            // 注意这里是深拷贝
+//            list.add(new LinkedList<>(subList));
+            list.add(new ArrayList<>(subList));
+            // 去除已经遍历过的叶节点
             subList.remove(subList.size() - 1);
             return;
         }
