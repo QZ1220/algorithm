@@ -1,9 +1,7 @@
 package com.audi.leetcode.math;
 
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -19,11 +17,17 @@ import java.util.Set;
  */
 public class SumofSquareNumbers {
 
-    public boolean judgeSquareSum(int c) {
+    /**
+     * 下面这种解法存在一些不必要的计算
+     *
+     * @param c
+     * @return
+     */
+    public boolean judgeSquareSum2(int c) {
         if (c < 3) {
             return true;
         }
-        int d = c / 2;
+        int d = ((Double) Math.floor(Math.sqrt(c))).intValue();
         Set<Integer> set = new HashSet<>(d + 1);
         for (int i = 0; i <= d; i++) {
             set.add(i * i);
@@ -39,12 +43,52 @@ public class SumofSquareNumbers {
             }
             int b = c - a;
             if (set.contains(b)) {
+                System.out.println(a);
+                System.out.println(Math.sqrt(a));
+                System.out.println(b);
+                System.out.println(Math.sqrt(b));
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * 尝试使用双指针的思想来借这个题，性能会提升很多
+     *
+     * @param c
+     * @return
+     */
+    public boolean judgeSquareSum(int c) {
+        if (c < 3) {
+            return true;
+        }
+        int d = ((Double) Math.floor(Math.sqrt(c))).intValue();
+
+        // 如果不使用double类型，后续的求和会越界
+        double left = 0;
+        double right = d;
+        while (left <= right) {
+            double sum = left * left + right * right;
+            if (sum == c) {
+                // 方便调试  可以打印输出结果
+//                System.out.println(left);
+//                System.out.println(right);
+                return true;
+            }
+            if (sum < c) {
+                left++;
+            }
+            if (sum > c) {
+                right--;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
+        SumofSquareNumbers numbers = new SumofSquareNumbers();
+        System.out.println(numbers.judgeSquareSum(2147483600));
+        System.out.println(numbers.judgeSquareSum2(2147483600));
     }
 }
