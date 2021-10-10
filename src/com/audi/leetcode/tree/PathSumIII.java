@@ -34,6 +34,10 @@ public class PathSumIII {
         }
         list.add(root.val);
         match(targetSum, list);
+        if (root.left == null && root.right == null) {
+            list.remove(list.size() - 1);
+            return;
+        }
 
         pathSum(root.left, targetSum, list);
         pathSum(root.right, targetSum, list);
