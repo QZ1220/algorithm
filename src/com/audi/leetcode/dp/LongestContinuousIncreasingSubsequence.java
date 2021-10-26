@@ -30,10 +30,12 @@ public class LongestContinuousIncreasingSubsequence {
             if (nums[i] > nums[i - 1]) {
                 tempMax++;
             } else {
+                // 更新临时的最大长度
                 max = max > tempMax ? max : tempMax;
                 tempMax = 1;
             }
         }
+        // 返回真正的最大长度
         return max > tempMax ? max : tempMax;
     }
 
