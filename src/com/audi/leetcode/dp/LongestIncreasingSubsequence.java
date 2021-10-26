@@ -13,6 +13,13 @@ import java.util.Arrays;
  * @date: 2020/5/16 22:20
  */
 public class LongestIncreasingSubsequence {
+
+    /**
+     * 使用动态规划求解，时间复杂度O(N^2)
+     *
+     * @param nums
+     * @return
+     */
     public int lengthOfLIS(int[] nums) {
         int length = nums.length;
         if (nums == null || length == 0) {
@@ -33,8 +40,8 @@ public class LongestIncreasingSubsequence {
             }
         }
 
-        // 返回足底啊子串长度
-        // 这里其实可以在上面的循环出维护max变量  就可以减少一次循环
+        // 返回最大子串长度
+        // 这里其实可以在上面的循环里维护max变量  就可以减少一次循环
         int max = dp[0];
         for (int i = 1; i < length; i++) {
             if (dp[i] > max) {
