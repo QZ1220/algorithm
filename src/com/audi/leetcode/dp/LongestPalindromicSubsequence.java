@@ -4,7 +4,7 @@ package com.audi.leetcode.dp;
 /**
  * https://leetcode.com/problems/longest-palindromic-subsequence/
  * <p>
- * 求给定字符串的最长回文串
+ * 求给定字符串的最长回文序列
  * <p>
  * Input: s = "bbbab"
  * Output: 4
