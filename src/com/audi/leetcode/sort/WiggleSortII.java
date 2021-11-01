@@ -49,5 +49,11 @@ public class WiggleSortII {
 
 
     public static void main(String[] args) {
+        int[] nums = {1, 3, 2, 2, 3, 1};
+        WiggleSortII wiggleSortII = new WiggleSortII();
+        wiggleSortII.wiggleSort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            System.out.println(nums[i]);
+        }
     }
 }
