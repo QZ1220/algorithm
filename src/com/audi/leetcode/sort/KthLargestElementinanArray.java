@@ -46,7 +46,7 @@ public class KthLargestElementinanArray {
     }
 
     /**
-     * 对内部的训话做一定的优化
+     * 对内部的循环做一定的优化
      *
      * @param nums
      * @param k
