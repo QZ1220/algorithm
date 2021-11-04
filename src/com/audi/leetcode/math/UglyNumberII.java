@@ -99,6 +99,27 @@ public class UglyNumberII {
         return Boolean.FALSE;
     }
 
+    /**
+     * 参考discuss里的解法，不再从1开始计算到第n个丑数
+     * <p>
+     * 而是直接计算第n个丑数
+     *
+     * @param n
+     * @return
+     */
+    public int nthUglyNumber3(int n) {
+        int result[] = new int[n];
+        result[0] = 1;
+        int multipleOf_2 = 0, multipleOf_3 = 0, multipleOf_5 = 0;
+        for (int i = 1; i < n; i++) {
+            result[i] = Math.min(Math.min(result[multipleOf_2] * 2, result[multipleOf_3] * 3), result[multipleOf_5] * 5);
+            multipleOf_2 = result[multipleOf_2] * 2 == result[i] ? multipleOf_2 + 1 : multipleOf_2;
+            multipleOf_3 = result[multipleOf_3] * 3 == result[i] ? multipleOf_3 + 1 : multipleOf_3;
+            multipleOf_5 = result[multipleOf_5] * 5 == result[i] ? multipleOf_5 + 1 : multipleOf_5;
+        }
+        return result[n - 1];
+    }
+
     public static void main(String[] args) {
 
         UglyNumberII uglyNumberII = new UglyNumberII();
