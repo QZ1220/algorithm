@@ -1,4 +1,4 @@
-package com.audi.leetcode;
+package com.audi.leetcode.hash;
 
 
 import java.util.HashMap;
