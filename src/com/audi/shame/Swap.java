@@ -2,7 +2,6 @@ package com.audi.shame;
 
 
 /**
- * byteDance
  * 给一个正整数，交换正整数的两个位置的数字，使得得到的正整数最大
  * <p>
  * 42462181

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * byteDance
  * 给定一个正整数，如果正整数按照如下规则计算最终等于1，那么就说这个数是happyNum
  * <p>
  * https://leetcode.com/problems/happy-number/
@@ -87,7 +86,7 @@ public class HappyNum {
         // 可以试想一下temp在什么情况下最大
         // 因为num的最大值为
         // 2147483647
-        // 8589934592
+        // 能组成最大的temp就是num的各个位置的元素尽量是9，也就是：
         // 1999999999
         // 最大的temp就是1^2+9*9^2=730
         // 因为temp最大也才730，因此可以采用一种折中的办法：
