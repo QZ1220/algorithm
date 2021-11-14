@@ -1,8 +1,5 @@
 package com.audi.leetcode.array;
 
-
-import org.omg.Messaging.SyncScopeHelper;
-
 /**
  * https://leetcode.com/problems/add-two-numbers/
  * <p>
