@@ -34,7 +34,7 @@ public class MajorityElementII {
      * @param nums
      * @return
      */
-    public List<Integer> majorityElement(int[] nums) {
+    public List<Integer> majorityElement2(int[] nums) {
         List<Integer> dtsList = new LinkedList<>();
         if (nums.length < 2) {
             // 题设保证了数组不为空，这里就不做空判断了
@@ -64,6 +64,22 @@ public class MajorityElementII {
         dtsList.addAll(dtsSet);
         return dtsList;
     }
+
+
+    /**
+     * https://blog.csdn.net/weixin_41504611/article/details/103804027
+     * <p>
+     * 基于摩尔投票法
+     *
+     * @param nums
+     * @return
+     */
+    public List<Integer> majorityElement(int[] nums) {
+        List<Integer> dtsList = new LinkedList<>();
+
+        return dtsList;
+    }
+
 
     public static void main(String[] args) {
 
