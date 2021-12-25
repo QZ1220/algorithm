@@ -75,13 +75,56 @@ public class MajorityElementII {
      * @return
      */
     public List<Integer> majorityElement(int[] nums) {
-        List<Integer> dtsList = new LinkedList<>();
+        List<Integer> dstList = new LinkedList<>();
+        int m = -1;
+        int n = -1;
+        int countM = 0;
+        int countN = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int temp = nums[i];
+            if (temp == m) {
+                countM++;
+            } else if (temp == n) {
+                countN++;
+            } else if (countM == 0) {
+                m = nums[i];
+                countM = 1;
+            } else if (countN == 0) {
+                n = nums[i];
+                countN = 1;
+            } else {
+                countM--;
+                countN--;
+            }
+        }
 
-        return dtsList;
+        // 再便利一次，看看m，n是否是符合题意
+        countM = 0;
+        countN = 0;
+        for (int num : nums) {
+            if (m == num) {
+                countM++;
+                continue;
+            }
+            if (n == num) {
+                countN++;
+            }
+        }
+        int len = nums.length;
+        len = len / 3;
+        if (countM > len) {
+            dstList.add(m);
+        }
+        if (countN > len) {
+            dstList.add(n);
+        }
+        return dstList;
     }
 
 
     public static void main(String[] args) {
-
+        int[] nums = {1, 2};
+        MajorityElementII majorityElementII = new MajorityElementII();
+        System.out.println(majorityElementII.majorityElement(nums));
     }
 }
