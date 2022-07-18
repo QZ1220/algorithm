@@ -56,6 +56,22 @@ public class ReverseLinkedList {
         return dummyHead.next;
     }
 
+    /**
+     * 递归反转单链表
+     *
+     * @param head
+     * @return
+     */
+    public ListNode reverseList3(ListNode head) {
+        if (head.next == null) {
+            return head;
+        }
+        ListNode last = reverseList3(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
+    }
+
     public static void main(String[] args) {
         ReverseLinkedList reverseLinkedList = new ReverseLinkedList();
         ListNode node1 = new ListNode(1);
