@@ -58,7 +58,7 @@ public class MoveZeroes {
     }
 
     /**
-     * 整体思路：
+     * 整体思路：将非零的元素不断往前"赋值"，最后后面的元素统一赋值为0
      * @param nums
      */
     public void moveZero(int[] nums) {
