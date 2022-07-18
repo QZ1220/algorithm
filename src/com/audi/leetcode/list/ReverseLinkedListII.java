@@ -42,9 +42,9 @@ public class ReverseLinkedListII {
             if (i == right) {
                 // 保存指定区间后面的部分链表
                 subTair = head.next;
-                head.next=null;
+                head.next = null;
             }
-            head=head.next;
+            head = head.next;
         }
         // 子区间链表翻转
         ListNode reverseHead = reverse(leftNode);
@@ -80,6 +80,47 @@ public class ReverseLinkedListII {
         return dummyHead.next;
     }
 
+
+    /**
+     * 注意这个变量要放在reverseListN递归的外面
+     */
+    ListNode successor = null;
+
+    /**
+     * 反转链表的前N个元素
+     *
+     * @return
+     */
+    public ListNode reverseListN(ListNode head, int n) {
+        if (n == 1) {
+            // 递归的退出条件
+            successor = head.next;
+            return head;
+        }
+        ListNode last = reverseListN(head.next, n - 1);
+        head.next.next = head;
+        head.next = successor;
+        return last;
+    }
+
+    /**
+     * 反转链表指定区间的元素
+     *
+     * @param head
+     * @param left
+     * @param right
+     * @return
+     */
+    public ListNode reverseBetween2(ListNode head, int left, int right) {
+        if (left == 1) {
+            return reverseListN(head, right);
+        }
+        // 这里递归的意思就相当于：将原来队首的元素弹出不管，针对剩下的队列元素进行翻转，
+        // 因此，left、right下标相当于整体往右移动一个元素，所以都要减一
+        head.next = reverseBetween2(head.next, left - 1, right-1);
+        return head;
+    }
+
     public static void main(String[] args) {
         ListNode node5 = new ListNode(5);
         ListNode node4 = new ListNode(4, node5);
@@ -87,7 +128,7 @@ public class ReverseLinkedListII {
         ListNode node2 = new ListNode(2, node3);
         ListNode head = new ListNode(1, node2);
         ReverseLinkedListII reverseLinkedListII = new ReverseLinkedListII();
-        ListNode newHead = reverseLinkedListII.reverseBetween(head, 2, 4);
+        ListNode newHead = reverseLinkedListII.reverseBetween2(head, 2, 4);
         while (null != newHead) {
             System.out.println(newHead.val);
             newHead = newHead.next;
