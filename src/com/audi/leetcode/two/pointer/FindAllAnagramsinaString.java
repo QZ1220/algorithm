@@ -22,6 +22,8 @@ import java.util.Map;
  * The substring with start index = 0 is "ab", which is an anagram of "ab".
  * The substring with start index = 1 is "ba", which is an anagram of "ab".
  * The substring with start index = 2 is "ab", which is an anagram of "ab".
+ * <p>
+ * 使用滑动窗口+hash表的思想解决
  *
  * @author : wangquanzhou
  * @date : 2023/3/28 20:25
@@ -63,6 +65,7 @@ public class FindAllAnagramsinaString {
             return false;
         }
         for (Map.Entry<Character, Integer> entry : a.entrySet()) {
+            // 注意这里要使用equals，而不是==，因为value是Integer包装类，在大约128的情况下==不会相等
             if (!entry.getValue().equals(b.get(entry.getKey()))) {
                 return false;
             }
