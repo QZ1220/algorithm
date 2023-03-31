@@ -35,8 +35,10 @@ public class FindAllAnagramsinaString {
         if (p.length() > s.length()) {
             return res;
         }
-        Map<Character, Integer> mapP = new HashMap<>(p.length());
-        Map<Character, Integer> mapS = new HashMap<>(p.length());
+        Map<Character, Integer> mapP = new HashMap<>(26);
+//        Map<Character, Integer> mapP = new HashMap<>(p.length());
+        Map<Character, Integer> mapS = new HashMap<>(26);
+//        Map<Character, Integer> mapS = new HashMap<>(p.length());
         for (int i = 0; i < p.length(); i++) {
             mapP.put(p.charAt(i), mapP.getOrDefault(p.charAt(i), 0) + 1);
             mapS.put(s.charAt(i), mapS.getOrDefault(s.charAt(i), 0) + 1);
