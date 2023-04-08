@@ -15,48 +15,32 @@ import java.util.Map;
  * 参考：https://www.youtube.com/watch?v=gqXU1UyA8pk&t=1083s
  * https://www.cnblogs.com/migoo/p/12227706.html
  *
- *
  * @author : wangquanzhou
  * @date : 2023/4/5 09:24
  */
 public class LongestRepeatingCharacterReplacement {
 
     public int characterReplacement(String s, int k) {
-        // 如果字符串只有一个字母，那么不需要替换
-        if (s.length() == 1) {
+        // s题设要求不为空，因此最小的窗口大小就是1
+        if (s.length() < 2) {
             return 1;
         }
-
-        // 定义滑窗的左右端点指针
+        int maxF = 0;
         int left = 0;
-        int right = 1;
-        // 定义hash表存储滑窗内的字母出现的频率
-        Map<Character, Integer> charMap = new HashMap<>(26);
-        charMap.put(s.charAt(left), charMap.getOrDefault(s.charAt(left), 0) + 1);
-        charMap.put(s.charAt(right), charMap.getOrDefault(s.charAt(right), 0) + 1);
-        // 记录滑窗内字母出现的最大次数，如果初始两个字母一样，那么maxCount=2，否则等于1
-        int maxCount = charMap.size() == 2 ? 1 : 2;
-        // 记录滑窗的最大宽度
-        int maxWindowSize = k > 0 ? 2 : 1;
-        if (charMap.size() == 1 && k == 0) {
-            maxWindowSize = 2;
-        }
-
-        // 开始扫描字符串
-        while (left <= right && left < s.length() && right < s.length()) {
-            if (((++right - left + 1 - maxCount) <= k) && right < s.length()) {
-                charMap.put(s.charAt(right), charMap.getOrDefault(s.charAt(right), 0) + 1);
-                maxCount = charMap.get(s.charAt(right)) > maxCount ? charMap.get(s.charAt(right)) : maxCount;
-                maxWindowSize = (right - left + 1) > maxWindowSize ? (right - left + 1) : maxWindowSize;
-                continue;
-            } else if (++left < s.length())
-                if (charMap.get(s.charAt(left - 1)).equals(1)) {
-                    charMap.remove(s.charAt(left - 1));
+        Map<Character, Integer> map = new HashMap<>(26);
+        for (int right = 0; right < s.length(); right++) {
+            map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
+            maxF = maxF < map.get(s.charAt(right)) ? map.get(s.charAt(right)) : maxF;
+            if ((right - left + 1 - maxF) > k) {
+                left++;
+                if (map.get(s.charAt(left - 1)).equals(1)) {
+                    map.remove(s.charAt(left - 1));
                 } else {
-                    charMap.put(s.charAt(left - 1), charMap.get(s.charAt(left - 1)) - 1);
+                    map.put(s.charAt(left - 1), map.get(s.charAt(left - 1)) - 1);
                 }
+            }
         }
-        return maxWindowSize;
+        return s.length() - left;
     }
 
     public static void main(String[] args) {
