@@ -1,9 +1,5 @@
 package com.audi.leetcode.stack;
 
-import com.audi.leetcode.tree.LevelTree;
-
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 /**
