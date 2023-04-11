@@ -26,7 +26,7 @@ public class Search2DMatrixII {
 //        return findT(matrix, target, 0, 0, height, width);
         // 对于二维矩阵的每一行进行二分搜索，可以全部AC
         for (int[] arr : matrix) {
-            if (binarySearch(arr,target)){
+            if (binarySearch(arr, target)) {
                 return Boolean.TRUE;
             }
         }
@@ -89,6 +89,17 @@ public class Search2DMatrixII {
         }
         return Boolean.FALSE;
     }
+
+//    /**
+//     * 针对矩阵的二分搜索
+//     *
+//     * @param matrix
+//     * @param target
+//     * @return
+//     */
+//    private boolean binarySearch(int[][] matrix, int target) {
+//
+//    }
 
     public static void main(String[] args) {
         Search2DMatrixII matrixII = new Search2DMatrixII();
