@@ -1,12 +1,11 @@
 package com.audi.leetcode.array;
 
 import javafx.util.Pair;
+import sun.awt.image.ImageWatched;
 
 import javax.swing.*;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/merge-intervals/
@@ -74,10 +73,70 @@ public class MergeIntervals {
         return min;
     }
 
+    /**
+     * 按照子数组的第一个元素的大小进行排序
+     *
+     * @param arrs
+     */
+    private void bubbleSort(int[][] arrs) {
+        for (int i = 0; i < arrs.length; i++) {
+            for (int j = i + 1; j < arrs.length; j++) {
+                if (arrs[i][0] > arrs[j][0]) {
+                    int[] arr = arrs[i];
+                    arrs[i] = arrs[j];
+                    arrs[j] = arr;
+                }
+            }
+        }
+    }
+
+    private List<List<Integer>> convert(int[][] arrs) {
+        List<List<Integer>> list = new LinkedList<>();
+        for (int i = 0; i < arrs.length; i++) {
+            list.add(Arrays.asList(arrs[i][0], arrs[i][1]));
+        }
+        return list;
+    }
+
+    private int[][] reverseConvert(List<List<Integer>> list) {
+        int[][] res = new int[list.size()][2];
+        for (int i = 0; i < list.size(); i++) {
+            res[i][0] = list.get(i).get(0);
+            res[i][1] = list.get(i).get(1);
+        }
+        return res;
+    }
+
+    public int[][] mergeSubArr2(int[][] arrs) {
+        bubbleSort(arrs);
+        List<List<Integer>> pairs = convert(arrs);
+        Iterator<List<Integer>> iterator = pairs.iterator();
+        List<Integer> front = iterator.next();
+        while (iterator.hasNext()) {
+            List<Integer> rear = iterator.next();
+            // 如果前后区间没有重合部分
+            if (rear.get(0) > front.get(1)) {
+                front = rear;
+                continue;
+            } else {
+                // 如果后区间完全被前区间包围
+                if (rear.get(1) <= front.get(1)) {
+                    iterator.remove();
+                } else {
+                    // 如果后区间与前区间相交
+                    front.set(1, rear.get(1));
+                    iterator.remove();
+                }
+            }
+        }
+
+        return reverseConvert(pairs);
+    }
+
     public static void main(String[] args) {
-        int[][] arrs = {{1, 2}, {4, 5}};
+        int[][] arrs = {{1, 2}, {-1, 5}, {4, 16}};
         MergeIntervals intervals = new MergeIntervals();
-        int[][] res = intervals.merge(arrs);
+        int[][] res = intervals.mergeSubArr2(arrs);
         for (int i = 0; i < res.length; i++) {
             for (int j = 0; j < 2; j++) {
                 System.out.print(res[i][j] + " ");
