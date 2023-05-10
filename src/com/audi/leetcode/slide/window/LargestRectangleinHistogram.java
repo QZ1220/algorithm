@@ -21,9 +21,9 @@ package com.audi.leetcode.slide.window;
  */
 public class LargestRectangleinHistogram {
 
-    public int largestRectangleArea(int[] heights) {
-
-    }
+//    public int largestRectangleArea(int[] heights) {
+//
+//    }
 
     public static void main(String[] args) {
 
