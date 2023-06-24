@@ -21,6 +21,7 @@ public class RotateArray {
 
     /**
      * 可以借助队列实现，但是要使用额外的空间
+     * 并且涉及到两次数据拷贝
      *
      * @param nums
      * @param k
@@ -34,9 +35,9 @@ public class RotateArray {
             Integer last = queue.pollLast();
             queue.addFirst(last);
         }
-        int i=0;
-        while (!queue.isEmpty()){
-            nums[i]=queue.poll();
+        int i = 0;
+        while (!queue.isEmpty()) {
+            nums[i] = queue.poll();
             i++;
         }
     }
