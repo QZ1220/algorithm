@@ -1,5 +1,9 @@
 package com.audi.leetcode.array;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  * https://leetcode.com/problems/rotate-array/?envType=study-plan-v2&envId=top-interview-150
  * <p>
@@ -15,8 +19,26 @@ package com.audi.leetcode.array;
  */
 public class RotateArray {
 
+    /**
+     * 可以借助队列实现，但是要使用额外的空间
+     *
+     * @param nums
+     * @param k
+     */
     public void rotate(int[] nums, int k) {
-
+        LinkedList<Integer> queue = new LinkedList<>();
+        for (int num : nums) {
+            queue.add(num);
+        }
+        for (int i = 0; i < k; i++) {
+            Integer last = queue.pollLast();
+            queue.addFirst(last);
+        }
+        int i=0;
+        while (!queue.isEmpty()){
+            nums[i]=queue.poll();
+            i++;
+        }
     }
 
     public static void main(String[] args) {
