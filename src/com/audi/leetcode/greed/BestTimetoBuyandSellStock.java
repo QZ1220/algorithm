@@ -29,6 +29,27 @@ public class BestTimetoBuyandSellStock {
         return maxProfit;
     }
 
+    /**
+     * 这个解法使用了动态规划的思想。我们用一个变量minPrice记录遍历过的最低价格，然后通过不断更新maxProfit来求得最大利润。
+     * 遍历数组时，如果当前价格比minPrice小，我们将其更新为minPrice；
+     * 如果当前价格减去minPrice大于maxProfit，我们将其更新为maxProfit。最终返回maxProfit即可。
+     *
+     * @param prices
+     * @return
+     */
+    public int maxProfit2(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
+            } else if (prices[i] - minPrice > maxProfit) {
+                maxProfit = prices[i] - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+
     public static void main(String[] args) {
 
     }
