@@ -141,6 +141,66 @@ public class ListDemo {
         return mergeTowSortedList(leftNode, rightNode);
     }
 
+    /**
+     * reverse list
+     *
+     * @param head
+     * @return
+     */
+    public ListNode reverse(ListNode head) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        ListNode newHead = null;
+        while (null != head) {
+            ListNode temp = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = temp;
+        }
+        return newHead;
+    }
+
+    /**
+     * reverse list node which index from m to n
+     *
+     * @param head
+     * @param m
+     * @param n
+     * @return
+     */
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        int len = n - m + 1;
+        ListNode preHead = null;
+        ListNode newHead = head;
+        while (null != head && (--m) > 0) {
+            preHead = head;
+            head = head.next;
+        }
+
+        ListNode subListTail = head;
+        ListNode subListHead = null;
+        // reverse sub list
+        while (null != head && len > 0) {
+            ListNode temp = head.next;
+            head.next = subListHead;
+            subListHead = head;
+            head = temp;
+            len--;
+        }
+
+        subListTail.next = head;
+        if (null == preHead) {
+            newHead =subListHead;
+        }else {
+            preHead.next=subListHead;
+        }
+        return newHead;
+    }
+
 
     public static void main(String[] args) {
         Node node0 = new Node(1);
