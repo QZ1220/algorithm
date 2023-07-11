@@ -69,7 +69,7 @@ public class ListDemo {
 
     /**
      * merge K sorted list
-     *
+     * <p>
      * using sort method
      *
      * @param lists
@@ -83,16 +83,64 @@ public class ListDemo {
                 head = head.next;
             }
         }
-        if (list.size()<1){
+        if (list.size() < 1) {
             return null;
         }
         list.sort(Comparator.comparing(v -> v.val));
         for (int i = 1; i < list.size(); i++) {
-            list.get(i-1).next=list.get(i);
+            list.get(i - 1).next = list.get(i);
         }
-        list.get(list.size()-1).next=null;
+        list.get(list.size() - 1).next = null;
         return list.get(0);
     }
+
+    public ListNode mergeTowSortedList(ListNode head1, ListNode head2) {
+        ListNode dummyHead = new ListNode(-1);
+        ListNode newHead = dummyHead;
+        while (null != head1 && null != head2) {
+            if (head1.val < head2.val) {
+                newHead.next = head1;
+                head1 = head1.next;
+            } else {
+                newHead.next = head2;
+                head2 = head2.next;
+            }
+            newHead = newHead.next;
+        }
+        if (null != head1) {
+            newHead.next = head1;
+        }
+        if (null != head2) {
+            newHead.next = head2;
+        }
+        return dummyHead.next;
+    }
+
+    /**
+     * using segmentation method
+     *
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists2(ListNode[] lists) {
+        if (null == lists || lists.length == 0) {
+            return null;
+        }
+        if (lists.length == 1) {
+            return lists[0];
+        }
+        if (lists.length == 2) {
+            return mergeTowSortedList(lists[0], lists[1]);
+        }
+        int mid = lists.length / 2;
+        ListNode[] leftLists = new ListNode[mid + 1];
+        ListNode[] rightLists = new ListNode[mid + 1];
+
+        ListNode leftNode = mergeKLists(leftLists);
+        ListNode rightNode = mergeKLists(rightLists);
+        return mergeTowSortedList(leftNode, rightNode);
+    }
+
 
     public static void main(String[] args) {
         Node node0 = new Node(1);
