@@ -58,20 +58,48 @@ public class ListDemo {
         while (null != ptr) {
             list.get(i).next = list.get(i + 1);
             if (null != ptr.random) {
-                list.get(i).random=list.get(map.get(ptr.random));
+                list.get(i).random = list.get(map.get(ptr.random));
             }
-            ptr=ptr.next;
+            ptr = ptr.next;
             i++;
         }
         return list.get(0);
     }
 
+
+    /**
+     * merge K sorted list
+     *
+     * using sort method
+     *
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        List<ListNode> list = new ArrayList<>();
+        for (ListNode head : lists) {
+            while (null != head) {
+                list.add(head);
+                head = head.next;
+            }
+        }
+        if (list.size()<1){
+            return null;
+        }
+        list.sort(Comparator.comparing(v -> v.val));
+        for (int i = 1; i < list.size(); i++) {
+            list.get(i-1).next=list.get(i);
+        }
+        list.get(list.size()-1).next=null;
+        return list.get(0);
+    }
+
     public static void main(String[] args) {
-        Node node0=new Node(1);
-        Node node1=new Node(2);
-        node0.next=node1;
-        node0.random=node1;
-        node1.random=node1;
+        Node node0 = new Node(1);
+        Node node1 = new Node(2);
+        node0.next = node1;
+        node0.random = node1;
+        node1.random = node1;
         ListDemo demo = new ListDemo();
         Node node = demo.copyRandomList(node0);
         System.out.println(node.val);
