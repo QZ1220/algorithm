@@ -19,32 +19,24 @@ import java.util.Map;
  */
 public class RemoveDuplicatesfromSortedListII {
     public ListNode deleteDuplicates(ListNode head) {
-        // sentinel
-        ListNode sentinel = new ListNode(0, head);
-
-        // predecessor = the last node
-        // before the sublist of duplicates
-        ListNode pred = sentinel;
-
-        while (head != null) {
-            // if it's a beginning of duplicates sublist
-            // skip all duplicates
-            if (head.next != null && head.val == head.next.val) {
-                // move till the end of duplicates sublist
-                while (head.next != null && head.val == head.next.val) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        ListNode dummyNode = new ListNode(-1);
+        ListNode tempHead = dummyNode;
+        while (null != head && null != head.next) {
+            if (head.val == head.next.val) {
+                while (null != head && null != head.next && head.val == head.next.val) {
                     head = head.next;
                 }
-                // skip all duplicates
-                pred.next = head.next;
-                // otherwise, move predecessor
+                tempHead.next = head.next;
             } else {
-                pred = pred.next;
+                tempHead.next = head;
+                tempHead = tempHead.next;
             }
-
-            // move forward
             head = head.next;
         }
-        return sentinel.next;
+        return dummyNode.next;
     }
 
     public static void main(String[] args) {
