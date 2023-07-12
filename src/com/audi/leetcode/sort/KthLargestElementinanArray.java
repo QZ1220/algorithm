@@ -1,8 +1,7 @@
 package com.audi.leetcode.sort;
 
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/kth-largest-element-in-an-array/
@@ -74,15 +73,31 @@ public class KthLargestElementinanArray {
         return list.get(list.size() - 1);
     }
 
+    public int findKthLarges3(int[] nums, int k) {
+        Queue<Integer> queue = new PriorityQueue<>(k, Comparator.comparing(Integer::intValue));
+        for (int i = 0; i < nums.length; i++) {
+            if (queue.size()<k){
+                queue.add(nums[i]);
+            }else {
+                if (queue.peek()<nums[i]){
+                    queue.poll();
+                    queue.add(nums[i]);
+                }
+            }
+        }
+        return queue.peek();
+    }
+
     public static void main(String[] args) {
         KthLargestElementinanArray largestElementinanArray = new KthLargestElementinanArray();
-        int nums[] = {3,2,1,5,6,4};
+        int nums[] = {3, 2, 1, 5, 6, 4};
 //        int nums[] = {-1, -1};
 //        int k = 4;
         int k = 2;
 //        int kthLargest1 = largestElementinanArray.findKthLargest(nums, k);
-        int kthLargest2 = largestElementinanArray.findKthLarges2(nums, k);
+//        int kthLargest2 = largestElementinanArray.findKthLarges2(nums, k);
+        int kthLargest3 = largestElementinanArray.findKthLarges3(nums, k);
 //        System.out.println(kthLargest1);
-        System.out.println(kthLargest2);
+        System.out.println(kthLargest3);
     }
 }
