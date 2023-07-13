@@ -78,52 +78,11 @@ public class GreedDemo {
 
     /**
      * jump game
+     *
      * @param nums
      * @return
      */
     public boolean canJump(int[] nums) {
-        // 题设保证了nums不会为空
-        int[] jump = new int[nums.length];
-        for (int i = 0; i <nums.length ; i++) {
-            jump[i] = i+nums[i];
-        }
-
-        int runner=0;
-        int maxIndex = jump[0];
-        while (runner<nums.length&&runner<=maxIndex){
-            if (maxIndex<jump[runner]){
-                maxIndex=jump[runner];
-            }
-            runner++;
-        }
-        if (runner>=nums.length){
-            return true;
-        }
-        return false;
-    }
-
-
-    public boolean canJump2(int[] nums) {
-        int maxPos = 0;
-        for (int i = 0; i < nums.length; ) {
-            maxPos = maxPos(nums, 0, (i + nums[i]) >= nums.length ? (nums.length - 1) : (i + nums[i]));
-            if (maxPos <= i) {
-                return false;
-            }
-            i = maxPos;
-        }
-        return true;
-    }
-
-    private int maxPos(int[] nums, int left, int right) {
-        int maxPos = 0;
-        for (int i = left + 1; i <= right; i++) {
-            maxPos = Math.max(maxPos, i + nums[i]);
-        }
-        return maxPos;
-    }
-
-    public boolean canJump3(int[] nums) {
         int reachable = 0;
         for(int i = 0; i < nums.length; i ++) {
             if(i > reachable) return false;
@@ -133,13 +92,35 @@ public class GreedDemo {
     }
 
 
+    public int jumpGameII(int[] nums){
+        if (nums.length<2){
+            return 0;
+        }
+        int minJump = 1;
+        int currentMaxIndex = nums[0];
+        int preMaxIndex = nums[0];
+        for (int i=0;i<nums.length;i++){
+            if (i>currentMaxIndex){
+                minJump++;
+                currentMaxIndex=preMaxIndex;
+            }
+            if (preMaxIndex<(i+nums[i])){
+                preMaxIndex=i+nums[i];
+            }
+        }
+        return minJump;
+    }
+
+
 
 
     public static void main(String[] args) {
 //        int[] nums = {3,2,1,0,4};
-        int[] nums = {0};
+//        int[] nums = {0};
+//        int[] nums = {2,3,1,1,4};
+        int[] nums = {1,1,1,1};
         GreedDemo greedDemo = new GreedDemo();
-        System.out.println(greedDemo.canJump3(nums));
+        System.out.println(greedDemo.jumpGameII(nums));
     }
 
 
