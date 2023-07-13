@@ -75,4 +75,72 @@ public class GreedDemo {
         }
         return sb.toString();
     }
+
+    /**
+     * jump game
+     * @param nums
+     * @return
+     */
+    public boolean canJump(int[] nums) {
+        // 题设保证了nums不会为空
+        int[] jump = new int[nums.length];
+        for (int i = 0; i <nums.length ; i++) {
+            jump[i] = i+nums[i];
+        }
+
+        int runner=0;
+        int maxIndex = jump[0];
+        while (runner<nums.length&&runner<=maxIndex){
+            if (maxIndex<jump[runner]){
+                maxIndex=jump[runner];
+            }
+            runner++;
+        }
+        if (runner>=nums.length){
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean canJump2(int[] nums) {
+        int maxPos = 0;
+        for (int i = 0; i < nums.length; ) {
+            maxPos = maxPos(nums, 0, (i + nums[i]) >= nums.length ? (nums.length - 1) : (i + nums[i]));
+            if (maxPos <= i) {
+                return false;
+            }
+            i = maxPos;
+        }
+        return true;
+    }
+
+    private int maxPos(int[] nums, int left, int right) {
+        int maxPos = 0;
+        for (int i = left + 1; i <= right; i++) {
+            maxPos = Math.max(maxPos, i + nums[i]);
+        }
+        return maxPos;
+    }
+
+    public boolean canJump3(int[] nums) {
+        int reachable = 0;
+        for(int i = 0; i < nums.length; i ++) {
+            if(i > reachable) return false;
+            reachable = Math.max(reachable, i + nums[i]);
+        }
+        return true;
+    }
+
+
+
+
+    public static void main(String[] args) {
+//        int[] nums = {3,2,1,0,4};
+        int[] nums = {0};
+        GreedDemo greedDemo = new GreedDemo();
+        System.out.println(greedDemo.canJump3(nums));
+    }
+
+
 }
