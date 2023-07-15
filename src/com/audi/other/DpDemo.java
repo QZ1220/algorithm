@@ -1,6 +1,5 @@
 package com.audi.other;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,28 +63,47 @@ public class DpDemo {
 //        }
 //        return dp[amount];
 //    }
+    public int minimumTotal(List<List<Integer>> triangle) {
 
+        // 最大的行数
+        int H = triangle.size();
+        // 最大的列数
+        int L = triangle.get(H - 1).size();
 
-     public int minimumTotal(List<List<Integer>> triangle) {
+        int[][] dp = new int[H][L];
 
-         // 最大的行数
-         int H = triangle.size();
-         // 最大的列数
-         int L = triangle.get(H-1).size();
+        // 初始化dp数组的最后一行
+        for (int i = 0; i < L; i++) {
+            dp[H - 1][i] = triangle.get(H - 1).get(i);
+        }
 
-         int[][] dp = new int[H][L];
+        for (int i = H - 2; i >= 0; i--) {
+            for (int j = 0; j < triangle.get(i).size(); j++) {
+                dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle.get(i).get(j);
+            }
+        }
+        return dp[0][0];
+    }
 
-         // 初始化dp数组的最后一行
-         for (int i = 0; i < L; i++) {
-             dp[H-1][i]=triangle.get(H-1).get(i);
-         }
-
-         for (int i = H-2; i >=0 ; i--) {
-             for (int j = 0; j < triangle.get(i).size(); j++) {
-                 dp[i][j] = Math.min(dp[i+1][j],dp[i+1][j+1])+triangle.get(i).get(j);
-             }
-         }
-         return dp[0][0];
+    /**
+     * 最长上升子序列
+     *
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+        int LIS=1;
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            LIS = Math.max(LIS,dp[i]);
+        }
+        return LIS;
     }
 
 
