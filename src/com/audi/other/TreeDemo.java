@@ -33,7 +33,6 @@ public class TreeDemo {
      * @param target
      * @return
      */
-    下面的代码可以解决上面的问题吗
     public static int closeVal = 0;
     public static double diff = Double.MAX_VALUE;
 
