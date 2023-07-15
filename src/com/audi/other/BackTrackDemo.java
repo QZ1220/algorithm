@@ -1,7 +1,6 @@
 package com.audi.other;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 回溯相关题目
@@ -38,7 +37,26 @@ public class BackTrackDemo {
     }
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        Set<List<Integer>> resSet = new HashSet<>(1 << nums.length);
+        uniqSubSet(0, nums, resSet, new LinkedList<>());
+        LinkedList<List<Integer>> res = new LinkedList<>(resSet);
+        res.add(new LinkedList<>());
+        return res;
+    }
 
+
+    private void uniqSubSet(int i, int[] nums, Set<List<Integer>> resSet, List<Integer> list) {
+        if (i >= nums.length) {
+            return;
+        }
+        list.add(nums[i]);
+        resSet.add(new LinkedList<>(list));
+
+        uniqSubSet(i + 1, nums, resSet, list);
+
+        list.remove(list.size() - 1);
+        uniqSubSet(i + 1, nums, resSet, list);
     }
 
     public static void main(String[] args) {
