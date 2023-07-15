@@ -136,8 +136,8 @@ public class ListDemo {
         ListNode[] leftLists = new ListNode[mid + 1];
         ListNode[] rightLists = new ListNode[mid + 1];
 
-        ListNode leftNode = mergeKLists(leftLists);
-        ListNode rightNode = mergeKLists(rightLists);
+        ListNode leftNode = mergeKLists2(leftLists);
+        ListNode rightNode = mergeKLists2(rightLists);
         return mergeTowSortedList(leftNode, rightNode);
     }
 
