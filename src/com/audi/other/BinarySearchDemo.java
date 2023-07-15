@@ -46,23 +46,72 @@ public class BinarySearchDemo {
      */
     public int searchInsert2(int[] nums, int target) {
         int left = 0;
-        int right=nums.length-1;
-        while (left<=right){
-            int mid = (left+right)/2;
-            if (nums[mid]==target){
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target) {
                 return mid;
             }
-            if (nums[left]>target){
+            if (nums[left] > target) {
                 return left;
             }
-            if (nums[right]<target){
-                return right+1;
+            if (nums[right] < target) {
+                return right + 1;
             }
-            if (target>nums[mid]){
-                left=mid+1;
+            if (target > nums[mid]) {
+                left = mid + 1;
             }
-            if (target<nums[mid]){
-                right=mid-1;
+            if (target < nums[mid]) {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 二分搜索的递归实现
+     *
+     * @param arr
+     * @param target
+     * @param low
+     * @param high
+     * @return
+     */
+    public static int binarySearch22(int[] arr, int target, int low, int high) {
+        if (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == target) {
+                return mid;
+            } else if (arr[mid] < target) {
+                return binarySearch22(arr, target, mid + 1, high);
+            } else {
+                return binarySearch22(arr, target, low, mid - 1);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 二分搜索的非递归实现
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int searchInsert33(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
         return -1;
