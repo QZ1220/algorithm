@@ -117,10 +117,42 @@ public class BinarySearchDemo {
         return -1;
     }
 
+    /**
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] searchRange(int[] nums, int target) {
+        int[] res = {-1,-1};
+        if (null==nums||nums.length<1){
+            return  res;
+        }
+        int left=-1;
+        boolean meet = false;
+        int right=-1;
+        for (int i = 0; i < nums.length; i++) {
+            if (target==nums[i]){
+                if (!meet){
+                    left=i;
+                    meet=true;
+                }
+                right=i;
+            }
+        }
+        if (meet){
+            res[0]=left;
+            res[1]=right;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        int[] nums = {1, 3, 5};
+        int[] nums={5,7,7,8,8,10};
         BinarySearchDemo binarySearchDemo = new BinarySearchDemo();
-        int i = binarySearchDemo.searchInsert(nums, 6);
-        System.out.println(i);
+        int[] range = binarySearchDemo.searchRange(nums, -1);
+        for (int i = 0; i < range.length; i++) {
+            System.out.println(range[i]);
+        }
     }
 }
