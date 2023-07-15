@@ -170,7 +170,7 @@ public class DpDemo {
     /**
      * 使用递推的思想
      * <p>
-     * 从下往上反着推
+     * 从下往上反着推（从终点往起点递推）
      *
      * @param dungeon
      * @return
