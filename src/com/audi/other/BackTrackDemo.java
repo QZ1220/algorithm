@@ -143,6 +143,5 @@ public class BackTrackDemo {
         s=s+"c";
         stringList.add(s);
         System.out.println(stringList);
-
     }
 }
