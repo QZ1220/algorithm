@@ -100,21 +100,49 @@ public class BackTrackDemo {
         uniqSubSet(i + 1, candidates, resSet, list, target, subSum);
     }
 
+
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new LinkedList<>();
+        generateParenthesis(res,"",n,n);
+        return res;
+    }
+
+    private void generateParenthesis(List<String> res, String s, int left, int right) {
+        if (left == 0 && right == 0) {
+            res.add(s);
+            return;
+        }
+        if (left > 0) {
+            generateParenthesis(res, s+"(", left - 1, right);
+        }
+        if (left < right) {
+            generateParenthesis(res, s+")", left, right - 1);
+        }
+    }
+
     public static void main(String[] args) {
         int[] nums = {1, 2, 3, 2, 5};
         Arrays.sort(nums);
         for (int num : nums) {
-            System.out.print(num+" ");
+            System.out.print(num + " ");
         }
         System.out.println();
         List<Integer> list = Arrays.stream(nums).boxed().collect(Collectors.toList());
         System.out.println(list);
         int[] array = Arrays.stream(nums).filter(v -> v != 2).toArray();
         for (int i : array) {
-            System.out.print(i+" ");
+            System.out.print(i + " ");
         }
         System.out.println();
         List<Integer> list1 = Arrays.stream(nums).filter(v -> v != 2).boxed().collect(Collectors.toList());
         System.out.println(list1);
+
+        List<String> stringList = new LinkedList<>();
+        String s = "ab";
+        stringList.add(s);
+        s=s+"c";
+        stringList.add(s);
+        System.out.println(stringList);
+
     }
 }
