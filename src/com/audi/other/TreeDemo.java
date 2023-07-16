@@ -1,9 +1,11 @@
 package com.audi.other;
 
+import javafx.util.Pair;
 import sun.awt.image.ImageWatched;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class TreeDemo {
 
@@ -224,6 +226,39 @@ public class TreeDemo {
             }
             last = rightLast;
         }
+    }
+
+    /**
+     * https://leetcode.com/problems/binary-tree-right-side-view/
+     * <p>
+     * 使用层序遍历的思想，求解每一层最右边的那个节点，组成的集合记为解
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        if (null == root) {
+            return new LinkedList<>();
+        }
+        Queue<Pair<Integer, TreeNode>> queue = new LinkedList<>();
+        queue.add(new Pair<>(0, root));
+
+        List<Integer> res = new LinkedList<>();
+        while (!queue.isEmpty()) {
+            Pair<Integer, TreeNode> pair = queue.poll();
+            // 说明马上就会遍历到下一层，集当前pair就是当前层的最后一个节点
+            if (queue.isEmpty()||queue.peek().getKey()>pair.getKey()){
+                res.add(pair.getValue().val);
+            }
+
+            if (null != pair.getValue().left) {
+                queue.add(new Pair<>(pair.getKey() + 1, pair.getValue().left));
+            }
+            if (null != pair.getValue().right) {
+                queue.add(new Pair<>(pair.getKey() + 1, pair.getValue().right));
+            }
+        }
+        return res;
     }
 
 
