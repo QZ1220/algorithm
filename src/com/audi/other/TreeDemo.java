@@ -78,6 +78,33 @@ public class TreeDemo {
     }
 
     /**
+     * return true if any paths match sum up all node val from root to leaf equals to targetSum
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    boolean hasPath = false;
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        pathSum(root,targetSum);
+        return hasPath;
+    }
+
+    private void pathSum(TreeNode root,int tmp){
+        if (root==null){
+            return;
+        }
+        if (tmp-root.val==0&&root.left==null&&root.right==null){
+            hasPath=true;
+            return;
+        }
+        pathSum(root.left,tmp-root.val);
+        pathSum(root.right,tmp-root.val);
+
+        tmp+=root.val;
+    }
+
+    /**
      * return all the root-to-leaf paths, which sum up equals to targetSum
      *
      * @param root
