@@ -85,23 +85,24 @@ public class TreeDemo {
      * @return
      */
     boolean hasPath = false;
+
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        pathSum(root,targetSum);
+        pathSum(root, targetSum);
         return hasPath;
     }
 
-    private void pathSum(TreeNode root,int tmp){
-        if (root==null){
+    private void pathSum(TreeNode root, int tmp) {
+        if (root == null) {
             return;
         }
-        if (tmp-root.val==0&&root.left==null&&root.right==null){
-            hasPath=true;
+        if (tmp - root.val == 0 && root.left == null && root.right == null) {
+            hasPath = true;
             return;
         }
-        pathSum(root.left,tmp-root.val);
-        pathSum(root.right,tmp-root.val);
+        pathSum(root.left, tmp - root.val);
+        pathSum(root.right, tmp - root.val);
 
-        tmp+=root.val;
+        tmp += root.val;
     }
 
     /**
@@ -113,7 +114,7 @@ public class TreeDemo {
      */
     public List<List<Integer>> pathSumII(TreeNode root, int targetSum) {
         List<List<Integer>> res = new LinkedList<>();
-        pathSum(root,targetSum,res,new LinkedList<>());
+        pathSum(root, targetSum, res, new LinkedList<>());
         return res;
     }
 
@@ -130,8 +131,60 @@ public class TreeDemo {
 
         // 注意这里需要考虑将减去的值加回来
         // 这种情况，可以考虑假设root是叶子节点的情况，就比较好思考
-        tmp=tmp+root.val;
-        item.remove(item.size()-1);
+        tmp = tmp + root.val;
+        item.remove(item.size() - 1);
+    }
+
+    /**
+     * 求给定两个节点的最近公共祖先
+     * <p>
+     * 算法思路：
+     * 先遍历二叉树，搜索某个指定的节点p，并且需要记录遍历搜索的路径，记为listP
+     * 对于节点q，一样的有listQ
+     * 最近公共祖先问题就转换为，求listP、listQ的最后一个相等节点的val
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    boolean find = false;
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        List<TreeNode> listP = new LinkedList<>();
+        preOrderSearch(root, listP, p);
+
+        find = false;
+        List<TreeNode> listQ = new LinkedList<>();
+        preOrderSearch(root, listQ, q);
+
+        TreeNode LCA = listP.get(0);
+        for (int i = 0; i < listP.size() && i < listQ.size(); i++) {
+            if (listP.get(i) != listQ.get(i)) {
+                break;
+            }
+            LCA = listP.get(i);
+        }
+        return LCA;
+    }
+
+    private void preOrderSearch(TreeNode root, List<TreeNode> path, TreeNode node) {
+        if (null == root || find) {
+            return;
+        }
+        path.add(root);
+        if (node == root) {
+            find = true;
+            return;
+        }
+
+        preOrderSearch(root.left, path, node);
+        preOrderSearch(root.right, path, node);
+        if (find) {
+            return;
+        }
+
+        path.remove(path.size() - 1);
     }
 
 
@@ -156,6 +209,10 @@ public class TreeDemo {
         node3.left = node7;
 
         TreeDemo treeDemo = new TreeDemo();
-        treeDemo.preOrder(root, 0);
+//        treeDemo.preOrder(root, 0);
+
+        TreeNode node = treeDemo.lowestCommonAncestor(root, node5, node6);
+        System.out.println(node.val);
+
     }
 }
