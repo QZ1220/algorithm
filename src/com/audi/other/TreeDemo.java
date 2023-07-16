@@ -187,6 +187,45 @@ public class TreeDemo {
         path.remove(path.size() - 1);
     }
 
+    /**
+     * 将一个二叉树拉直
+     * <p>
+     * https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
+     *
+     * @param root
+     */
+    public void flatten(TreeNode root) {
+        TreeNode last = null;
+        preOrder(root, last);
+    }
+
+    private void preOrder(TreeNode node, TreeNode last) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null) {
+            last = node;
+            return;
+        }
+        TreeNode left = node.left;
+        TreeNode right = node.right;
+        TreeNode leftLast = null;
+        TreeNode rightLast = null;
+        if (null != left) {
+            preOrder(left, leftLast);
+            node.left = null;
+            node.right = left;
+            last = leftLast;
+        }
+        if (null != right) {
+            preOrder(right, rightLast);
+            if (null != leftLast) {
+                leftLast = right;
+            }
+            last = rightLast;
+        }
+    }
+
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(0);
