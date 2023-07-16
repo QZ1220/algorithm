@@ -1,5 +1,10 @@
 package com.audi.other;
 
+import sun.awt.image.ImageWatched;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class TreeDemo {
 
     /**
@@ -72,27 +77,58 @@ public class TreeDemo {
         preOrder(root.right, layer + 1);
     }
 
+    /**
+     * return all the root-to-leaf paths, which sum up equals to targetSum
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    public List<List<Integer>> pathSumII(TreeNode root, int targetSum) {
+        List<List<Integer>> res = new LinkedList<>();
+        pathSum(root,targetSum,res,new LinkedList<>());
+        return res;
+    }
+
+    private void pathSum(TreeNode root, int tmp, List<List<Integer>> res, List<Integer> item) {
+        if (root == null) {
+            return;
+        }
+        item.add(root.val);
+        if (tmp - root.val == 0 && root.left == null && root.right == null) {
+            res.add(new LinkedList<>(item));
+        }
+        pathSum(root.left, tmp - root.val, res, item);
+        pathSum(root.right, tmp - root.val, res, item);
+
+        // 注意这里需要考虑将减去的值加回来
+        // 这种情况，可以考虑假设root是叶子节点的情况，就比较好思考
+        tmp=tmp+root.val;
+        item.remove(item.size()-1);
+    }
+
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(0);
         TreeNode node1 = new TreeNode(1);
         TreeNode node2 = new TreeNode(2);
-        root.left=node1;
-        root.right=node2;
+        root.left = node1;
+        root.right = node2;
 
         TreeNode node3 = new TreeNode(3);
         TreeNode node4 = new TreeNode(4);
         node1.left = node3;
-        node1.right=node4;
+        node1.right = node4;
 
         TreeNode node5 = new TreeNode(5);
         TreeNode node6 = new TreeNode(6);
-        node2.left=node5;
-        node2.right=node6;
+        node2.left = node5;
+        node2.right = node6;
 
         TreeNode node7 = new TreeNode(7);
-        node3.left=node7;
+        node3.left = node7;
 
         TreeDemo treeDemo = new TreeDemo();
-        treeDemo.preOrder(root,0);
+        treeDemo.preOrder(root, 0);
     }
 }
