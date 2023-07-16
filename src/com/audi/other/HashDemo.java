@@ -1,7 +1,6 @@
 package com.audi.other;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class HashDemo {
 
@@ -40,6 +39,40 @@ public class HashDemo {
             }
         }
         return true;
+    }
+
+    /**
+     * 字符串分组
+     *
+     * @param strs
+     * @return
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new LinkedList<>();
+        if (null == strs || strs.length < 1) {
+            return res;
+        }
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            String s = sortWord(str);
+            if (map.containsKey(s)) {
+                map.get(s).add(str);
+            } else {
+                List<String> list = new LinkedList();
+                list.add(str);
+                map.put(s, list);
+            }
+        }
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            res.add(entry.getValue());
+        }
+        return res;
+    }
+
+    public String sortWord(String word) {
+        char[] chars = word.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
     }
 
     public static void main(String[] args) {
