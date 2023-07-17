@@ -32,7 +32,7 @@ public class CanIWin {
             return false;
         }
 
-      return   dfs(0,0,maxChoosableInteger,desiredTotal);
+        return dfs(0, 0, maxChoosableInteger, desiredTotal);
 
 //        Map<Integer, Boolean> record = new HashMap<>();
 //        return helper(maxChoosableInteger, desiredTotal, 0, record);
@@ -61,12 +61,23 @@ public class CanIWin {
         return false;
     }
 
-    int[] visitSet=new int[1<<20];
+    int[] visitSet = new int[1 << 20];
+
+    /**
+     * 参考下面的视频讲解
+     * https://www.bilibili.com/video/BV1fv411j7j7/?spm_id_from=333.337.search-card.all.click&vd_source=d1530fb814268f770330143e24aaf1e6
+     *
+     * @param state
+     * @param sum
+     * @param maxChoosableInteger
+     * @param desiredTotal
+     * @return
+     */
     private boolean dfs(int state, int sum, int maxChoosableInteger, int desiredTotal) {
-        if (visitSet[state]==2){
+        if (visitSet[state] == 2) {
             return true;
         }
-        if (visitSet[state]==1){
+        if (visitSet[state] == 1) {
             return false;
         }
 
@@ -74,17 +85,17 @@ public class CanIWin {
             if (((state >> i) & 1) == 1) {
                 continue;
             }
-            if (sum+i>=desiredTotal){
-                visitSet[state]=2;
+            if (sum + i >= desiredTotal) {
+                visitSet[state] = 2;
                 return true;
             }
             // 站在对手的角度，如果对手输，那么我就赢
-            if (!dfs(state+(1<<i), sum + i, maxChoosableInteger, desiredTotal)) {
-                visitSet[state]=2;
+            if (!dfs(state + (1 << i), sum + i, maxChoosableInteger, desiredTotal)) {
+                visitSet[state] = 2;
                 return true;
             }
         }
-        visitSet[state]=1;
+        visitSet[state] = 1;
         return false;
     }
 
