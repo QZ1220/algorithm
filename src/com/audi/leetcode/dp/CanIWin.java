@@ -61,7 +61,8 @@ public class CanIWin {
         return false;
     }
 
-    int[] visitSet = new int[1 << 20];
+    // 注意这里是1左移21位
+    int[] visitSet = new int[1 << 21];
 
     /**
      * 参考下面的视频讲解
