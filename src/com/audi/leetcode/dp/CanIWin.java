@@ -33,8 +33,10 @@ public class CanIWin {
             return false;
         }
 
-        Map<Integer, Boolean> record = new HashMap<>();
-        return helper(maxChoosableInteger, desiredTotal, 0, record);
+      return   dfs(0,0,maxChoosableInteger,desiredTotal);
+
+//        Map<Integer, Boolean> record = new HashMap<>();
+//        return helper(maxChoosableInteger, desiredTotal, 0, record);
     }
 
     /**
@@ -60,9 +62,37 @@ public class CanIWin {
         return false;
     }
 
+    int[] visitSet=new int[1<<20];
+    private boolean dfs(int state, int sum, int maxChoosableInteger, int desiredTotal) {
+        if (visitSet[state]==2){
+            return true;
+        }
+        if (visitSet[state]==1){
+            return false;
+        }
+
+        for (int i = 1; i <= maxChoosableInteger; i++) {
+            if (((state >> i) & 1) == 1) {
+                continue;
+            }
+            if (sum+i>=desiredTotal){
+                visitSet[state]=2;
+                return true;
+            }
+            // 站在对手的角度，如果对手输，那么我就赢
+            if (!dfs(state+(1<<i), sum + i, maxChoosableInteger, desiredTotal)) {
+                visitSet[state]=2;
+                return true;
+            }
+        }
+        visitSet[state]=1;
+        return false;
+    }
+
+
     public static void main(String[] args) {
         CanIWin canIWin = new CanIWin();
-        boolean res = canIWin.canIWin(10, 20);
+        boolean res = canIWin.canIWin(10, 40);
         System.out.println(res);
     }
 }
