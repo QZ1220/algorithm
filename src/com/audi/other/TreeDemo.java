@@ -1,7 +1,6 @@
 package com.audi.other;
 
 import javafx.util.Pair;
-import sun.awt.image.ImageWatched;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -247,7 +246,7 @@ public class TreeDemo {
         while (!queue.isEmpty()) {
             Pair<Integer, TreeNode> pair = queue.poll();
             // 说明马上就会遍历到下一层，集当前pair就是当前层的最后一个节点
-            if (queue.isEmpty()||queue.peek().getKey()>pair.getKey()){
+            if (queue.isEmpty() || queue.peek().getKey() > pair.getKey()) {
                 res.add(pair.getValue().val);
             }
 
@@ -259,6 +258,36 @@ public class TreeDemo {
             }
         }
         return res;
+    }
+
+    /**
+     * 判断一颗二叉树是否是对称的，镜像对称
+     *
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (root.left == root.right) {
+            return true;
+        }
+
+        return isSymmetric(root.left, root.right);
+    }
+
+    private boolean isSymmetric(TreeNode left, TreeNode right) {
+        if (null == left && null == right) {
+            return true;
+        }
+        if (null == left || null == right) {
+            return false;
+        }
+        if (left.val != right.val) {
+            return false;
+        }
+        return isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
     }
 
 
