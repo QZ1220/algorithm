@@ -127,6 +127,42 @@ public class SearchDemo {
         }
     }
 
+    /**
+     * 矩阵的元素每一行都递增，每一列也是递增
+     * 编写一个高效的算法在矩阵中寻找指定的target值
+     *
+     * @param matrix
+     * @param target 存在返回true
+     * @return
+     */
+    boolean flag = false;
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int H = matrix.length;
+        int L = matrix[0].length;
+        if (target < matrix[0][0] || target > matrix[H-1][L-1]) {
+            return false;
+        }
+        find(matrix, target, H-1, 0);
+        return flag;
+    }
+
+    private void find(int[][] matrix, int target, int x, int y) {
+        if (x < 0 || x >= matrix.length || y < 0 || y >= matrix[0].length || flag) {
+            return;
+        }
+
+        if (matrix[x][y] == target) {
+            flag = true;
+            return;
+        }
+        if (matrix[x][y] > target) {
+            find(matrix, target, x - 1, y);
+        } else {
+            find(matrix, target, x, y + 1);
+        }
+    }
+
     public static void main(String[] args) {
 //        char[][] grid = {
 //                {'1', '1', '0', '0', '0'},
