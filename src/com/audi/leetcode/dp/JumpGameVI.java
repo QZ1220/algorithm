@@ -5,13 +5,18 @@ import javafx.util.Pair;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * https://leetcode.com/problems/jump-game-vi/
  * <p>
  * 题目给出一个整型数组（数字有正有负），从第0个元素开始，每次跳k步以内的任意步数，求跳跃经过的点的数字的最大和
  * <p>
- * 使用dp的思想：dp[i]=mac(dp[i-k],dp[i])
+ * 使用dp的思想：dp[i]=max(dp[i-k],dp[i])
+ * <p>
+ * Input: nums = [1,-1,-2,4,-7,3], k = 2
+ * Output: 7
+ *
  * <p>
  * https://www.ixigua.com/6971822231257088519?logTag=563ba79da4fe6e1bdcb4
  *
@@ -106,5 +111,16 @@ public class JumpGameVI {
     }
 
     public static void main(String[] args) {
+
+        Queue<int[]> queue = new PriorityQueue<>(Comparator.comparing(v -> v[0]));
+//        Queue<int[]> queue = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));
+        int[] nums = {1, 2};
+        queue.add(nums);
+        int[] nums1 = {-1, 2};
+        queue.add(nums1);
+        while (!queue.isEmpty()) {
+            int[] ints = queue.poll();
+            System.out.println(ints[0] + "  " + ints[1]);
+        }
     }
 }

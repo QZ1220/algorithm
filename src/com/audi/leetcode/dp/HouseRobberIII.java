@@ -1,5 +1,7 @@
 package com.audi.leetcode.dp;
 
+import com.audi.leetcode.tree.TreeNode;
+
 /**
  * https://leetcode.com/problems/house-robber-iii/
  * <p>
@@ -13,36 +15,33 @@ package com.audi.leetcode.dp;
 public class HouseRobberIII {
 
 
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-
     public int rob(TreeNode root) {
-        return dfs(root);
+        int[] values = getValues(root);
+        return Math.max(values[0], values[1]);
     }
 
-    public int dfs(TreeNode root) {
-        if (root == null) return 0;
-        int result = root.val;
-        if (root.left != null) result += dfs(root.left.left) + dfs(root.left.right);    // 该节点左间接子树和最大值
-        if (root.right != null) result += dfs(root.right.left) + dfs(root.right.right); // 该节点右间接子树和最大值
-        result = Math.max(result, dfs(root.left) + dfs(root.right));    // 比较选择包含该节点还是不包含该节点的和最大值
-        return result;
+    /**
+     * 自底向上寻找的思路
+     * <p>
+     * 参考视频：
+     * https://www.bilibili.com/video/BV15T411h7Dn/?spm_id_from=333.337.search-card.all.click&vd_source=d1530fb814268f770330143e24aaf1e6
+     *
+     * @param root
+     * @return
+     */
+    private int[] getValues(TreeNode root) {
+        if (root == null) {
+            return new int[2];
+        }
+
+        int[] leftValues = getValues(root.left);
+        int[] rightValues = getValues(root.right);
+        // values[0] 表示当前root节点要偷时，可以获得的最大值
+        // values[1] 表示当前root节点不偷时，可以获得的最大值
+        int[] values = new int[2];
+        values[0] = root.val + leftValues[1] + rightValues[1];
+        values[1] = Math.max(leftValues[0], leftValues[1]) + Math.max(rightValues[0], rightValues[1]);
+        return values;
     }
 
     public static void main(String[] args) {
