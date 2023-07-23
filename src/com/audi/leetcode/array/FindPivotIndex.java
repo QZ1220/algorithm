@@ -2,6 +2,19 @@ package com.audi.leetcode.array;
 
 /**
  * https://leetcode.com/problems/find-pivot-index/?envType=study-plan&id=level-1
+ * <p>
+ * 给定一个数组，求数组是否存在这样的一个位置index，使得index左边的所有元素的和等于index右边的所有元素的和
+ * 注意index是可能在数组的开头或者末尾的，eg：2，1，-1，此时满足条件的index=0
+ * 如果不存在这样的index，返回-1
+ * <p>
+ * Input: nums = [1,7,3,6,5,6]
+ * Output: 3
+ * <p>
+ * Input: nums = [1,2,3]
+ * Output: -1
+ * <p>
+ * Input: nums = [2,1,-1]
+ * Output: 0
  *
  * @author : wangquanzhou
  * @date : 2023/3/8 21:27

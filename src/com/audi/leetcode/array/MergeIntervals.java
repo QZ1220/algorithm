@@ -21,7 +21,7 @@ import java.util.*;
  */
 public class MergeIntervals {
 
-    public int[][] merge(int[][] intervals) {
+    public int[][] merge2(int[][] intervals) {
         if (null == intervals || intervals.length == 1) {
             return intervals;
         }
@@ -131,6 +131,40 @@ public class MergeIntervals {
         }
 
         return reverseConvert(pairs);
+    }
+
+    public int[][] merge(int[][] intervals) {
+        if (null == intervals || intervals.length == 0) {
+            return intervals;
+        }
+        int H = intervals.length;
+
+        // 根据起始节点进行排序
+        LinkedList<Pair<Integer, Integer>> list = new LinkedList<>();
+        Arrays.sort(intervals, Comparator.comparing(v -> v[0]));
+        list.add(new Pair<>(intervals[0][0], intervals[0][1]));
+
+        for (int i = 1; i < H; i++) {
+            int[] interval = intervals[i];
+            Pair<Integer, Integer> last = list.getLast();
+            if (interval[0] > last.getValue()) {
+                list.add(new Pair<>(interval[0], interval[1]));
+            } else if (interval[0] <= last.getValue() && interval[1] >= last.getValue()) {
+                list.removeLast();
+                Pair<Integer, Integer> pair = new Pair<>(last.getKey(), interval[1]);
+                list.add(pair);
+            }
+        }
+
+        // list转数组
+        int size = list.size();
+        int[][] res = new int[size][2];
+        for (int i = 0; i < size; i++) {
+            res[i][0] = list.get(i).getKey();
+            res[i][1] = list.get(i).getValue();
+        }
+
+        return res;
     }
 
     public static void main(String[] args) {

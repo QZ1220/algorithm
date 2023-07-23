@@ -10,7 +10,7 @@ package com.audi.leetcode.array;
  * @date: 2020/4/19 12:35
  */
 public class ReverseLinkedList {
-    public ListNode reverseList(ListNode head) {
+    public ListNode reverseList2(ListNode head) {
         if (null == head || null == head.next) {
             return head;
         }
@@ -45,6 +45,21 @@ public class ReverseLinkedList {
         }
     }
 
+
+    public ListNode reverseList(ListNode head) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        ListNode newHead = null;
+        while (null != head) {
+            ListNode temp = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = temp;
+        }
+        return newHead;
+    }
+
     public static void main(String[] args) {
         ListNode node = new ListNode(-1);
         ListNode head = node;
@@ -55,7 +70,7 @@ public class ReverseLinkedList {
             node = node.next;
         }
 
-        ListNode reverseHead = reverseLinkedList.reverseList(head.next);
+        ListNode reverseHead = reverseLinkedList.reverseList2(head.next);
         while (null != reverseHead) {
             System.out.println(reverseHead.val);
             reverseHead = reverseHead.next;
