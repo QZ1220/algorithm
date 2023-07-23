@@ -22,6 +22,8 @@ public class BinarySearch {
 
     /**
      * 基本的二分查找，找到返回数组下标，没找返回-1
+     * <p>
+     * 递归实现
      *
      * @param nums
      * @param target
@@ -44,6 +46,34 @@ public class BinarySearch {
             right = mid - 1;
         }
         return binarySearch(nums, target, left, right);
+    }
+
+    /**
+     * 非递归实现
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search2(int[] nums, int target) {
+        if (null == nums || nums.length < 1) {
+            return -1;
+        }
+
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return -1;
     }
 
     public static void main(String[] args) {

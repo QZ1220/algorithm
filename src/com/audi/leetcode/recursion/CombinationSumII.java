@@ -113,4 +113,28 @@ public class CombinationSumII {
         List<List<Integer>> lists = combinationSumII.combinationSum3(nums, 27);
         System.out.println(lists);
     }
+
+
+    public List<List<Integer>> combinationSum4(int[] candidates, int target) {
+        int[] array = Arrays.stream(candidates).filter(v -> v <= target).sorted().toArray();
+        Set<List<Integer>> res = new HashSet<>();
+        dfs(array, array.length - 1, target, 0, res, new LinkedList<>());
+        return new LinkedList<>(res);
+    }
+
+    private void dfs(int[] nums, int i, int target, int tempSum, Set<List<Integer>> res, List<Integer> item) {
+        if (i < 0) {
+            return;
+        }
+        tempSum += nums[i];
+        item.add(nums[i]);
+        if (tempSum == target) {
+            res.add(new LinkedList<>(item));
+        }
+        dfs(nums, i - 1, target, tempSum, res, item);
+
+        tempSum -= nums[i];
+        item.remove(item.size() - 1);
+        dfs(nums, i - 1, target, tempSum, res, item);
+    }
 }

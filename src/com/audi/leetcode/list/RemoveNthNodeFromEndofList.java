@@ -15,6 +15,9 @@ import com.audi.leetcode.list.bo.ListNode;
  * 1 <= n <= sz
  * 因此不会出现越界的情况，入参的链表也不会为空
  *
+ *
+ * 此题还可以使用双指针解决，一个指针先走n步，然后两个指针一起走，直至先移动的指针到达末尾即可，然后删除后移动指针指向的位置后面的元素即可
+ *
  * @author: WangQuanzhou
  * @date: 2021-10-06 8:58 AM
  */

@@ -117,7 +117,7 @@ public class ReverseLinkedListII {
         }
         // 这里递归的意思就相当于：将原来队首的元素弹出不管，针对剩下的队列元素进行翻转，
         // 因此，left、right下标相当于整体往右移动一个元素，所以都要减一
-        head.next = reverseBetween2(head.next, left - 1, right-1);
+        head.next = reverseBetween2(head.next, left - 1, right - 1);
         return head;
     }
 
@@ -134,4 +134,51 @@ public class ReverseLinkedListII {
             newHead = newHead.next;
         }
     }
+
+
+    /**
+     * 翻转链表的[left,right]区间的元素
+     *
+     * @param head
+     * @param m
+     * @param n
+     * @return
+     */
+    public ListNode reverse(ListNode head, int m, int n) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        int len = n - m + 1;
+
+        // 找到需要翻转的位置
+        ListNode newHead = head;
+        ListNode preHead = null;
+        while (head != null && (--m > 0)) {
+            preHead = head;
+            head = head.next;
+        }
+
+        ListNode tempHead = null;
+        ListNode tempTail = head;
+        // 开始饭庄[left,right]区间的元素
+        while (head != null && len > 0) {
+            ListNode temp = head.next;
+            head.next = tempHead;
+            tempHead = head;
+            head = temp;
+            len--;
+        }
+
+        tempTail.next = head;
+
+        if (preHead == null) {
+            newHead = tempHead;
+        } else {
+            preHead.next = tempHead;
+        }
+
+
+        return newHead;
+    }
+
 }
