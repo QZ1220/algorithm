@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 /**
  * https://leetcode.com/problems/longest-increasing-subsequence/
+ *
+ * 求整形数组的最长严格上升子序列
  * <p>
  * https://www.cnblogs.com/grandyang/p/4938187.html
  *

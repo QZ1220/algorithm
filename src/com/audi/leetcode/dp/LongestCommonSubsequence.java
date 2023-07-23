@@ -22,6 +22,10 @@ package com.audi.leetcode.dp;
 public class LongestCommonSubsequence {
 
     /**
+     * https://www.bilibili.com/video/BV14A411v7mP/?spm_id_from=333.337.search-card.all.click&vd_source=d1530fb814268f770330143e24aaf1e6
+     * <p>
+     * 下面的递推公式可以结合上面的视频进行理解
+     *
      * @param text1
      * @param text2
      * @return

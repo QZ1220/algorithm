@@ -55,7 +55,7 @@ public class TwoSumIIInputArrayIsSorted {
     }
 
     /**
-     * 由于数组的排序了的，因此可以基于双指针的思想来求解
+     * 由于数组的排序了的，因此可以基于双指针（二分搜索）的思想来求解
      *
      * @param numbers
      * @param target

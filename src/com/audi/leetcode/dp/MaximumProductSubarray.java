@@ -1,6 +1,10 @@
 package com.audi.leetcode.dp;
 
 /**
+ * https://leetcode.com/problems/maximum-product-subarray/
+ * <p>
+ * 给定一个数组，求其的一个子数组，满足子数组内各元素的乘积最大，返回最大积
+ *
  * @author : wangquanzhou
  * @date : 2023/7/17 21:34
  */

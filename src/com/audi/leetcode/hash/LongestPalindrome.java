@@ -1,4 +1,4 @@
-package com.audi.leetcode.greed;
+package com.audi.leetcode.hash;
 
 import java.util.HashMap;
 import java.util.Map;

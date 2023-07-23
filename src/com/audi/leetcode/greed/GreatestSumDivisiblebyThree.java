@@ -15,6 +15,12 @@ package com.audi.leetcode.greed;
  */
 public class GreatestSumDivisiblebyThree {
 
+    /**
+     * 使用状态机的思想求解
+     *
+     * @param nums
+     * @return
+     */
     public int maxSumDivThree(int[] nums) {
         // state[0]、state[1]、state[2]表示余数为0、1、2的num和
         int[] state = {0, Integer.MIN_VALUE, Integer.MIN_VALUE};

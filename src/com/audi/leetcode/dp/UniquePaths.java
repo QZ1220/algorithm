@@ -3,6 +3,9 @@ package com.audi.leetcode.dp;
 /**
  * https://leetcode.com/problems/unique-paths/
  *
+ * 给定矩阵的长和宽，求从矩阵的左上角到矩阵的右下角，有多少种可能的走法
+ * 每次只能向下或者向右移动
+ *
  * @author WangQuanzhou
  * @date 2020-04-29
  */
