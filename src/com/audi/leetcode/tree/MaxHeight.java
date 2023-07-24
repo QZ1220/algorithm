@@ -2,8 +2,8 @@ package com.audi.leetcode.tree;
 
 /**
  * https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
- *
- * 求二叉树的最大深度
+ * <p>
+ * 求二叉树的最大深度，要有递归的思想
  *
  * @author : wangquanzhou
  * @date : 2023/7/4 20:55
