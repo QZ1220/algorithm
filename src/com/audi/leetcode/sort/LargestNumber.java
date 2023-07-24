@@ -34,13 +34,15 @@ public class LargestNumber {
             list.add(String.valueOf(num));
         }
 
+        // 注意拼接的先后顺序
         list.sort(((s1, s2) -> (s2 + s1).compareTo(s1 + s2)));
+//        list.sort(((s1, s2) -> (s1 + s2).compareTo(s2 + s1)));
         StringBuilder builder = new StringBuilder();
         for (String s : list) {
             builder.append(s);
         }
 
-        // 特殊处理 [0,0]这种测试用例
+        // 特殊处理字符串开始位置的0，直接删除即可
         while ('0' == builder.charAt(0)) {
             builder.deleteCharAt(0);
             if (0 == builder.length()) {

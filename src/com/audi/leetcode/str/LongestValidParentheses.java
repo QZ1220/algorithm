@@ -5,6 +5,11 @@ import java.util.Stack;
 
 /**
  * https://leetcode.com/problems/longest-valid-parentheses/
+ *
+ * Input: s = "(()"
+ * Output: 2
+ * Explanation: The longest valid parentheses substring is "()".
+ *
  * <p>
  * 参考 https://zhuanlan.zhihu.com/p/41951874
  * <p>

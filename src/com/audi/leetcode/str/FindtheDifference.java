@@ -67,5 +67,8 @@ public class FindtheDifference {
         FindtheDifference difference = new FindtheDifference();
         char c = difference.findTheDifference2(s, t);
         System.out.println(c);
+
+        char f = 'z';
+        System.out.println((int)f);
     }
 }

@@ -76,10 +76,10 @@ public class KthLargestElementinanArray {
     public int findKthLarges3(int[] nums, int k) {
         Queue<Integer> queue = new PriorityQueue<>(k, Comparator.comparing(Integer::intValue));
         for (int i = 0; i < nums.length; i++) {
-            if (queue.size()<k){
+            if (queue.size() < k) {
                 queue.add(nums[i]);
-            }else {
-                if (queue.peek()<nums[i]){
+            } else {
+                if (queue.peek() < nums[i]) {
                     queue.poll();
                     queue.add(nums[i]);
                 }

@@ -4,7 +4,7 @@ package com.audi.leetcode.tree.bst;
 /**
  * https://leetcode.com/problems/range-sum-of-bst/
  * <p>
- * 求一颗二叉树中落在指定区间的节点的综合
+ * 求一颗二叉树中落在指定区间的节点的集合
  * <p>
  * 思路：直接遍历树，然后累加，递归实现
  *

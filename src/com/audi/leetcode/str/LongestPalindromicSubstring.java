@@ -3,9 +3,16 @@ package com.audi.leetcode.str;
 
 /**
  * https://leetcode.com/problems/longest-palindromic-substring/
+ *
+ * 求一个字符串的最长回文子串
+ *
  * <p>
  * 参考链接：https://www.jianshu.com/p/a7741619dd58
  * https://www.cxyxiaowu.com/2869.html
+ *
+ * Input: s = "babad"
+ * Output: "bab"
+ * Explanation: "aba" is also a valid answer.
  *
  * @author: WangQuanzhou
  * @date: 2020/11/1 15:39

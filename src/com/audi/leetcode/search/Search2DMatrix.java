@@ -3,6 +3,12 @@ package com.audi.leetcode.search;
 
 /**
  * https://leetcode.com/problems/search-a-2d-matrix/
+ * <p>
+ * 给定一个二维矩阵，每一行从左到右递增，每一列从上到下递增
+ *
+ * 求在这个矩阵中，给定的target元素是否存在
+ *
+ * 此题可以从矩阵的左下角开始搜索，因为左下角是当前行最小的，当前列最大的
  *
  * @author: WangQuanzhou
  * @date: 2021-08-13 8:06 AM

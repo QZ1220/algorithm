@@ -13,6 +13,8 @@ package com.audi.leetcode.sort;
  * [18,21,23,26,30]],
  * target = 5
  * Output: true
+ * <p>
+ * 这道题也可以采用从矩阵的左下角开始搜索的思路进行解题
  *
  * @author : wangquanzhou
  * @date : 2023/4/10 22:36

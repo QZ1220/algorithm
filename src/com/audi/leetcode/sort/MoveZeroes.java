@@ -10,6 +10,8 @@ import java.util.Arrays;
  * <p>
  * Input: nums = [0,1,0,3,12]
  * Output: [1,3,12,0,0]
+ *
+ * 这题貌似应该是不能使用双指针的思想来做，因为题目要求保留原数组元素的顺序
  * <p>
  * <p>
  * Input: nums = [0]
