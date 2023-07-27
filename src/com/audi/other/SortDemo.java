@@ -100,7 +100,7 @@ public class SortDemo {
         nums[left] = nums[i];
         nums[i] = pivot;
 
-        quickSort(nums, left, i-1);
+        quickSort(nums, left, i - 1);
         quickSort(nums, i + 1, right);
     }
 
@@ -111,11 +111,56 @@ public class SortDemo {
     }
 
 
+    public void heapSort(int[] nums) {
+        if (null == nums || nums.length < 2) {
+            return;
+        }
+
+        int n = nums.length;
+        // 建堆
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(nums, n, i);
+        }
+
+        // 排序
+        for (int i = n - 1; i >= 0; i--) {
+            swap(nums, 0, i);
+            heapify(nums, i, 0);
+        }
+
+    }
+
+    /**
+     * 构造大顶堆
+     *
+     * @param nums
+     * @param n
+     * @param i
+     */
+    private void heapify(int[] nums, int n, int i) {
+        int parent = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        if (left < n && nums[left] > nums[parent]) {
+            parent = left;
+        }
+        if (right < n && nums[right] > nums[parent]) {
+            parent = right;
+        }
+
+        if (parent != i) {
+            swap(nums, i, parent);
+            heapify(nums, n, parent);
+        }
+    }
+
+
     public static void main(String[] args) {
         SortDemo sortDemo = new SortDemo();
         int[] nums = {1, 2, 21, -9, -5, 2, 11, 90, 7, 13, 4, -5};
 //        sortDemo.mergeSort(nums);
-        sortDemo.quickSort(nums);
+//        sortDemo.quickSort(nums);
+        sortDemo.heapSort(nums);
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + "  ");
         }
