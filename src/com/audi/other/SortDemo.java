@@ -122,7 +122,8 @@ public class SortDemo {
             heapify(nums, n, i);
         }
 
-        // 排序
+        // 排序 将最大的元素移动到数组末尾，然后对除开末尾位置的数组元素构建大顶堆
+        // 构建完成以后，数组头部又是剩余元素中最大的，重复上述过程，即可完成排序
         for (int i = n - 1; i >= 0; i--) {
             swap(nums, 0, i);
             heapify(nums, i, 0);
