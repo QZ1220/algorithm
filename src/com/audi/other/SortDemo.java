@@ -155,6 +155,50 @@ public class SortDemo {
         }
     }
 
+    /**
+     * 求两个排序数组的第k小的元素
+     *
+     * @param nums1
+     * @param nums2
+     * @param k
+     * @return
+     */
+    public static int findKthSmallest(int[] nums1, int[] nums2, int k) {
+        int p1 = 0; // nums1指针
+        int p2 = 0; // nums2指针
+
+        while (true) {
+            // 边界情况：如果nums1或nums2已经遍历完，则直接返回另一个数组中第k小的数
+            if (p1 == nums1.length) {
+                return nums2[p2 + k - 1];
+            }
+            if (p2 == nums2.length) {
+                return nums1[p1 + k - 1];
+            }
+
+            // 边界情况：如果k=1，则直接返回两个数组当前指针位置较小的数
+            if (k == 1) {
+                return Math.min(nums1[p1], nums2[p2]);
+            }
+
+            // 在两个数组中找到当前的中间位置mid1和mid2
+            int mid1 = Math.min(p1 + k / 2 - 1, nums1.length - 1);
+            int mid2 = Math.min(p2 + k / 2 - 1, nums2.length - 1);
+
+            // 如果nums1的中间位置的值小于等于nums2的中间位置的值
+            // 则说明答案在nums1的中间位置之后，或者在nums2的中间位置之前
+            if (nums1[mid1] <= nums2[mid2]) {
+                k -= mid1 - p1 + 1; // 更新k的值，排除掉nums1中mid1之前的部分
+                p1 = mid1 + 1; // 更新nums1的指针位置
+            }
+            // 否则，答案在nums1的中间位置之前，或者在nums2的中间位置之后
+            else {
+                k -= mid2 - p2 + 1; // 更新k的值，排除掉nums2中mid2之前的部分
+                p2 = mid2 + 1; // 更新nums2的指针位置
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         SortDemo sortDemo = new SortDemo();
