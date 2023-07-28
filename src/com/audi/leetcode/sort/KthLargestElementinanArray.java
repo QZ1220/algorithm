@@ -88,16 +88,82 @@ public class KthLargestElementinanArray {
         return queue.peek();
     }
 
+    public int findKthLarges4(int[] nums, int k) {
+        if (null == nums || nums.length < 1) {
+            return -1;
+        }
+        if (k > nums.length) {
+            return -1;
+        }
+
+        // 取数组的前k个元素构建小顶堆
+        int[] tmpArr = new int[k];
+        for (int i = 0; i < k; i++) {
+            tmpArr[i] = nums[i];
+        }
+        for (int i = k / 2 - 1; i >= 0; i--) {
+            heapify(tmpArr, k, i);
+        }
+
+        // 取nums中剩余的元素，与堆顶元素进行比较
+        for (int i = k; i < nums.length; i++) {
+            int small = tmpArr[0];
+            // 小于等于堆顶元素，直接丢弃
+            if (nums[i] <= small) {
+                continue;
+            }
+            // 大于堆顶元素，就将其替换成堆顶元素，然后调用函数维护小顶堆的性质
+            tmpArr[0] = nums[i];
+            heapify(tmpArr, k, 0);
+        }
+
+        return tmpArr[0];
+    }
+
+
+    /**
+     * 构造小顶堆
+     *
+     * @param nums
+     * @param n
+     * @param i
+     */
+    private void heapify(int[] nums, int n, int i) {
+        int parent = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < n && nums[left] < nums[parent]) {
+            parent = left;
+        }
+        if (right < n && nums[right] < nums[parent]) {
+            parent = right;
+        }
+
+        if (parent != i) {
+            swap(nums, parent, i);
+            heapify(nums, n, parent);
+        }
+
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+
     public static void main(String[] args) {
         KthLargestElementinanArray largestElementinanArray = new KthLargestElementinanArray();
         int nums[] = {3, 2, 1, 5, 6, 4};
 //        int nums[] = {-1, -1};
-//        int k = 4;
-        int k = 2;
+        int k = 1;
+//        int k = 2;
 //        int kthLargest1 = largestElementinanArray.findKthLargest(nums, k);
 //        int kthLargest2 = largestElementinanArray.findKthLarges2(nums, k);
-        int kthLargest3 = largestElementinanArray.findKthLarges3(nums, k);
+//        int kthLargest3 = largestElementinanArray.findKthLarges3(nums, k);
+        int kthLargest4 = largestElementinanArray.findKthLarges4(nums, k);
 //        System.out.println(kthLargest1);
-        System.out.println(kthLargest3);
+        System.out.println(kthLargest4);
     }
 }
