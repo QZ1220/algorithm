@@ -155,6 +155,19 @@ public class SortDemo {
         }
     }
 
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        // 合并后的数组长度为偶数，此时返回中间位置两个元素的和，再除以2
+        if ((m + n) % 2 == 0) {
+            return (findKthSmallest(nums1, nums2, (m + n) / 2) + findKthSmallest(nums1, nums2, (m + n) / 2 + 1)) / 2.0;
+        } else {
+            // 合并后的数组长度为基数，此时直接返回中间位置的元素
+            return findKthSmallest(nums1, nums2, (m + n) / 2 + 1);
+        }
+    }
+
     /**
      * 求两个排序数组的第k小的元素
      *
@@ -163,7 +176,7 @@ public class SortDemo {
      * @param k
      * @return
      */
-    public static int findKthSmallest(int[] nums1, int[] nums2, int k) {
+    public int findKthSmallest(int[] nums1, int[] nums2, int k) {
         int p1 = 0; // nums1指针
         int p2 = 0; // nums2指针
 
@@ -181,7 +194,8 @@ public class SortDemo {
                 return Math.min(nums1[p1], nums2[p2]);
             }
 
-            // 在两个数组中找到当前的中间位置mid1和mid2
+            // 在nums1中找到以p1为起点，长度为k的一半的区间位置
+            // 在nums2中找到以p2为起点，长度为k的一半的区间位置
             int mid1 = Math.min(p1 + k / 2 - 1, nums1.length - 1);
             int mid2 = Math.min(p2 + k / 2 - 1, nums2.length - 1);
 
@@ -202,13 +216,22 @@ public class SortDemo {
 
     public static void main(String[] args) {
         SortDemo sortDemo = new SortDemo();
-        int[] nums = {1, 2, 21, -9, -5, 2, 11, 90, 7, 13, 4, -5};
-//        sortDemo.mergeSort(nums);
-//        sortDemo.quickSort(nums);
-        sortDemo.heapSort(nums);
-        for (int i = 0; i < nums.length; i++) {
-            System.out.print(nums[i] + "  ");
-        }
-        System.out.println();
+//        int[] nums = {1, 2, 21, -9, -5, 2, 11, 90, 7, 13, 4, -5};
+////        sortDemo.mergeSort(nums);
+////        sortDemo.quickSort(nums);
+//        sortDemo.heapSort(nums);
+//        for (int i = 0; i < nums.length; i++) {
+//            System.out.print(nums[i] + "  ");
+//        }
+//        System.out.println();
+
+        int[] nums1 = {1, 2, 3, 4};
+        int[] nums2 = {3, 4, 5, 6, 7};
+        System.out.println(sortDemo.findKthSmallest(nums1, nums2, 3));
+        System.out.println(sortDemo.findKthSmallest(nums1, nums2, 4));
+        System.out.println(sortDemo.findKthSmallest(nums1, nums2, 5));
+        System.out.println(sortDemo.findKthSmallest(nums1, nums2, 6));
+        System.out.println(sortDemo.findKthSmallest(nums1, nums2, 7));
+        System.out.println(2 / 3.0);
     }
 }
