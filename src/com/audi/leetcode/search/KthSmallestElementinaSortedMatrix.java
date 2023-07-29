@@ -1,5 +1,6 @@
 package com.audi.leetcode.search;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -19,17 +20,18 @@ public class KthSmallestElementinaSortedMatrix {
      * @return
      */
     public int kthSmallest(int[][] matrix, int k) {
-        Queue<Integer> queue = new PriorityQueue<>();
+        Queue<Integer> queue = new PriorityQueue<>(Comparator.comparing(Integer::intValue).reversed());
         int H = matrix.length;
         int L = matrix[0].length;
         for (int i = 0; i < H; i++) {
             for (int j = 0; j < L; j++) {
                 queue.offer(matrix[i][j]);
+                if (queue.size()>k){
+                    queue.poll();
+                }
             }
         }
-        for (int i = 0; i < k - 1; i++) {
-            queue.poll();
-        }
+
         return queue.peek();
     }
 
