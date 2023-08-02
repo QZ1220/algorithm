@@ -75,6 +75,46 @@ public class ShootGame {
         return dp[m][n];
     }
 
+    /**
+     * 使用二项式系数求解
+     *
+     * 假设我们有m次射击，总环数为n。我们可以将整体的问题分解为m个部分，每个部分表示一次射击。对于每个部分，我们可以找到其对应的0-10环的可能数量。
+     *
+     * 具体计算方法如下：
+     *
+     * 对于每个部分，假设其得分为x环。那么该部分的可能数量为 C(n, x) （选择x环的可能数量）。
+     * 对于m次射击，每次得分的可能数量分别为C(n, 0), C(n, 1), …, C(n, 10)。
+     * 根据乘法原理和加法原理，总的可能数量为 C(n, 0) * C(n, 1) * … * C(n, 10)。
+     *
+     * @param m
+     * @param n
+     * @return
+     */
+    public static int shootingWays3(int m, int n) {
+        if (m * 10 < n || m * 0 > n) {
+            return 0;
+        } else if (m * 10 == n || m * 0 == n) {
+            return 1;
+        }
+
+        int result = 1;
+        for (int i = 0; i <= 10; i++) {
+            int numerator = 1;
+            int denominator = 1;
+
+            if (i <= n) {
+                numerator = n - i + 1;
+            }
+            if (i <= m) {
+                denominator = i + 1;
+            }
+
+            result *= numerator / denominator;
+        }
+
+        return result;
+    }
+
 
     public static void main(String[] args) {
         ShootGame game = new ShootGame();
