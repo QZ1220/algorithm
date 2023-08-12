@@ -33,14 +33,20 @@ public class LongestPalindromicSubstring {
         int len = s.length();
         boolean[][] dp = new boolean[len][len];
 
-        for (int i = 0; i < len; i++) {
-            dp[i][i] = true;
-        }
+//        for (int i = 0; i < len; i++) {
+//            dp[i][i] = true;
+//        }
 
         char[] chars = s.toCharArray();
         int start = 0, max = 1;
         for (int j = 1; j < len; j++) {
-            for (int i = 0; i < j; i++) {
+            for (int i = 0; i <= j; i++) {
+
+                // 不使用36行的for循环也行，注意43的大小判断增加了"="
+                if (i==j){
+                    dp[i][j]=true;
+                    continue;
+                }
 //                if (s.charAt(i) != s.charAt(j)) {
                 if (chars[i] != chars[j]) {
                     dp[i][j] = false;
