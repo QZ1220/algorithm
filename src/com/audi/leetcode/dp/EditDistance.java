@@ -39,10 +39,14 @@ public class EditDistance {
             dp[0][j] = j;
         }
 
+        // 使用字符数组，加快程序速度
+        char[] word1CharArr = word1.toCharArray();
+        char[] word2CharArr = word2.toCharArray();
+
         // 进行递推求解
         for (int i = 1; i <= len1; i++) {
             for (int j = 1; j <= len2; j++) {
-                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                if (word1CharArr[i - 1] == word2CharArr[j - 1]) {
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
                     // 对于递推公式的推导：参考
