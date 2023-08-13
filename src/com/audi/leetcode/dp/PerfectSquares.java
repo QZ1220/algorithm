@@ -21,6 +21,7 @@ public class PerfectSquares {
             for (int j = 1; j * j <= i; j++) {
                 min = Math.min(min, dp[i - j * j]);
             }
+            // dp[i]表示组成数字i，需要的最少的完全平方数的个数
             dp[i] = min + 1;
         }
         return dp[n];
