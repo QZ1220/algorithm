@@ -42,6 +42,23 @@ public class OnesandZeroes {
         return arr;
     }
 
+    public int findMaxForm2(String[] strs, int m, int n) {
+        int len = strs.length;
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 1; i <= len; i++) {
+            int[] ints = getOneZeroCnt(strs[i - 1]);
+            int zeroCnt = ints[0];
+            int oneCnt = ints[1];
+            for (int j = m; j >= zeroCnt; j--) {
+                for (int k = n; k >= oneCnt; k--) {
+                    dp[j][k] = Math.max(dp[j][k], dp[j - zeroCnt][k - oneCnt] + 1);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
     public static void main(String[] args) {
 
     }
