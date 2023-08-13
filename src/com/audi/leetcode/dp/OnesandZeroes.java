@@ -3,7 +3,9 @@ package com.audi.leetcode.dp;
 /**
  * https://leetcode.com/problems/ones-and-zeroes/
  * <p>
- * 给定一个字符串数组，数组元素是二进制形式的数字字符串，
+ * 给定一个字符串数组strs，数组元素是二进制形式的数字字符串，给定数字m、n
+ * 要求从strs中选择多个字符串，使得总的0的个数等m，1的个数等于n
+ * 求最多有多少个满足条件的字符串
  *
  * @author : wangquanzhou
  * @date : 2023/8/13 16:30
@@ -12,6 +14,7 @@ public class OnesandZeroes {
 
     public int findMaxForm(String[] strs, int m, int n) {
         int len = strs.length;
+        // dp[i][j][k] 表示使用strs的前i个字符串，组成j个0，k个1的字符串的个数
         int[][][] dp = new int[len + 1][m + 1][n + 1];
 
         for (int i = 1; i <= len; i++) {
