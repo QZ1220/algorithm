@@ -51,6 +51,7 @@ public class EditDistance {
                 } else {
                     // 对于递推公式的推导：参考
                     // https://www.bilibili.com/video/BV1qv4y1q78f/?spm_id_from=333.788&vd_source=d1530fb814268f770330143e24aaf1e6
+                    // https://programmercarl.com/0072.%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
                     // dp[i - 1][j - 1] + 1 表示替换一个元素，需要的最少操作次数
                     // dp[i][j - 1] + 1 表示删除word1的一个元素，或者增加word2的一个元素，使得二者相等，需要的最少操作次数
                     // dp[i - 1][j] + 1 表示删除word2的一个元素，或者增加word1的一个元素，使得二者相等，需要的最少操作次数
