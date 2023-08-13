@@ -22,7 +22,7 @@ public class LetterCombinationsofaPhoneNumber {
             return res;
         }
         String[] digitDict = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        backTrack(digits, digitDict, res, new StringBuilder(), 0);
+        backTrack2(digits, digitDict, res, new StringBuilder(), 0);
         return res;
     }
 
@@ -39,6 +39,21 @@ public class LetterCombinationsofaPhoneNumber {
                 backTrack(digits, digitDict, res, item, i + 1);
                 item.deleteCharAt(item.length() - 1);
             }
+        }
+    }
+
+
+    public void backTrack2(String digits, String[] digitDict, List<String> res, StringBuilder item, int startIndex) {
+        if (item.length() == digits.length()) {
+            res.add(item.toString());
+            return;
+        }
+
+        String digit = digitDict[digits.charAt(startIndex) - '0'];
+        for (int j = 0; j < digit.length(); j++) {
+            item.append(digit.charAt(j));
+            backTrack2(digits, digitDict, res, item, startIndex + 1);
+            item.deleteCharAt(item.length() - 1);
         }
     }
 
