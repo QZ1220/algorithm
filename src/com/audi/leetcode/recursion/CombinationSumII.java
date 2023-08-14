@@ -151,11 +151,13 @@ public class CombinationSumII {
             //正确剔除重复解的办法
             //跳过同一树层使用过的元素
             if ( i > startIndex && candidates[i] == candidates[i - 1] ) {
+                // 注意这里使用的是 continue 不是break
                 continue;
             }
             int candidate = candidates[i];
             // 剪枝优化
             if (tempSum + candidate > target) {
+                // 注意这里使用的是 continue 不是break
                 break;
             }
 
