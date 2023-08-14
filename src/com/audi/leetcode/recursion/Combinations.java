@@ -38,7 +38,8 @@ public class Combinations {
         for (int i = startIndex; i <= n; i++) {
             // 剪枝操作，如果剩下的可选的元素个数，达不到k-item.size 证明无法满足题意，直接忽略
             if ((k-item.size())>(n-startIndex+1)){
-                continue;
+                // 注意这里是break，不是continue
+                break;
             }
             item.add(i);
             dfs(n, k, i + 1, res, item);
