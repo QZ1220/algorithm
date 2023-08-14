@@ -103,16 +103,7 @@ public class CombinationSumII {
         subset(i + 1, linkedList, item, resultSet, tempSum, target);
     }
 
-    public static void main(String[] args) {
-//        int[] nums = {10, 1, 2, 7, 6, 1, 5};
-//        [[6,6,7,8],[6,7,14],[6,8,13],[6,9,12],[6,10,11],[6,21],[7,8,12],[7,9,11],[7,20],[8,8,11],[8,9,10],[9,9,9],[9,18],[10,17],[11,16],[13,14],[27]]
-        int[] nums = {14, 6, 25, 9, 30, 20, 33, 34, 28, 30, 16, 12, 31, 9, 9, 12, 34, 16, 25, 32, 8, 7, 30, 12, 33,
-                20, 21, 29, 24, 17, 27, 34, 11, 17, 30, 6, 32, 21, 27, 17, 16, 8, 24, 12, 12, 28, 11, 33, 10, 32, 22, 13, 34, 18, 12};
-        CombinationSumII combinationSumII = new CombinationSumII();
-//        List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 27);
-        List<List<Integer>> lists = combinationSumII.combinationSum3(nums, 27);
-        System.out.println(lists);
-    }
+
 
 
     public List<List<Integer>> combinationSum4(int[] candidates, int target) {
@@ -136,5 +127,55 @@ public class CombinationSumII {
         tempSum -= nums[i];
         item.remove(item.size() - 1);
         dfs(nums, i - 1, target, tempSum, res, item);
+    }
+
+
+    public List<List<Integer>> combinationSum10(int[] candidates, int target) {
+        int[] arr = Arrays.stream(candidates).filter(v -> v <= target).sorted().toArray();
+        int sum = Arrays.stream(arr).sum();
+        if (sum<target){
+            return new LinkedList<>();
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+        backTrack(arr,target,0,res,new LinkedList<>(),0);
+        return res;
+    }
+
+    private void backTrack(int[] candidates, int target, int tempSum, List<List<Integer>> res, List<Integer> item, int startIndex) {
+        if (tempSum == target) {
+            res.add(new ArrayList<>(item));
+            return;
+        }
+        for (int i = startIndex; i < candidates.length; i++) {
+            //正确剔除重复解的办法
+            //跳过同一树层使用过的元素
+            if ( i > startIndex && candidates[i] == candidates[i - 1] ) {
+                continue;
+            }
+            int candidate = candidates[i];
+            // 剪枝优化
+            if (tempSum + candidate > target) {
+                break;
+            }
+
+            tempSum += candidate;
+            item.add(candidate);
+            backTrack(candidates, target, tempSum, res, item, i + 1);
+            tempSum -= candidate;
+            item.remove(item.size() - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {10, 1, 2, 7, 6, 1, 5};
+//        [[6,6,7,8],[6,7,14],[6,8,13],[6,9,12],[6,10,11],[6,21],[7,8,12],[7,9,11],[7,20],[8,8,11],[8,9,10],[9,9,9],[9,18],[10,17],[11,16],[13,14],[27]]
+//        int[] nums = {14, 6, 25, 9, 30, 20, 33, 34, 28, 30, 16, 12, 31, 9, 9, 12, 34, 16, 25, 32, 8, 7, 30, 12, 33,
+//                20, 21, 29, 24, 17, 27, 34, 11, 17, 30, 6, 32, 21, 27, 17, 16, 8, 24, 12, 12, 28, 11, 33, 10, 32, 22, 13, 34, 18, 12};
+        CombinationSumII combinationSumII = new CombinationSumII();
+//        List<List<Integer>> lists = combinationSumII.combinationSum2(nums, 27);
+//        List<List<Integer>> lists = combinationSumII.combinationSum3(nums, 27);
+        List<List<Integer>> lists = combinationSumII.combinationSum10(nums, 8);
+        System.out.println(lists);
     }
 }
