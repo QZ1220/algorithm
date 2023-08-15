@@ -6,6 +6,9 @@ import java.util.List;
 /**
  * https://leetcode.com/problems/restore-ip-addresses/
  * <p>
+ * 本题要和https://leetcode.com/problems/palindrome-partitioning/形成对比
+ * 重点比较回溯的位置
+ * <p>
  * 题目给定一个数字字符串，求字符串可以解析出的合法IP地址的所有可能的结果
  * <p>
  * 使用回溯求解
