@@ -1,9 +1,6 @@
 package com.audi.leetcode.recursion;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/permutations/
@@ -22,7 +19,8 @@ public class Permutations {
 
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new LinkedList<>();
-        dfs(nums, new LinkedList<>(), res, new HashSet<>());
+//        dfs(nums, new LinkedList<>(), res, new HashSet<>());
+        dfs(nums, new LinkedList<>(), res, new BitSet());
         return res;
     }
 
@@ -41,6 +39,32 @@ public class Permutations {
 
             list.remove(list.size() - 1);
             visitSet.remove(nums[i]);
+        }
+    }
+
+    /**
+     * 使用BitSet替换HashSet，降低空间复杂度，时间复杂度
+     *
+     * @param nums
+     * @param list
+     * @param res
+     * @param bitSet
+     */
+    private void dfs(int[] nums, List<Integer> list, List<List<Integer>> res, BitSet bitSet) {
+        if (list.size() == nums.length) {
+            res.add(new LinkedList<>(list));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (bitSet.get(i)) {
+                continue;
+            }
+            list.add(nums[i]);
+            bitSet.set(i);
+            dfs(nums, list, res, bitSet);
+
+            list.remove(list.size() - 1);
+            bitSet.clear(i);
         }
     }
 
