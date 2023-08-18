@@ -28,7 +28,7 @@ public class PermutationsII {
             return;
         }
         for (int i = 0; i < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[i - 1] && bitSet.get(i - 1) == false) {
+            if (i > 0 && nums[i] == nums[i - 1] && !bitSet.get(i - 1)) {
                 continue;
             }
             if (!bitSet.get(i)) {
