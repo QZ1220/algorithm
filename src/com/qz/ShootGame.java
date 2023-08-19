@@ -75,51 +75,53 @@ public class ShootGame {
         return dp[m][n];
     }
 
+
     /**
-     * 使用二项式系数求解
-     *
-     * 假设我们有m次射击，总环数为n。我们可以将整体的问题分解为m个部分，每个部分表示一次射击。对于每个部分，我们可以找到其对应的0-10环的可能数量。
-     *
-     * 具体计算方法如下：
-     *
-     * 对于每个部分，假设其得分为x环。那么该部分的可能数量为 C(n, x) （选择x环的可能数量）。
-     * 对于m次射击，每次得分的可能数量分别为C(n, 0), C(n, 1), …, C(n, 10)。
-     * 根据乘法原理和加法原理，总的可能数量为 C(n, 0) * C(n, 1) * … * C(n, 10)。
+     * 这道题还可以使用动态规划来求解
+     * <p>
+     * 类比于01背包问题（实际上应该是多重背包，但是可以使用for循环拆解为01背包）
+     * <p>
+     * 使用一维dp递推公式求解，因为本题求解的是方案的总的可能的情况数，因此递推公式为：
+     * <p>
+     * dp[j]+=dp[j-nums[i]];
+     * <p>
+     * 下面的代码，求出的结果貌似与二维dp求出的结果不一致。。。
      *
      * @param m
      * @param n
      * @return
      */
-    public static int shootingWays3(int m, int n) {
+    public int shootingWays2222(int m, int n) {
         if (m * 10 < n || m * 0 > n) {
-            return 0;
-        } else if (m * 10 == n || m * 0 == n) {
-            return 1;
+            return -1;
         }
 
-        int result = 1;
-        for (int i = 0; i <= 10; i++) {
-            int numerator = 1;
-            int denominator = 1;
-
-            if (i <= n) {
-                numerator = n - i + 1;
+        // dp[j]表示在射击总环数得到j环时，可能的射击方案的总数
+        int[] dp = new int[n + 1];
+        // dp[0]表示射击0环，方案数为1，即不射击
+        dp[0] = 1;
+        for (int i = 1; i <= m; i++) {
+            // 倒序遍历背包
+            for (int j = n; j >= 0; j--) {
+                for (int k = 0; k < 11; k++) {
+                    // j-k >=0  才有继续射击的可能，否则直接停止射击
+                    if ((j - k) >= 0) {
+                        dp[j] += dp[j - k];
+                    }
+                }
             }
-            if (i <= m) {
-                denominator = i + 1;
-            }
-
-            result *= numerator / denominator;
         }
-
-        return result;
+        return dp[n];
     }
 
 
     public static void main(String[] args) {
         ShootGame game = new ShootGame();
-        System.out.println(game.shootingWays(2, 3));
-        System.out.println(game.shootingWays2(2, 3));
+        int m = 3;
+        int n = 5;
+        System.out.println(game.shootingWays(m, n));
+        System.out.println(game.shootingWays2(m, n));
+        System.out.println(game.shootingWays2222(m, n));
     }
 
 }
