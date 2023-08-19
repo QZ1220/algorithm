@@ -44,9 +44,45 @@ public class CombinationSumIV {
         return dp[target];
     }
 
+    /**
+     * 尝试使用回溯求解本题
+     * <p>
+     * 回溯的话，本题就是一道非常基本的题，时间复杂度n^n  n的n次方
+     * <p>
+     * 提交leetcode，在如下测试用例时，会TLE：
+     * nums =
+     * [2,1,3]
+     * target =
+     * 35
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    int sum = 0;
+
+    public int combinationSum(int[] nums, int target) {
+        backtrack(nums, target, 0);
+        return sum;
+    }
+
+    private void backtrack(int[] nums, int target, int tmpSum) {
+        if (tmpSum > target) {
+            return;
+        }
+        if (tmpSum == target) {
+            sum++;
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            backtrack(nums, target, tmpSum + nums[i]);
+        }
+    }
+
     public static void main(String[] args) {
         CombinationSumIV combinationSumIV = new CombinationSumIV();
         int[] nums = {1, 2, 3};
-        System.out.println(combinationSumIV.combinationSum4(nums, 4));
+        System.out.println(combinationSumIV.combinationSum4(nums, 35));
+        System.out.println(combinationSumIV.combinationSum(nums, 35));
     }
 }
