@@ -4,6 +4,8 @@ package com.audi.leetcode.dp;
 /**
  * https://leetcode.com/problems/minimum-path-sum/
  * <p>
+ * 给一个二维矩阵，求从矩阵的左上角到矩阵的右下角，走过的路径的和最小是多少
+ * <p>
  * 这道题可以参考一下https://leetcode.com/problems/unique-paths/   的思路
  *
  * @author: WangQuanzhou

@@ -1,4 +1,4 @@
-package com.audi.leetcode.dp;
+package com.audi.leetcode.recursion;
 
 import java.util.Map;
 
@@ -68,7 +68,7 @@ public class CanIWin {
      * 参考下面的视频讲解
      * https://www.bilibili.com/video/BV1fv411j7j7/?spm_id_from=333.337.search-card.all.click&vd_source=d1530fb814268f770330143e24aaf1e6
      *
-     * @param state
+     * @param state               记忆哪些数字已经被使用过了，可以使用set，当然更高效的是类似本题使用bit
      * @param sum
      * @param maxChoosableInteger
      * @param desiredTotal

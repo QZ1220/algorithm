@@ -1,6 +1,8 @@
 package com.audi.leetcode.dp;
 
 
+import java.util.Arrays;
+
 /**
  * https://leetcode.com/problems/longest-continuous-increasing-subsequence/
  * <p>
@@ -23,7 +25,7 @@ package com.audi.leetcode.dp;
  */
 public class LongestContinuousIncreasingSubsequence {
 
-    public int findLengthOfLCIS(int[] nums) {
+    public int findLengthOfLCIS2(int[] nums) {
         int max = 1;
         int tempMax = 1;
         for (int i = 1; i < nums.length; i++) {
@@ -37,6 +39,26 @@ public class LongestContinuousIncreasingSubsequence {
         }
         // 返回真正的最大长度
         return max > tempMax ? max : tempMax;
+    }
+
+    /**
+     * 使用动态规划 递推求解
+     *
+     * @param nums
+     * @return
+     */
+    public int findLengthOfLCIS(int[] nums) {
+        int max = 1;
+        // dp[i]表示以元素i结尾的最长上升子序列
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) {
+                dp[i] = dp[i - 1] + 1;
+            }
+            max = Math.max(dp[i], max);
+        }
+        return max;
     }
 
     public static void main(String[] args) {
