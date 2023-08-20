@@ -46,6 +46,25 @@ public class BestTimetoBuyandSellStockII {
         return maxProfit;
     }
 
+
+    /**
+     * 更为简洁的一个算法
+     * <p>
+     * 即：每次只要有盈利（第二天的价格比前一天高，就累加利润）
+     *
+     * @param prices
+     * @return
+     */
+    public int maxProfit2(int[] prices) {
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1]) {
+                profit += prices[i] - prices[i - 1];
+            }
+        }
+        return profit;
+    }
+
     public static void main(String[] args) {
 //        int[] prices = {1, 2, 3, 4, 5};
 //        int[] prices = {7, 1, 5, 3, 6, 4};
