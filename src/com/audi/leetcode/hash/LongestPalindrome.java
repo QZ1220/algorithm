@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * https://leetcode.com/problems/longest-palindrome/
+ * <p>
  * 给定一个由大写或者小写字母组成的字符串，求由这个字符串法字符可以组成的回文串，返回这个回文串的长度
  *
  * @author : wangquanzhou
