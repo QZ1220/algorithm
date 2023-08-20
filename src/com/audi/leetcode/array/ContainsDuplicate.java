@@ -31,5 +31,6 @@ public class ContainsDuplicate {
         int[] array = {0};
         ContainsDuplicate containsDuplicate = new ContainsDuplicate();
         System.out.println(containsDuplicate.containsDuplicate(array));
+        System.out.println(Integer.MAX_VALUE);
     }
 }

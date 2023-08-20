@@ -11,6 +11,8 @@ import java.util.Map;
  * 求数组中是否存在重复元素，且二者的下标查在某个范围内，存在返回true，不存在返回false
  * <p>
  * 使用map实现解题
+ * <p>
+ * 本题还可以使用双指针+set的思路来求解
  */
 public class ContainsDuplicateII {
     public boolean containsNearbyDuplicate(int[] nums, int k) {

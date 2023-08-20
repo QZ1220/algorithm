@@ -12,6 +12,20 @@ import java.util.Arrays;
  * Output: [0,1,9,16,100]
  * Explanation: After squaring, the array becomes [16,1,0,9,100].
  * After sorting, it becomes [0,1,9,16,100].
+ * <p>
+ * <p>
+ * 本题还可以使用双指针方法求解，思路如下：
+ * 数组其实是有序的， 只不过负数平方之后可能成为最大数了。
+ * <p>
+ * 那么数组平方的最大值就在数组的两端，不是最左边就是最右边，不可能是中间。
+ * <p>
+ * 此时可以考虑双指针法了，i指向起始位置，j指向终止位置。
+ * <p>
+ * 定义一个新数组result，和A数组一样的大小，让k指向result数组终止位置。
+ * <p>
+ * 如果A[i] * A[i] < A[j] * A[j] 那么result[k--] = A[j] * A[j]; 。
+ * <p>
+ * 如果A[i] * A[i] >= A[j] * A[j] 那么result[k--] = A[i] * A[i]; 。
  *
  * @author: WangQuanzhou
  * @date: 2021-10-19 8:28 AM
