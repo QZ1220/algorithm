@@ -52,6 +52,10 @@ public class Sort {
         for (int i = (nums.length / 2) - 1; i >= 0; i--) {
             heapify(nums, nums.length, i);
         }
+        for (int i = nums.length - 1; i >= 0; i--) {
+            swap(nums, i, 0);
+            heapify(nums, i, 0);
+        }
     }
 
     /**

@@ -18,20 +18,12 @@ public class PathSum {
         if (null == root) {
             return false;
         }
-        return hasPathSum(root, 0, targetSum);
-    }
-
-    private boolean hasPathSum(TreeNode root, int sum, int targetSum) {
-        if (root == null) {
-            return false;
-        }
-        sum = sum + root.val;
-        if (sum == targetSum && root.left == null && root.right == null) {
+        if (root.left == null && root.right == null && root.val == targetSum) {
             return true;
         }
-
-        return hasPathSum(root.left, sum, targetSum) || hasPathSum(root.right, sum, targetSum);
+        return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
     }
+
 
     public static void main(String[] args) {
     }
