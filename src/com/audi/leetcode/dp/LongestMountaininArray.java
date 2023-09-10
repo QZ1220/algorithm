@@ -89,7 +89,7 @@ public class LongestMountaininArray {
      * @param A
      * @return
      */
-    public int longestMountain(int[] A) {
+    public int longestMountain22(int[] A) {
         int N = A.length;
         int ans = 0, base = 0;
         while (base < N) {
@@ -112,6 +112,53 @@ public class LongestMountaininArray {
         }
 
         return ans;
+    }
+
+
+    /**
+     * 我们可以使用动态规划的方法来解决这个问题。定义两个动态规划数组：up[i]表示以第i个元素结尾的上升段（即左侧递增序列）的长度，
+     * down[i]表示以第i个元素开始的下降段（即右侧递减序列）的长度。
+     * <p>
+     * 遍历数组，从左到右更新up[i]，从右到左更新down[i]。具体的动态规划状态转移方程如下：
+     * <p>
+     * 对于i从1到n-1（n为数组长度）：
+     * <p>
+     * 如果arr[i] > arr[i-1]，则up[i] = up[i-1] + 1；
+     * 否则，up[i] = 0（重新开始计算上升段）。
+     * 对于i从n-2到0：
+     * <p>
+     * 如果arr[i] > arr[i+1]，则down[i] = down[i+1] + 1；
+     * 否则，down[i] = 0（重新开始计算下降段）。
+     * 遍历完数组后，再遍历一次，计算最长的山脉长度。对于每个位置i，如果up[i]和down[i]都大于0，
+     * 则以i为山顶的山脉长度为up[i] + down[i] + 1，更新最长山脉的长度。
+     *
+     * @param arr
+     * @return
+     */
+    public int longestMountain(int[] arr) {
+        if (null == arr || arr.length < 3) {
+            return 0;
+        }
+        int[] dpUp = new int[arr.length];
+        int[] dpDown = new int[arr.length];
+
+        for (int i = 1; i < arr.length; i++) {
+            dpUp[i] = arr[i] > arr[i - 1] ? dpUp[i - 1] + 1 : 0;
+        }
+
+        for (int i = arr.length - 2; i >= 0; i--) {
+            dpDown[i] = arr[i] > arr[i + 1] ? dpDown[i + 1] + 1 : 0;
+        }
+
+        int maxLen = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (dpUp[i] > 0 && dpDown[i] > 0) {
+                maxLen = Math.max(maxLen, dpUp[i] + dpDown[i] + 1);
+            }
+        }
+
+        return maxLen;
     }
 
     public static void main(String[] args) {
