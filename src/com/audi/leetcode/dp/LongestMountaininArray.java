@@ -154,6 +154,8 @@ public class LongestMountaininArray {
 
         for (int i = 0; i < arr.length; i++) {
             if (dpUp[i] > 0 && dpDown[i] > 0) {
+                // i表示山顶的位置 dp[i]表示左边山坡的高度   dpDown[i]表示右边山坡的高度
+                // 因此总长度 = dpUp[i] + dpDown[i] + 1（1表示山顶的元素）
                 maxLen = Math.max(maxLen, dpUp[i] + dpDown[i] + 1);
             }
         }
