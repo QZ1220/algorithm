@@ -1,6 +1,7 @@
 package com.audi.leetcode.recursion;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,6 +58,21 @@ public class Subsets {
             result.add(item);
         }
         return result;
+    }
+
+    // 回溯，每一步收集结果，这种方法，就不再需要在调用backtrack方法之前，放入空集合了
+    private void backtrack(int[] nums, int startIndex, List<Integer> path, List<List<Integer>> res) {
+        // 每一步都需要收集结果，注意要在结束条件之前进行收集，而非之后
+        res.add(new ArrayList<>(path));
+        // 这里的递归结束条件其实可以不加，因为后续的for循环在startIndex不满足条件时，会自动退出
+        if (startIndex >= nums.length) {
+            return;
+        }
+        for (int i = startIndex; i < nums.length; i++) {
+            path.add(nums[i]);
+            backtrack(nums, i + 1, path, res);
+            path.remove(path.size() - 1);
+        }
     }
 
 
