@@ -37,6 +37,24 @@ public class SubsetsII {
         return new LinkedList<>(set);
     }
 
+
+    private void backtrack(int[] nums, int startIndex, List<Integer> path, List<List<Integer>> res) {
+        // 每一步都需要收集结果
+        res.add(new ArrayList<>(path));
+        if (startIndex >= nums.length) {
+            return;
+        }
+        for (int i = startIndex; i < nums.length; i++) {
+            // 剪枝去重
+            if (i > startIndex && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            path.add(nums[i]);
+            backtrack(nums, i + 1, path, res);
+            path.remove(path.size() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         SubsetsII subsets = new SubsetsII();
         int[] nums = {4, 4, 4, 1, 4};
