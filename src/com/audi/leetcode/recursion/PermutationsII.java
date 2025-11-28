@@ -28,6 +28,7 @@ public class PermutationsII {
             return;
         }
         for (int i = 0; i < nums.length; i++) {
+            // bitSet.get(i - 1) 这里i-1表示是树层间去重，i表示是树枝之间去重
             if (i > 0 && nums[i] == nums[i - 1] && !bitSet.get(i - 1)) {
                 continue;
             }
