@@ -46,6 +46,22 @@ public class GenerateParentheses {
         }
     }
 
+    private void dfs2(int left, int right, StringBuilder sb, ArrayList<String> ret) {
+        // 左右括号数量相等  且左右括号都已经用完
+        if (left == 0 && right == 0) {
+            ret.add(sb.toString());
+            return;
+        }
+        // 先加左括号
+        if (left > 0) {
+            dfs2(left - 1, right, sb.append("("), ret);
+        }
+        // 再加右括号
+        if (left < right) {
+            dfs2(left, right - 1, sb.append(")"), ret);
+        }
+    }
+
     // 这个题也可以使用这种解法：
     // 先求出所有可能的括号组合，再依次判断各个组合是否是合法的
     // 这种解法性能上，要比上面的dfs差一些
