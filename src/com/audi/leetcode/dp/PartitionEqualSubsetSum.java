@@ -106,4 +106,50 @@ public class PartitionEqualSubsetSum {
         return dp[n][targetSum];
     }
 
+
+    /**
+     * 使用动态规划思想求解
+     * <p>
+     * 本题可以使用0-1背包思想求解，并且使用一维数组求解，进行状态压缩
+     *
+     * @param nums
+     * @return
+     */
+    public boolean canPartition3(int[] nums) {
+
+        // 长度小于2的数组，不可能被分成两半
+        if (null == nums || nums.length < 2) {
+            return false;
+        }
+
+        int sum = 0;
+        int maxNum = Integer.MIN_VALUE;
+        for (int num : nums) {
+            sum += num;
+            maxNum = Math.max(maxNum, num);
+        }
+
+        // 数组和不是偶数，也不可能被分成两半，使得二者和相等
+        if (0 != sum % 2) {
+            return false;
+        }
+
+        int mid = sum / 2;
+        // 如果数组存在一个元素，大于中间值，那么也不可能满足题意
+        if (mid < maxNum) {
+            return false;
+        }
+        // dp[j]表示背包容量为j时，背包的最大价值为dp[j]
+        int[] dp = new int[mid + 1];
+
+        // 先遍历物品，再遍历背包（如果先遍历背包再遍历物品，会导致背包中最后只有一个价值最大的物品，并非是整体所求的最大价值）
+        for (int i = 0; i < nums.length; i++) {
+            // 背包采用倒序遍历，可以保证每个物品只使用一次（因为是0-1背包）
+            for (int j = mid; j >= nums[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
+            }
+        }
+        return dp[mid] == mid;
+    }
+
 }
