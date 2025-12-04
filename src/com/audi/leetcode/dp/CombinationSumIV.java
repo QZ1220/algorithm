@@ -81,8 +81,8 @@ public class CombinationSumIV {
 
     public static void main(String[] args) {
         CombinationSumIV combinationSumIV = new CombinationSumIV();
-        int[] nums = {1, 2, 3};
-        System.out.println(combinationSumIV.combinationSum4(nums, 35));
-        System.out.println(combinationSumIV.combinationSum(nums, 35));
+        int[] nums = {1, 2, 5};
+        System.out.println(combinationSumIV.combinationSum4(nums, 5));
+        System.out.println(combinationSumIV.combinationSum(nums, 5));
     }
 }

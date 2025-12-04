@@ -32,6 +32,10 @@ public class CoinChangeII {
                 // dp[j]等于所有的dp[j - coins[i]]相加
                 dp[j] += dp[j - coins[i]];
             }
+            for (int j = 0; j <dp.length ; j++) {
+                System.out.print(dp[j]+" ");
+            }
+            System.out.println();
         }
 
         return dp[amount];
