@@ -64,8 +64,10 @@ public class CoinChange {
         }
         // dp[i]代表组成金额i时的最少需要多少张钞票
         int[] dp = new int[amount + 1];
-        // 初始设置所有金额都不可达
-        Arrays.fill(dp, amount+1);
+        // 优化点：使用 (amount + 1) 作为初始值，替代 Integer.MAX_VALUE
+        // 原因：任何有效解都不会超过amount，所以amount+1是一个安全且足够大的“不可达”标记
+//        Arrays.fill(dp, Integer.MAX_VALUE);
+        Arrays.fill(dp, amount + 1);
 
         // 为了递推方便，设置金额0可以使用0个硬币组成
         dp[0] = 0;
@@ -82,7 +84,7 @@ public class CoinChange {
             }
         }
         // 修复后，这里只需判断是否等于初始值
-        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+        return dp[amount] == amount ? -1 : dp[amount];
     }
 
     public static void main(String[] args) {
