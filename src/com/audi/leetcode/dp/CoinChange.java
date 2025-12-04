@@ -9,7 +9,7 @@ import java.util.Arrays;
  * https://www.ixigua.com/6803573365928886787?id=6803240858175930891&logTag=ef11c930411c71ec3da5
  *
  * <p>
- * 组成指定面值所使用的的钞票张数
+ * 组成指定面值所使用的的最少钞票张数
  * <p>
  * 注意这道题不可以使用贪心算法，因为coins的值是未知的，既然未知就不满足贪心思想的一个必备条件：当前金额是比它小的任意金额的倍数，
  * 比如{1,5,10,20,100}，100是20、10、5、1的整倍数
@@ -51,9 +51,45 @@ public class CoinChange {
         return dp[amount];
     }
 
+
+    /**
+     * 使用完全背包的思想求解
+     *
+     * @author : wangquanzhou
+     * @date : 2025/12/4 19:53
+     */
+    public int coinChange2(int[] coins, int amount) {
+        if (null == coins || coins.length == 0) {
+            return -1;
+        }
+        // dp[i]代表组成金额i时的最少需要多少张钞票
+        int[] dp = new int[amount + 1];
+        // 初始设置所有金额都不可达
+        Arrays.fill(dp, amount+1);
+
+        // 为了递推方便，设置金额0可以使用0个硬币组成
+        dp[0] = 0;
+
+        // 先物品后背包
+        for (int i = 0; i < coins.length; i++) {
+            // 这里采用顺序遍历，使得一个硬币可以重复使用
+            for (int j = coins[i]; j <= amount; j++) {
+//                dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
+                // 必须判断前一个状态是否可达，避免整数溢出
+                if (dp[j - coins[i]] != Integer.MAX_VALUE) {
+                    dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
+                }
+            }
+        }
+        // 修复后，这里只需判断是否等于初始值
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+
     public static void main(String[] args) {
-        int[] coins = {1, 2, 5};
+//        int[] coins = {1, 2, 5, 7, 10};
+        int[] coins = {2, 5, 10, 1};
         CoinChange coinChange = new CoinChange();
-        System.out.println(coinChange.coinChange(coins, 11));
+        System.out.println(coinChange.coinChange(coins, 27));
+        System.out.println(coinChange.coinChange2(coins, 27));
     }
 }
