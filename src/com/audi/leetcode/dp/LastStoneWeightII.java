@@ -33,7 +33,9 @@ public class LastStoneWeightII {
         // 背包问题：dp[j]表示装满容量为j的背包的最大价值
         // 本题问题：dp[j]表示总体积为j的数组的最大重量  dp[0]=0
         int[] dp = new int[target + 1];
+        // 先物品
         for (int i = 0; i < stones.length; i++) {
+            // 后背包，且背包只能采用倒序遍历
             for (int j = target; j >= stones[i]; j--) {
                 // 第一个stones[i]是01背包中体积的概念
                 // 第二个stones[i]是01背包中重量的概念
