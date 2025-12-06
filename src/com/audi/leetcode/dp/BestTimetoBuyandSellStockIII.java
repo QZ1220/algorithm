@@ -32,7 +32,7 @@ public class BestTimetoBuyandSellStockIII {
         dp[0][3] = -prices[0];
         dp[0][4] = 0;
         for (int i = 1; i < prices.length; i++) {
-            // dp[i][0]可以由前一天已经持有，以及第i-1天不持有股票，在第i天买入股票，然后求最大值
+            // dp[i][0]表示不操作，所以值直接等于前一天不操作的值
             dp[i][0] = dp[i-1][0];
             // dp[i][1]可以由前一天持有，以及前一天不操作且第i天买入，求最大值得到
             dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
