@@ -72,19 +72,15 @@ public class CoinChange {
         // 为了递推方便，设置金额0可以使用0个硬币组成
         dp[0] = 0;
 
-        // 先物品后背包
+        // 先物品后背包（因为是完全背包问题（物品可以使用无限次），所以先背包后物品，先物品后背包都行）
         for (int i = 0; i < coins.length; i++) {
             // 这里采用顺序遍历，使得一个硬币可以重复使用
             for (int j = coins[i]; j <= amount; j++) {
-//                dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
-                // 必须判断前一个状态是否可达，避免整数溢出
-                if (dp[j - coins[i]] != Integer.MAX_VALUE) {
-                    dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
-                }
+                dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
             }
         }
         // 修复后，这里只需判断是否等于初始值
-        return dp[amount] == amount ? -1 : dp[amount];
+        return dp[amount] == amount+1 ? -1 : dp[amount];
     }
 
     public static void main(String[] args) {
