@@ -33,6 +33,7 @@ public class LongestCommonSubsequence {
     public int longestCommonSubsequence(String text1, String text2) {
         int m = text1.length();
         int n = text2.length();
+        // dp[i][j]表示以text1的i-1位置,text2的j-1位置的最长公共子序列
         int[][] dp = new int[m + 1][n + 1];
 
         for (int i = 1; i <= m; i++) {
