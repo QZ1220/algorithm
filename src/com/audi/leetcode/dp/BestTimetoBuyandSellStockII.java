@@ -3,6 +3,8 @@ package com.audi.leetcode.dp;
 /**
  * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
  *
+ * 本题与买卖股票1 的区别就是   这里的股票运行多次买入卖出，但是注意   手头上的股票  最多只能有一股，也就是不能连续买入而不卖出
+ *
  * 参考视频：https://www.bilibili.com/video/BV1D24y1Q7Ls?spm_id_from=333.788.videopod.sections&vd_source=d1530fb814268f770330143e24aaf1e6
  *
  * <p>
