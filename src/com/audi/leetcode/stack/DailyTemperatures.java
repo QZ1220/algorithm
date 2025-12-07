@@ -22,7 +22,7 @@ import java.util.Stack;
  * <p>
  * 使用单调栈的思想求解
  * <p>
- * 单调栈适合求解，数组中，左边或者右边第一个比当前元素小的位置或者距离
+ * 单调栈适合求解，数组中，左边或者右边第一个比当前元素小的位置或者距离，时间复杂度O(n)
  *
  * @author : wangquanzhou
  * @date : 2025/12/7 09:26
@@ -43,9 +43,7 @@ public class DailyTemperatures {
                 res[head] = i - head;
             }
             // 入栈操作
-            if (stack.isEmpty() || temperatures[stack.peek()] >= temperatures[i]) {
-                stack.push(i);
-            }
+            stack.push(i);
         }
         return res;
     }
@@ -57,7 +55,7 @@ public class DailyTemperatures {
         DailyTemperatures dailyTemperatures = new DailyTemperatures();
         int[] temperatures = dailyTemperatures.dailyTemperatures(temps);
         for (int i = 0; i < temperatures.length; i++) {
-            System.out.print(temperatures[i]+" ");
+            System.out.print(temperatures[i] + " ");
         }
         System.out.println();
     }
