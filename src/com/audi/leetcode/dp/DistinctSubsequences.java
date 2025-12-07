@@ -31,10 +31,10 @@ package com.audi.leetcode.dp;
 public class DistinctSubsequences {
 
     public int numDistinct(String s, String t) {
-
+        return -1;
     }
 
     public static void main(String[] args) {
-        
+
     }
 }
