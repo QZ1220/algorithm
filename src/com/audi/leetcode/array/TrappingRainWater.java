@@ -72,6 +72,7 @@ public class TrappingRainWater {
                 if (!stack.isEmpty()) {
                     // 左侧的边界
                     int left = height[stack.peek()];
+                    // 计算所能容纳的雨水的面积
                     if (left > middle && right > middle) {
                         int tempH = Math.min(right, left);
                         sum += (tempH - middle) * (i - stack.peek() - 1);
