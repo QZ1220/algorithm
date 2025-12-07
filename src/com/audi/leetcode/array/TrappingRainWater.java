@@ -1,5 +1,8 @@
 package com.audi.leetcode.array;
 
+import java.util.Map;
+import java.util.Stack;
+
 /**
  * https://leetcode.com/problems/trapping-rain-water/
  * <p>
@@ -13,6 +16,7 @@ package com.audi.leetcode.array;
  */
 public class TrappingRainWater {
 
+    // 纵向求解
     public int trap(int[] height) {
         if (null == height || height.length < 3) {
             return 0;
@@ -49,10 +53,42 @@ public class TrappingRainWater {
     }
 
 
+    // 横向求解，使用单调栈求解  参考视频：https://www.bilibili.com/video/BV1uD4y1u75P?spm_id_from=333.788.videopod.sections&vd_source=d1530fb814268f770330143e24aaf1e6
+    public int trap2(int[] height) {
+        if (null == height || height.length < 3) {
+            return 0;
+        }
+        int sum = 0;
+
+        // 定义单调栈  单调递增栈  横向求和
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < height.length; i++) {
+            while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
+                // 右边的边界
+                int right = height[i];
+                // 中间位置
+                int middle = height[stack.pop()];
+                // 由于上面一行进行了弹出栈的操作，因此这里需要需要再做下栈为空的判断
+                if (!stack.isEmpty()) {
+                    // 左侧的边界
+                    int left = height[stack.peek()];
+                    if (left > middle && right > middle) {
+                        int tempH = Math.min(right, left);
+                        sum += (tempH - middle) * (i - stack.peek() - 1);
+                    }
+                }
+            }
+            stack.push(i);
+        }
+        return sum;
+    }
+
+
     public static void main(String[] args) {
-//        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-        int[] height = {6, 0, 3};
+        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+//        int[] height = {6, 0, 3};
         TrappingRainWater trappingRainWater = new TrappingRainWater();
         System.out.println(trappingRainWater.trap(height));
+        System.out.println(trappingRainWater.trap2(height));
     }
 }
