@@ -46,23 +46,17 @@ public class NumberofIslands {
 
         int count = 0;
 
-        char[][] mark = new char[rows][columns];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                mark[i][j] = WATER;
-            }
-        }
-
+        // 采用bool数组存储访问历史
+        boolean[][] mark = new boolean[rows][columns];
 
         // i代表行
         for (int i = 0; i < rows; i++) {
             // j代表的是列
             for (int j = 0; j < columns; j++) {
                 // 如果当前位置是陆地 且没有被搜索过
-                if (grid[i][j] == LAND && mark[i][j] == WATER) {
-                    DFS(grid, mark, i, j, rows, columns);
-//                    BFS(grid, mark, i, j, rows, columns);
+                if (grid[i][j] == LAND && !mark[i][j]) {
+//                    DFS(grid, mark, i, j, rows, columns);
+                    BFS(grid, mark, i, j, rows, columns);
                     count += 1;
                 }
             }
@@ -85,7 +79,7 @@ public class NumberofIslands {
      * @param rows    grid数组的行数
      * @param columns grid数组的列数
      */
-    private void DFS(char[][] grid, char[][] mark, int x, int y, int rows, int columns) {
+    private void DFS(char[][] grid, boolean[][] mark, int x, int y, int rows, int columns) {
 
         if (grid[x][y] == WATER) {
             return;
@@ -96,7 +90,7 @@ public class NumberofIslands {
 //        }
 
         // 更新mark矩阵
-        mark[x][y] = LAND;
+        mark[x][y] = true;
 
         for (int i = 0; i < 4; i++) {
             // 注意下面的对新坐标的计算 一定要新指定一个变量名称  否则下面的continue语句会遍历不到4个方向
@@ -108,7 +102,7 @@ public class NumberofIslands {
             }
 
             // 如果mark矩阵的newX，newY位置未被便利过  且  grid矩阵的该位置是陆地  那么就进行进行搜索
-            if (mark[newX][newY] == WATER && grid[newX][newY] == LAND) {
+            if (!mark[newX][newY] && grid[newX][newY] == LAND) {
                 DFS(grid, mark, newX, newY, rows, columns);
             }
         }
@@ -130,8 +124,8 @@ public class NumberofIslands {
      * @param rows    grid数组的行数
      * @param columns grid数组的列数
      */
-    private void BFS(char[][] grid, char[][] mark, int x, int y, int rows, int columns) {
-        if (mark[x][y] == LAND) {
+    private void BFS(char[][] grid, boolean[][] mark, int x, int y, int rows, int columns) {
+        if (mark[x][y]) {
             return;
         }
 
@@ -139,7 +133,7 @@ public class NumberofIslands {
         Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
 
         // 更新mark矩阵
-        mark[x][y] = LAND;
+        mark[x][y] = true;
 
         queue.add(new Pair<>(x, y));
 
@@ -157,11 +151,11 @@ public class NumberofIslands {
                 }
 
                 // 如果mark矩阵的newX，newY位置未被便利过  且  grid矩阵的该位置是陆地  那么就进行进行搜索
-                if (mark[newX][newY] == WATER && grid[newX][newY] == LAND) {
+                if (!mark[newX][newY] && grid[newX][newY] == LAND) {
                     // 新元素入队
                     queue.offer(new Pair<>(newX, newY));
                     // 更新mark矩阵
-                    mark[newX][newY] = LAND;
+                    mark[newX][newY] = true;
                 }
             }
         }

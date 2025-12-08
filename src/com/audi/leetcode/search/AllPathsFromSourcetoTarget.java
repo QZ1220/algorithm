@@ -53,6 +53,7 @@ public class AllPathsFromSourcetoTarget {
     private void dfs(int[][] graph, List<List<Integer>> res, List<Integer> path, int target, int x) {
         if (x == target) {
             res.add(new ArrayList<>(path));
+            return;
         }
 
         for (int neighbor : graph[x]) {
