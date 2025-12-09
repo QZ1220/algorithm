@@ -81,13 +81,10 @@ public class NumberofIslands {
      */
     private void DFS(char[][] grid, boolean[][] mark, int x, int y, int rows, int columns) {
 
-        if (grid[x][y] == WATER) {
+        // 如果遇到海洋  或者 当前节点已经访问过  则终止递归
+        if (grid[x][y] == WATER||mark[x][y]) {
             return;
         }
-        // 使用下面的递归终止条件也可以
-//        if (mark[x][y] == LAND) {
-//            return;
-//        }
 
         // 更新mark矩阵
         mark[x][y] = true;
@@ -102,6 +99,7 @@ public class NumberofIslands {
             }
 
             // 如果mark矩阵的newX，newY位置未被便利过  且  grid矩阵的该位置是陆地  那么就进行进行搜索
+            // 其实下面的这个if可以省略，因为递归函数的入口位置已经保证了下面的if条件是满足的，无需再次判断
             if (!mark[newX][newY] && grid[newX][newY] == LAND) {
                 DFS(grid, mark, newX, newY, rows, columns);
             }
