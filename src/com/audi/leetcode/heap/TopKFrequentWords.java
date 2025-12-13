@@ -179,17 +179,22 @@ public class TopKFrequentWords {
             if (i >= list.size()) {
                 throw new IllegalArgumentException();
             }
-            while (leftChild(i) < list.size()) {
-                int j = leftChild(i);
-                // 注意这些条件判断以及下层的compare方法
-                if (rightChild(i) < list.size() && list.get(leftChild(i)).compareTo(list.get(rightChild(i))) > 0) {
-                    j++;
-                }
+            while (true) {
+                int smallest = i;
+                int left = leftChild(i);
+                int right = rightChild(i);
 
-                if (list.get(i).compareTo(list.get(j)) > 0) {
-                    swap(i, j);
+                if (left < list.size() && list.get(leftChild(i)).compareTo(list.get(smallest)) < 0) {
+                    smallest = left;
                 }
-                i = j;
+                if (right < list.size() && list.get(rightChild(i)).compareTo(list.get(i)) < 0) {
+                    smallest = right;
+                }
+                if (smallest == i) {
+                    break;
+                }
+                swap(i, smallest);
+                i = smallest;
             }
         }
 
@@ -213,11 +218,12 @@ public class TopKFrequentWords {
 
         TopKFrequentWords topKFrequentWords = new TopKFrequentWords();
 
-//        String[] words = {"b", "c", "a", "b", "c", "a", "e", "y", "f", "p", "k"};
+//        String[] words = {"b", "c", "a", "b", "c", "a", "e", "y", "f", "p", "k", "c", "c", "c", "c", "c"};
+        String[] words = {"1", "1", "2", "2", "2", "3", "3", "4", "5", "6", "6", "6", "6"};
 //        String[] words = {"i", "love", "leetcode", "i", "love", "coding"};
 //        String[] words = {"the", "the", "day", "day", "is", "hj"};
 //        String[] words = {"i", "love", "leetcode", "i", "love", "coding"};
-        String[] words = {"glarko", "zlfiwwb", "nsfspyox", "pwqvwmlgri", "qggx", "qrkgmliewc", "zskaqzwo", "zskaqzwo", "ijy", "htpvnmozay", "jqrlad", "ccjel", "qrkgmliewc", "qkjzgws", "fqizrrnmif", "jqrlad", "nbuorw", "qrkgmliewc", "htpvnmozay", "nftk", "glarko", "hdemkfr", "axyak", "hdemkfr", "nsfspyox", "nsfspyox", "qrkgmliewc", "nftk", "nftk", "ccjel", "qrkgmliewc", "ocgjsu", "ijy", "glarko", "nbuorw", "nsfspyox", "qkjzgws", "qkjzgws", "fqizrrnmif", "pwqvwmlgri", "nftk", "qrkgmliewc", "jqrlad", "nftk", "zskaqzwo", "glarko", "nsfspyox", "zlfiwwb", "hwlvqgkdbo", "htpvnmozay", "nsfspyox", "zskaqzwo", "htpvnmozay", "zskaqzwo", "nbuorw", "qkjzgws", "zlfiwwb", "pwqvwmlgri", "zskaqzwo", "qengse", "glarko", "qkjzgws", "pwqvwmlgri", "fqizrrnmif", "nbuorw", "nftk", "ijy", "hdemkfr", "nftk", "qkjzgws", "jqrlad", "nftk", "ccjel", "qggx", "ijy", "qengse", "nftk", "htpvnmozay", "qengse", "eonrg", "qengse", "fqizrrnmif", "hwlvqgkdbo", "qengse", "qengse", "qggx", "qkjzgws", "qggx", "pwqvwmlgri", "htpvnmozay", "qrkgmliewc", "qengse", "fqizrrnmif", "qkjzgws", "qengse", "nftk", "htpvnmozay", "qggx", "zlfiwwb", "bwp", "ocgjsu", "qrkgmliewc", "ccjel", "hdemkfr", "nsfspyox", "hdemkfr", "qggx", "zlfiwwb", "nsfspyox", "ijy", "qkjzgws", "fqizrrnmif", "qkjzgws", "qrkgmliewc", "glarko", "hdemkfr", "pwqvwmlgri"};
+//        String[] words = {"glarko", "zlfiwwb", "nsfspyox", "pwqvwmlgri", "qggx", "qrkgmliewc", "zskaqzwo", "zskaqzwo", "ijy", "htpvnmozay", "jqrlad", "ccjel", "qrkgmliewc", "qkjzgws", "fqizrrnmif", "jqrlad", "nbuorw", "qrkgmliewc", "htpvnmozay", "nftk", "glarko", "hdemkfr", "axyak", "hdemkfr", "nsfspyox", "nsfspyox", "qrkgmliewc", "nftk", "nftk", "ccjel", "qrkgmliewc", "ocgjsu", "ijy", "glarko", "nbuorw", "nsfspyox", "qkjzgws", "qkjzgws", "fqizrrnmif", "pwqvwmlgri", "nftk", "qrkgmliewc", "jqrlad", "nftk", "zskaqzwo", "glarko", "nsfspyox", "zlfiwwb", "hwlvqgkdbo", "htpvnmozay", "nsfspyox", "zskaqzwo", "htpvnmozay", "zskaqzwo", "nbuorw", "qkjzgws", "zlfiwwb", "pwqvwmlgri", "zskaqzwo", "qengse", "glarko", "qkjzgws", "pwqvwmlgri", "fqizrrnmif", "nbuorw", "nftk", "ijy", "hdemkfr", "nftk", "qkjzgws", "jqrlad", "nftk", "ccjel", "qggx", "ijy", "qengse", "nftk", "htpvnmozay", "qengse", "eonrg", "qengse", "fqizrrnmif", "hwlvqgkdbo", "qengse", "qengse", "qggx", "qkjzgws", "qggx", "pwqvwmlgri", "htpvnmozay", "qrkgmliewc", "qengse", "fqizrrnmif", "qkjzgws", "qengse", "nftk", "htpvnmozay", "qggx", "zlfiwwb", "bwp", "ocgjsu", "qrkgmliewc", "ccjel", "hdemkfr", "nsfspyox", "hdemkfr", "qggx", "zlfiwwb", "nsfspyox", "ijy", "qkjzgws", "fqizrrnmif", "qkjzgws", "qrkgmliewc", "glarko", "hdemkfr", "pwqvwmlgri"};
         // ["nftk","qkjzgws","qrkgmliewc","nsfspyox","qengse","htpvnmozay","fqizrrnmif","glarko","hdemkfr","pwqvwmlgri","qggx","zskaqzwo","ijy","zlfiwwb"]
         // [qengse, ccjel, fqizrrnmif, qrkgmliewc, nftk, hdemkfr, qkjzgws, qggx, nbuorw, nsfspyox, pwqvwmlgri, axyak, htpvnmozay, glarko]
         List<String> list = topKFrequentWords.topKFrequent(words, 3);
