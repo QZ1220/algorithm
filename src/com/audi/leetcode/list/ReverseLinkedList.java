@@ -78,17 +78,40 @@ public class ReverseLinkedList {
         ListNode node2 = new ListNode(2);
         ListNode node3 = new ListNode(3);
         ListNode node4 = new ListNode(4);
+        ListNode node5 = new ListNode(5);
 
         node1.next = node2;
         node2.next = node3;
         node3.next = node4;
+        node4.next = node5;
 
 //        ListNode head = reverseLinkedList.reverseList(node1);
-        ListNode head = reverseLinkedList.reverseList2(node1);
+//        ListNode head = reverseLinkedList.reverseList2(node1);
+        ListNode head = reverseLinkedList.reverseList4(node1);
         while (null != head) {
             System.out.println(head.val);
             head = head.next;
         }
+    }
+
+    /**
+     * 原地翻转
+     *
+     * @param head
+     * @return
+     */
+    public ListNode reverseList4(ListNode head) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        ListNode newHead = null;
+        while (head != null) {
+            ListNode tmp = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = tmp;
+        }
+        return newHead;
     }
 
 
