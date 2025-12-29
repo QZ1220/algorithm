@@ -1,6 +1,9 @@
 package com.audi.leetcode.recursion;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * https://leetcode.com/problems/combination-sum/
@@ -80,12 +83,12 @@ public class CombinationSum {
             res.add(new ArrayList<>(item));
             return;
         }
-        for (int i = startIndex; i < candidates.length ; i++) {
+        for (int i = startIndex; i < candidates.length; i++) {
             int candidate = candidates[i];
             // 如果 sum + candidates[i] > target 就终止遍历
             // 这里剪枝要求candidates一定要是从小到大经过排序的，否则不行
-            if (tempSum + candidate > target){
-                // 注意这里是break，不是continue
+            if (tempSum + candidate > target) {
+                // 注意这里是break，不是continue，因为前置已经对数组做了排序，当前位置的元素不能满足题意，那么它后面的元素都不能满足题意
                 break;
             }
             tempSum += candidate;
@@ -99,7 +102,7 @@ public class CombinationSum {
 
     public static void main(String[] args) {
 
-        int[] arr = {8,7,4,3};
+        int[] arr = {8, 7, 4, 3};
         CombinationSum combinationSum = new CombinationSum();
         System.out.println(combinationSum.combinationSum(arr, 11));
 

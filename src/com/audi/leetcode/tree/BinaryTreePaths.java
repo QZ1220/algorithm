@@ -2,7 +2,6 @@ package com.audi.leetcode.tree;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeSet;
 
 /**
  * https://leetcode.com/problems/binary-tree-paths/
@@ -32,6 +31,7 @@ public class BinaryTreePaths {
         if (root == null) {
             return;
         }
+        // 收集结果，收集后记得return，否则会NPE
         if (root.left == null && root.right == null) {
             path = path + root.val;
             paths.add(path);

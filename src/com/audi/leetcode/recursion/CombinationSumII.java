@@ -104,8 +104,6 @@ public class CombinationSumII {
     }
 
 
-
-
     public List<List<Integer>> combinationSum4(int[] candidates, int target) {
         int[] array = Arrays.stream(candidates).filter(v -> v <= target).sorted().toArray();
         Set<List<Integer>> res = new HashSet<>();
@@ -133,16 +131,16 @@ public class CombinationSumII {
     public List<List<Integer>> combinationSum10(int[] candidates, int target) {
         int[] arr = Arrays.stream(candidates).filter(v -> v <= target).sorted().toArray();
         int sum = Arrays.stream(arr).sum();
-        if (sum<target){
+        if (sum < target) {
             return new LinkedList<>();
         }
 
         List<List<Integer>> res = new ArrayList<>();
-        backTrack(arr,target,0,res,new LinkedList<>(),0);
+        backTrack(arr, target, 0, res, new LinkedList<>(), 0, new BitSet());
         return res;
     }
 
-    private void backTrack(int[] candidates, int target, int tempSum, List<List<Integer>> res, List<Integer> item, int startIndex) {
+    private void backTrack(int[] candidates, int target, int tempSum, List<List<Integer>> res, List<Integer> item, int startIndex, BitSet usedSet) {
         if (tempSum == target) {
             res.add(new ArrayList<>(item));
             return;
@@ -150,7 +148,7 @@ public class CombinationSumII {
         for (int i = startIndex; i < candidates.length; i++) {
             //正确剔除重复解的办法
             //跳过同一树层使用过的元素
-            if ( i > startIndex && candidates[i] == candidates[i - 1] ) {
+            if (i > startIndex && candidates[i] == candidates[i - 1] && !usedSet.get(i)) {
                 // 注意这里使用的是 continue 不是break
                 continue;
             }
@@ -163,9 +161,11 @@ public class CombinationSumII {
 
             tempSum += candidate;
             item.add(candidate);
-            backTrack(candidates, target, tempSum, res, item, i + 1);
+            usedSet.set(i);
+            backTrack(candidates, target, tempSum, res, item, i + 1, usedSet);
             tempSum -= candidate;
             item.remove(item.size() - 1);
+            usedSet.clear(i);
         }
     }
 

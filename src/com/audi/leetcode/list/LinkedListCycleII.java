@@ -40,6 +40,7 @@ public class LinkedListCycleII {
         ListNode fast = head;
         ListNode meet = null;
 
+        // 先找到相遇点
         while (slow != null && fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -51,6 +52,7 @@ public class LinkedListCycleII {
         }
 
 
+        // 再将慢指针复原到链表的起始位置，然后slow、meet同时走，二者相遇的点就是链表的环的起点
         slow = head;
         // 下面计算相遇的起点位置 借助了一定的数学原理 具体可以参考这张图./list_cycleII.png
         while (slow != null && meet != null) {
