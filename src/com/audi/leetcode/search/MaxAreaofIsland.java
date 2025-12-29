@@ -138,7 +138,8 @@ public class MaxAreaofIsland {
 
                 if (!visitSet.contains(new Pair<>(newX, newY)) && grid[newX][newY] == LAND) {
                     // 程序调试的时候可以使用如下的辅助打印  查看程序执行的分支
-                    BFS(visitSet, grid, newX, newY, row, column);
+//                    BFS(visitSet, grid, newX, newY, row, column);
+                    queue.offer(new Pair<>(newX, newY));
                 }
             }
 
