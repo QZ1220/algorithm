@@ -148,7 +148,7 @@ public class CombinationSumII {
         for (int i = startIndex; i < candidates.length; i++) {
             //正确剔除重复解的办法
             //跳过同一树层使用过的元素
-            if (i > startIndex && candidates[i] == candidates[i - 1] && !usedSet.get(i)) {
+            if (i > startIndex && candidates[i] == candidates[i - 1] && !usedSet.get(i - 1)) {
                 // 注意这里使用的是 continue 不是break
                 continue;
             }

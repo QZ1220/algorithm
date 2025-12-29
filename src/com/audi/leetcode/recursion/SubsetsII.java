@@ -38,7 +38,7 @@ public class SubsetsII {
     }
 
 
-    private void backtrack(int[] nums, int startIndex, List<Integer> path, List<List<Integer>> res) {
+    private void backtrack(int[] nums, int startIndex, List<Integer> path, List<List<Integer>> res, BitSet usedSet) {
         // 每一步都需要收集结果
         res.add(new ArrayList<>(path));
         if (startIndex >= nums.length) {
@@ -46,12 +46,14 @@ public class SubsetsII {
         }
         for (int i = startIndex; i < nums.length; i++) {
             // 剪枝去重
-            if (i > startIndex && nums[i] == nums[i - 1]) {
+            if (i > startIndex && nums[i] == nums[i - 1] && !usedSet.get(i - 1)) {
                 continue;
             }
             path.add(nums[i]);
-            backtrack(nums, i + 1, path, res);
+            usedSet.set(i);
+            backtrack(nums, i + 1, path, res, usedSet);
             path.remove(path.size() - 1);
+            usedSet.clear(i);
         }
     }
 
